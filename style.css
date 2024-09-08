@@ -41,6 +41,10 @@ table {
     table-layout: fixed;
 }
 
+col:nth-child(2) {
+    width: 2.2rem;
+}
+
 td {
     height: 1.5rem;
     line-height: 1.5rem;
@@ -97,7 +101,13 @@ tr.break_start td.text:last-child {
 
 td.count {
     border-width: 0;
-    text-align: left;
+    text-align: right;
+    padding-right: 0.4rem;
+    white-space: nowrap;
+}
+
+td.count:nth-child(2) {
+    direction: rtl;
 }
 
 tr.empty td.overline {
@@ -107,6 +117,7 @@ tr.empty td.overline {
 
 tr.heading td.count {
     border-width: 0 0 2px;
+    text-align: left;
 }
 
 tr.heading td.text {
@@ -117,7 +128,7 @@ tr.break_start td.text:first-child {
     font-weight: bold;
 }
 
-tr.break_start td.note {
+tr.break_start td.note, td.note.break_start {
     border-top-width: 1px;
 }
 

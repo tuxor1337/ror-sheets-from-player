@@ -13,21 +13,25 @@ export default {
                 "name": "Silence",
                 "aside": "4 Beats of Silence",
                 "remarks": ["4 fingers"],
+                "nosqueeze": true,
             },
             "8 Silence": {
                 "name": "Double Silence",
                 "aside": "8 Beats of Silence",
                 "subtitle": "two hands show 4 fingers",
+                "nosqueeze": true,
             },
             "12 Silence": {
                 "name": "Triple Silence",
                 "aside": "12 Beats of Silence",
                 "subtitle": "like “Double Silence” one hand upside down",
+                "nosqueeze": true,
             },
             "16 Silence": {
                 "name": "Quad Silence",
                 "aside": "16 Beats of Silence",
                 "subtitle": "like “Double Silence” both hands upside down",
+                "nosqueeze": true,
             },
         },
         "pages": [
@@ -49,6 +53,13 @@ export default {
                 "Yala Break",
             ],
         ],
+    },
+    "Bhangra": {
+        "sizing": {
+            "bars_per_row": 2,
+            "beats_per_bar": 4,
+            "subbeats_per_beat": 3,
+        },
     },
     "Funk": {
         "sign": "glasses on your eyes",
