@@ -17,6 +17,7 @@ const NOTE_CHARS = {
     "h": "hd",
     "r": "ri",
     "s": "sil",
+    "t": "w",
     "z": "s",
 };
 
@@ -193,7 +194,13 @@ function render_tune(tune) {
             }
             const n_instr = Object.keys(data["notes"]).length;
             let i_instr = 0;
-            const empty_line = " ".repeat(sizing["subbeats_per_row"]);
+            const empty_line = " ".repeat(Math.min(
+                sizing["subbeats_per_row"],
+                ...Object.values(data["notes"]).map(n => n.length)
+            ));
+            const notes_override = (
+                data.hasOwnProperty("notes_override") ? data["notes_override"] : {}
+            );
             for (const [instru_name, notes] of Object.entries(data["notes"])) {
                 const n_lines = Math.ceil(notes.length / sizing["subbeats_per_row"]);
                 const lines = [...Array(n_lines).keys()].map((i_line) => {
@@ -202,8 +209,24 @@ function render_tune(tune) {
                         sizing["subbeats_per_row"],
                     );
                 });
+                const ins_notes_override = (
+                    notes_override.hasOwnProperty(instru_name) ? notes_override[instru_name] : {}
+                );
+                const first_nonempty_line = lines.findIndex(l => l != empty_line);
+
+                const lines_render = [];
                 for (let i_line = 0; i_line < n_lines; i_line++) {
+                    const offset = i_line * sizing["subbeats_per_row"];
                     const l = lines[i_line];
+                    const override = {};
+                    for (const [start, d] of Object.entries(ins_notes_override)) {
+                        if (start > offset) {
+                            override[start - offset] = d;
+                        }
+                    }
+                    if (l == empty_line) {
+                        continue;
+                    }
                     let i_line_next = i_line + 1;
                     while (i_line_next < n_lines && l == lines[i_line_next]) {
                         i_line_next++;
@@ -215,14 +238,29 @@ function render_tune(tune) {
                             str_row += `-${i_line_next}`;
                         }
                     }
-                    tbl_add_tune_row(i_line == 0 ? instru_name : "", str_row, l);
+                    lines_render.push({
+                        "row_name": i_line == first_nonempty_line ? instru_name : "",
+                        "str_row": str_row,
+                        "notation": l,
+                        "override": override,
+                    });
                     i_line = i_line_next - 1;
                 }
                 if (i_instr + 1 < n_instr) {
-                    tbl_add_tune_row("", "", empty_line);
+                    lines_render.push({
+                        "row_name": "",
+                        "str_row": "",
+                        "notation": empty_line,
+                    });
                 }
+
+                lines_render.forEach(({row_name, str_row, notation, override}) => {
+                    tbl_add_tune_row(row_name, str_row, notation, override, 0);
+                });
+
                 i_instr++;
             }
+
 
             const remarks = data.hasOwnProperty("remarks") ? data["remarks"] : [];
 
@@ -237,51 +275,120 @@ function render_tune(tune) {
             });
         }
 
-        function tbl_add_break(name, data) {
+        function tbl_add_memory_aid(data) {
+            const notes = data["notes"];
+            const upbeat = data.hasOwnProperty("upbeat") ? data["upbeat"] : 0;
+            const n_lines = Math.ceil(notes.length / sizing["subbeats_per_row"]);
+
+            const notes_override = {};
+            let i_words = 0;
+            for (const [i, c] of Object.entries([...notes])) {
+                if (c.toLowerCase() != "x") {
+                    continue;
+                }
+                notes_override[parseInt(i) + 1] = [1, data["words"][i_words++], "center"];
+            }
+
+            console.log(notes_override);
+
+            const lines = [...Array(n_lines).keys()].map((i_line) => {
+                if (upbeat > 0) {
+                    if (i_line == 0) {
+                        return notes.substr(0, upbeat);
+                    } else {
+                        return  notes.substr(
+                            upbeat + (i_line - 1) * sizing["subbeats_per_row"],
+                            sizing["subbeats_per_row"],
+                        );
+                    }
+                } else {
+                    return notes.substr(
+                        i_line * sizing["subbeats_per_row"],
+                        sizing["subbeats_per_row"],
+                    );
+                }
+            });
+
+            const lines_render = [];
+            for (let i_line = 0; i_line < n_lines; i_line++) {
+                let offset = i_line * sizing["subbeats_per_row"];
+                if (i_line > 0 && upbeat > 0) {
+                    offset += upbeat - sizing["subbeats_per_row"];
+                }
+                const override = {};
+                for (const [start, d] of Object.entries(notes_override)) {
+                    if (start > offset) {
+                        override[start - offset] = d;
+                    }
+                }
+
+                lines_render.push({
+                    "notation": lines[i_line],
+                    "override": override,
+                });
+            }
+
+            lines_render.forEach(({notation, override}, i_line) => {
+                tbl_add_tune_row(
+                    "", "", notation, override, i_line == 0 ? upbeat : 0,
+                );
+            });
+        }
+
+        function tbl_add_text_break(name, data) {
             name = data.hasOwnProperty("name") ? data["name"] : name;
             const n_extra_lines = (
                 data.hasOwnProperty("subtitle_extra_lines")
                 ? data["subtitle_extra_lines"]
                 : 0
             );
+            const n_text_lines = data["text"]["rows"];
+            const n_pre_cols = 6;
+            for (let i_row = 0; i_row < n_text_lines + n_extra_lines; i_row++) {
+                const el_tr = document.createElement("tr");
+                el_tr.innerHTML = "";
+                if (i_row == 0) {
+                    el_tr.classList.add("break_start");
 
-            if (data.hasOwnProperty("text")) {
-                const n_text_lines = data["text"]["rows"];
-                const n_pre_cols = 6;
-                for (let i_row = 0; i_row < n_text_lines + n_extra_lines; i_row++) {
-                    const el_tr = document.createElement("tr");
-                    el_tr.innerHTML = "";
-                    if (i_row == 0) {
-                        el_tr.classList.add("break_start");
+                    let el_td = document.createElement("td");
+                    el_td.classList.add("text");
+                    el_td.colSpan = n_pre_cols;
+                    el_td.innerHTML = `<div>${name}</div>`;
+                    el_tr.innerHTML += el_td.outerHTML;
 
-                        let el_td = document.createElement("td");
-                        el_td.classList.add("text");
+                    el_td = document.createElement("td");
+                    el_td.classList.add("break_text");
+                    el_td.colSpan = sizing["ncols"] - n_pre_cols;
+                    el_td.rowSpan = data["text"]["rows"];
+                    el_td.textContent = data["text"]["content"];
+                    el_tr.innerHTML += el_td.outerHTML;
+                } else if (data.hasOwnProperty("subtitle")) {
+                    if (i_row == 1) {
+                        const el_td = document.createElement("td");
+                        el_td.classList.add("text", "remark");
                         el_td.colSpan = n_pre_cols;
-                        el_td.innerHTML = `<div>${name}</div>`;
+                        el_td.rowSpan = n_text_lines + n_extra_lines - 1;
+                        el_td.textContent = data["subtitle"];
                         el_tr.innerHTML += el_td.outerHTML;
-
-                        el_td = document.createElement("td");
-                        el_td.classList.add("break_text");
-                        el_td.colSpan = sizing["ncols"] - n_pre_cols;
-                        el_td.rowSpan = data["text"]["rows"];
-                        el_td.textContent = data["text"]["content"];
-                        el_tr.innerHTML += el_td.outerHTML;
-                    } else if (data.hasOwnProperty("subtitle")) {
-                        if (i_row == 1) {
-                            const el_td = document.createElement("td");
-                            el_td.classList.add("text", "remark");
-                            el_td.colSpan = n_pre_cols;
-                            el_td.rowSpan = n_text_lines + n_extra_lines - 1;
-                            el_td.textContent = data["subtitle"];
-                            el_tr.innerHTML += el_td.outerHTML;
-                        }
-                    } else {
-                        el_tr.innerHTML += `<td colspan="${n_pre_cols}"></td>`;
                     }
-                    el_table.appendChild(el_tr);
+                } else {
+                    el_tr.innerHTML += `<td colspan="${n_pre_cols}"></td>`;
                 }
-                return;
+                el_table.appendChild(el_tr);
             }
+        }
+
+        function tbl_add_break(name, data) {
+            if (data.hasOwnProperty("text")) {
+                return tbl_add_text_break(name, data);
+            }
+
+            name = data.hasOwnProperty("name") ? data["name"] : name;
+            const n_extra_lines = (
+                data.hasOwnProperty("subtitle_extra_lines")
+                ? data["subtitle_extra_lines"]
+                : 0
+            );
             const notes = data["notes"];
             const upbeat = data.hasOwnProperty("upbeat") ? data["upbeat"] : 0;
             const notes_override = data.hasOwnProperty("notes_override") ? data["notes_override"] : {};
@@ -318,7 +425,10 @@ function render_tune(tune) {
 
             const lines_render = [];
             for (let i_line = 0; i_line < n_lines; i_line++) {
-                const offset = i_line * sizing["subbeats_per_row"];
+                let offset = i_line * sizing["subbeats_per_row"];
+                if (i_line > 0 && upbeat > 0) {
+                    offset += upbeat - sizing["subbeats_per_row"];
+                }
                 const override = {};
                 for (const [start, d] of Object.entries(notes_override)) {
                     if (start > offset) {
@@ -472,6 +582,11 @@ function render_tune(tune) {
                 el_tr.innerHTML += el_td.outerHTML;
                 el_table.appendChild(el_tr);
             });
+
+            if (data.hasOwnProperty("memory_aid")) {
+                tbl_add_empty_row();
+                tbl_add_memory_aid(data["memory_aid"]);
+            }
         }
 
         if (i_page == 0) {
@@ -491,7 +606,7 @@ function render_tune(tune) {
                 tbl_add_head();
                 tbl_add_empty_row();
             }
-            if (name.toLowerCase().indexOf("tune") >= 0) {
+            if (name.toLowerCase().indexOf("tune") >= 0 || data["separate_instruments"]) {
                 tbl_add_tune(name, data);
             } else {
                 tbl_add_break(name, data);
@@ -561,9 +676,18 @@ function convert_break_pattern(notes) {
             }
         }
     }
-    const surdo = notes[l_instrus[0]];
+
+    const n_notes = Math.max(...(
+        l_instrus
+        .map(ins => notes.hasOwnProperty(ins) ? notes[ins].length : 0)
+    ));
+
+    for (let ins of l_instrus) {
+        notes[ins] = notes[ins].padEnd(n_notes, " ");
+    }
+
     let notation = "";
-    for (let i = 0; i < surdo.length; i++) {
+    for (let i = 0; i < n_notes; i++) {
         const ref_ins = l_instrus.find(ins => notes[ins].charAt(i) != " ");
         if (typeof ref_ins === "undefined") {
             notation += " ";
@@ -587,18 +711,29 @@ function convert_tune([tune_name, {displayName, patterns}]) {
     const layout = TUNE_LAYOUTS.hasOwnProperty(tune_name) ? {...TUNE_LAYOUTS[tune_name]} : {};
     const layout_patterns = layout.hasOwnProperty("patterns") ? layout["patterns"] : {};
     layout["patterns"] = {...layout_patterns};
+    let tune_n_subbeats = 16;
+    let tune_time = 4;
     for (const [break_name, notes] of Object.entries(patterns)) {
         const ref = layout_patterns.hasOwnProperty(break_name) ? layout_patterns[break_name] : {};
         if (ref === false) {
             // layout spec tells us to omit this break
             continue;
         }
+        if (break_name.toLowerCase() == "tune") {
+            tune_n_subbeats = Math.max(...(
+                Object.keys(INSTRU_NAMES)
+                .map(ins => notes.hasOwnProperty(ins) ? notes[ins].length : 0)
+            ));
+            tune_time = notes.hasOwnProperty("time") ? notes["time"] : 8;
+        }
         const p = {...ref};
-        const break_is_tune = break_name.toLowerCase().indexOf("tune") >= 0;
-        if (!p.hasOwnProperty("notes") || break_is_tune) {
+        const separate_instruments = break_name.toLowerCase().indexOf("tune") >= 0 || (
+            p.hasOwnProperty("separate_instruments") ? p["separate_instruments"] : false
+        );
+        if (!p.hasOwnProperty("notes") || separate_instruments) {
             resolve_pattern(notes, no_high_surdo);
 
-            if (break_is_tune) {
+            if (separate_instruments) {
                 const override_notes = p.hasOwnProperty("notes") ? p["notes"] : {};
                 p["notes"] = convert_tune_pattern(notes);
                 for (const ins in override_notes) {
@@ -621,17 +756,59 @@ function convert_tune([tune_name, {displayName, patterns}]) {
         }
         layout["patterns"][break_name] = p;
     }
+
     if (!!displayName) {
         tune_name = displayName;
     }
-    return {
-        "name": tune_name,
-        "sizing": {
+
+    if (!layout.hasOwnProperty("sizing")) {
+        layout["sizing"] = {};
+    }
+    let sizing = {};
+    if (tune_n_subbeats == 32) {
+        // e.g. Funk, Afoxé
+        sizing = {
+            "pre_width": 16.5,
+            "bars_per_row": 2,
+            "beats_per_bar": 4,
+            "subbeats_per_beat": 4,
+        };
+    } else if (tune_n_subbeats == 48) {
+        // e.g. Bhangra
+        sizing = {
+            "pre_width": 14,
+            "bars_per_row": 2,
+            "beats_per_bar": 4,
+            "subbeats_per_beat": 3,
+        };
+    } else if (tune_n_subbeats == 24) {
+        // e.g. Walc(z)
+        sizing = {
+            "pre_width": 12,
+            "bars_per_row": 1,
+            "beats_per_bar": 4,
+            "subbeats_per_beat": 6,
+        };
+    } else if (tune_n_subbeats == 96 || tune_n_subbeats == 192) {
+        // e.g. Crazy Monkey (96), Rope Skipping (192)
+        sizing = {
+            "pre_width": 12,
+            "bars_per_row": 2,
+            "beats_per_bar": 4,
+            "subbeats_per_beat": 12,
+        };
+    } else {
+        sizing = {
             "pre_width": 12,
             "bars_per_row": 1,
             "beats_per_bar": 4,
             "subbeats_per_beat": 4,
-        },
+        };
+    }
+    layout["sizing"] = {...sizing, ...layout["sizing"]};
+
+    return {
+        "name": tune_name,
         "pages": [Object.keys(layout["patterns"]).filter(p => layout["patterns"][p] !== false)],
         ...layout,
     }
@@ -645,9 +822,49 @@ window.addEventListener("load", () => {
 
             return [
                 "General Breaks",
+                "Afoxe",
+                "Angela Davis",
+                "Angry Dwarfs",
+                "Antitek",
+                "Bella Ciao",
+                "Bhangra",
+                "Bomba",
+                "Chichita",
+                "Coupe-Decale",
+                "Cochabamba",
+                "Custard",
+                "Crazy Monkey",
+                "Drum&Bass",
                 "Funk",
+                "Hafla",
+                "Hedgehog",
+                "Jungle",
+                "Kaerajaan",
                 "Karla Shnikov",
-                "Walc(z)"
+                "Malkhas Akhber",
+                "March for Biodiversity",
+                "No Border Bossa",
+                "Menaiek",
+                "Norppa",
+                "Nova Balanca",
+                "Orangutan",
+                "Pekurinen",
+                "Rope Skipping",
+                "Ragga",
+                "Sambasso",
+                "Samba Reggae",
+                "Sheffield Samba Reggae",
+                "Police",
+                "Tequila",
+                "The Roof Is on Fire",
+                "The Sirens of Titan",
+                "Trans-Europa-Express",
+                "Van Harte Pardon",
+                "Voodoo",
+                "Walc(z)",
+                "Wolf",
+                "Xango",
+                "Zurav Love / Truant",
             ].indexOf(tune_name) >= 0;
 
             */
