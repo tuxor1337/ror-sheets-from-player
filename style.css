@@ -43,6 +43,11 @@ h1 div {
     font-weight: normal;
 }
 
+h1 div.long {
+    line-height: 1.1rem;
+    font-size: 0.85rem;
+}
+
 table {
     width: 100%;
     margin: 0;
@@ -80,6 +85,10 @@ td[rowspan] {
 
 td.note {
     border-width: 0 var(--note-border-width);
+}
+
+td.count + td.note.upbeat {
+    border-left-width: 0;
 }
 
 td.note.long {
@@ -157,8 +166,16 @@ tr.heading td.count {
     text-align: left;
 }
 
+tr.heading td.text.preamble {
+    font-weight: normal;
+}
+
 tr.heading td.text {
     font-weight: bold;
+}
+
+tr.heading + tr.break_start td.text {
+    font-weight: normal;
 }
 
 td.note.line_start {
@@ -180,9 +197,17 @@ tr.break_start td.note, td.note.break_start {
     border-top-color: #000;
 }
 
+tr.break_start td.note.upbeat {
+    border-top-width: 0;
+}
+
 tr.break_end td.note {
     border-bottom-width: var(--note-border-width-em);
     border-bottom-color: #000;
+}
+
+tr.break_end td.note.upbeat {
+    border-bottom-width: 0;
 }
 
 td.text {

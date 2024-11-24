@@ -25,21 +25,21 @@ export default {
                 // DIFFERENCE name
                 "name": "Double Silence",
                 "aside": "8 Beats of Silence",
-                "subtitle": "two hands show 4 fingers",
+                "sign": "two hands show 4 fingers",
                 "nosqueeze": true,
             },
             "12 Silence": {
                 // DIFFERENCE name
                 "name": "Triple Silence",
                 "aside": "12 Beats of Silence",
-                "subtitle": "like “Double Silence” one hand upside down",
+                "sign": "like “Double Silence” one hand upside down",
                 "nosqueeze": true,
             },
             "16 Silence": {
                 // DIFFERENCE name
                 "name": "Quad Silence",
                 "aside": "16 Beats of Silence",
-                "subtitle": "like “Double Silence” both hands upside down",
+                "sign": "like “Double Silence” both hands upside down",
                 "nosqueeze": true,
             },
             "Continue for One Bar": {
@@ -51,14 +51,14 @@ export default {
             "Continue for Two Bars": {
                 "notes": "................................",
                 "aside": "Continue 8 Beats",
-                "subtitle": "like “continue for one bar” with both hands",
+                "sign": "like “continue for one bar” with both hands",
                 "subtitle_extra_lines": 1,
                 "nosqueeze": true,
             },
             "Continue for Three Bars": {
                 "notes": "................................................",
                 "aside": "Continue 12 Beats",
-                "subtitle": (
+                "sign": (
                     "like “continue for two bars” and then “continue for one bar”"
                     + " in the opposite direction"
                 ),
@@ -68,7 +68,7 @@ export default {
             "Continue for Four Bars": {
                 "notes": "................................................................",
                 "aside": "Continue 16 Beats",
-                "subtitle": (
+                "sign": (
                     "like “continue for two bars” and then again in the opposite direction"
                 ),
                 "nosqueeze": true,
@@ -80,7 +80,7 @@ export default {
                 // DIFFERENCE name
                 "name": "Eight Up",
                 "aside": "from soft to loud",
-                "subtitle": "both hands move up while fingers shaking",
+                "sign": "both hands move up while fingers shaking",
                 "subtitle_extra_lines": 1,
                 "nosqueeze": true,
             },
@@ -88,13 +88,13 @@ export default {
                 // DIFFERENCE name
                 "name": "Eight Down",
                 "aside": "from loud to soft",
-                "subtitle": "both hands move down while fingers shaking",
+                "sign": "both hands move down while fingers shaking",
                 "subtitle_extra_lines": 1,
                 "nosqueeze": true,
             },
             "Karla Break": {
                 "aside": "from soft to loud",
-                "subtitle": "rabbit ears OR finger pistol shooting up",
+                "sign": "rabbit ears OR finger pistol shooting up",
                 "nosqueeze": true,
             },
             "Oi/Ua Break": {
@@ -119,7 +119,7 @@ export default {
                     13: [1, "u", "center"],
                 },
                 "remarks": ["from high to low sound"],
-                "subtitle": "claws to left and right",
+                "sign": "claws to left and right",
                 "subtitle_extra_lines": 1,
             },
             "Wolf Break": {
@@ -137,7 +137,7 @@ export default {
                     63: [1, "-", "center"],
                     64: [1, "-", "center"],
                 },
-                "subtitle": "wolf's ears and teeth",
+                "sign": "wolf's ears and teeth",
                 "subtitle_extra_lines": 1,
                 "remarks": ["< a - u = like a howling wolf"],
             },
@@ -167,7 +167,7 @@ export default {
                         15: [2, "like", "left"],
                     }, offset))
                 )),
-                "subtitle": "shout with your hands forming a funnel",
+                "sign": "shout with your hands forming a funnel",
                 "aside_lines": {
                     1: [3, "from soft to loud"],
                     8: [3, "from soft to loud"],
@@ -193,7 +193,7 @@ export default {
                     13: [1, "ha", "center"],
                 },
                 "aside": "laughter",
-                "subtitle": "fingers move up corners of your mouth",
+                "sign": "fingers move up corners of your mouth",
                 "subtitle_extra_lines": 2,
                 "remarks": ["from high to low sound"],
             },
@@ -203,17 +203,17 @@ export default {
                     "Ꞩ   Ꞩ   Ꞩ   Ş  Ŝ" +
                     "Ꞩ   Ş  ŜꞨ       "
                 ),
-                "subtitle": "Move flat hand from top to bottom of face",
+                "sign": "Move flat hand from top to bottom of face",
                 "subtitle_extra_lines": 1,
             },
             "Progressive": {
                 // DIFFERENCE name
                 "name": "Progressive Break",
-                "subtitle": "5 fingers and other hand grabbing thumb",
+                "sign": "5 fingers and other hand grabbing thumb",
                 "remarks": ["(can be inverted by showing the sign upside down)"],
             },
             "Progressive Karla": {
-                "subtitle": "rabbit ears OR finger pistol, the other hand is grabbing the thumb",
+                "sign": "rabbit ears OR finger pistol, the other hand is grabbing the thumb",
             },
             "Clave": {
                 "remarks": [
@@ -240,7 +240,7 @@ export default {
                     13: [4, "now", "left"],
                 },
                 "aside": "Everybody sings",
-                "subtitle": (
+                "sign": (
                     "Show a > with your index+middle finger and move it horizontally in front"
                     + " of your eyes"
                 ),
@@ -262,7 +262,7 @@ export default {
                     "E e e e e e e EE" +
                     "E e e e EEEEEEEE"
                 ),
-                "subtitle": "Both hands in the air, with index and pinky fingers pointing up",
+                "sign": "Both hands in the air, with index and pinky fingers pointing up",
                 "subtitle_extra_lines": 3,
                 "remarks": [
                     "l = Agogô plays low, e = everyone play softly",
@@ -283,7 +283,7 @@ export default {
                     ),
                     "rows": 2,
                 },
-                "subtitle": (
+                "sign": (
                     "Hold one arm vertically in front of your body and move the other"
                     + " up along the arm"
                 ),
@@ -294,7 +294,7 @@ export default {
                     "content": "Everyone plays the line of the tamborim once",
                     "rows": 1,
                 },
-                "subtitle": "Make a circle with your index finger and thumb, like “OK”",
+                "sign": "Make a circle with your index finger and thumb, like “OK”",
                 "subtitle_extra_lines": 2,
             },
             "Play another instrument": {
@@ -305,7 +305,7 @@ export default {
                     ),
                     "rows": 2,
                 },
-                "subtitle": (
+                "sign": (
                     "Hold both hands in front of your face, and wave your arms to cross"
                     + " each other"
                 ),
@@ -319,7 +319,7 @@ export default {
                     ),
                     "rows": 2,
                 },
-                "subtitle": (
+                "sign": (
                     "Point with both index fingers forward and wave your arms to cross each other"
                     + " each other"
                 ),
@@ -334,7 +334,7 @@ export default {
                     ),
                     "rows": 2,
                 },
-                "subtitle": (
+                "sign": (
                     "Hold one arm vertically in front of your body and make a wave over it with"
                     + " the other hand"
                 ),
@@ -348,7 +348,7 @@ export default {
                     ),
                     "rows": 2,
                 },
-                "subtitle": (
+                "sign": (
                     "show the arm as a measure with the other hand on elbow don't make a fist"
                 ),
                 "subtitle_extra_lines": 1,
@@ -363,7 +363,7 @@ export default {
                     ),
                     "rows": 4,
                 },
-                "subtitle": "show your flat hand and hit it with stick",
+                "sign": "show your flat hand and hit it with stick",
             },
             "Chaos Break": {
                 "text": {
@@ -373,14 +373,14 @@ export default {
                     ),
                     "rows": 2,
                 },
-                "subtitle": "Point with index finger at temple",
+                "sign": "Point with index finger at temple",
             },
             "Again": {
                 "text": {
                     "content": "Repeat the last break (combination)",
                     "rows": 1,
                 },
-                "subtitle": "Hit with flat hand on forehead",
+                "sign": "Hit with flat hand on forehead",
                 "subtitle_extra_lines": 1,
             },
             "Improvisation": {
@@ -391,7 +391,7 @@ export default {
                     ),
                     "rows": 2,
                 },
-                "subtitle": "Point at your nose and at the sambista who can play freely",
+                "sign": "Point at your nose and at the sambista who can play freely",
                 "subtitle_extra_lines": 2,
             },
         },
@@ -449,13 +449,12 @@ export default {
                 "remarks_indented": true,
             },
             "Break 3": {
-                // TODO: suppress all instruments but mid (high) surdo
-                "notes": "   SSSS    SSSS    SSSS S SSSSS ",
-                "remarks": ["S = Mid and high surdos, everybody else continues playing!"],
+                "instruments": ["ms", "hs"],
+                "remarks": ["mhs = Mid and high surdos, everybody else continues playing!"],
                 "remarks_indented": true,
             },
             "Bra Break": {
-                "subtitle": "With both hands point at yourself and then at the band",
+                "sign": "With both hands point at yourself and then at the band",
                 "subtitle_extra_lines": 1,
                 "remarks": ["R = call by Repinique"],
                 "remarks_indented": true,
@@ -485,14 +484,7 @@ export default {
                 "nosqueeze": true,
             },
             "Break 3": {
-                // TODO: suppress snare
-                "notes": (
-                    "E     EEEE      " +
-                    "E E E  E        " +
-                    "E     EEEE      " +
-                    "  E  E  E      E" +
-                    "E E E E E E E E "
-                ),
+                "instruments": ["ls", "ms", "hs", "re", "ta", "ag"],
                 "preamble": "snare continues playing through the break!",
                 "remarks": ["repeat until cut"],
                 "remarks_indented": true,
@@ -515,21 +507,20 @@ export default {
         "patterns": {
             "Intro": {
                 // DIFFERENCE name
-                // TODO: suppress tambs, suppress lines 1-4, suppress surdos at the end
+                "instruments": ["ls", "ms", "hs", "re", "sn", "ag"],
+                "suppress_instruments": [
+                    ["ls", 125, 128],
+                    ["ms", 125, 128],
+                    ["hs", 125, 128],
+                ],
                 "name": "Call Break",
-                "row_numbers": ["5", "6", "7", "8"],
-                "notes": (
-                    "RR RR R AA AA A " +
-                    "RR RR R AA AA A " +
-                    "RR RR R AA AA A " +
-                    "Ꞩ R Ş R Ꞩ R R R "
-                ),
                 "preamble": (
                     "Tambs play 4× solo and then continue while the rest plays the break."
                     + " Surdos play the groove in the 4th beat of the last bar."
                 ),
                 "subtitle": "Intro",
                 "nosqueeze": true,
+                "skip_empty_lines": true,
             },
             "No-Cent-For-Axel-Break": {
                 // DIFFERENCE name
@@ -551,7 +542,7 @@ export default {
                     23: [1, "Tms", "center"],
                 },
                 "preamble": "snare continues playing through the break!",
-                "subtitle": "2 fingers running on the palm on the other hand",
+                "sign": "2 fingers running on the palm on the other hand",
                 "subtitle_extra_lines": 1,
             },
         },
@@ -609,7 +600,7 @@ export default {
                     55: [1, "ga-", "left"],
                     57: [1, "gner", "left"],
                 },
-                "subtitle": "wave no-no with one hand, show 1 finger with another",
+                "sign": "wave no-no with one hand, show 1 finger with another",
                 "subtitle_extra_lines": 2,
             },
             "Singing Break 2": {
@@ -636,7 +627,7 @@ export default {
                     55: [1, "mé-", "left"],
                     57: [1, "ras", "left"],
                 },
-                "subtitle": "same as singing break 1, but with 2 fingers",
+                "sign": "same as singing break 1, but with 2 fingers",
                 "subtitle_extra_lines": 2,
             },
         },
@@ -684,20 +675,8 @@ export default {
             },
             "Intro": {
                 "upbeat": 6,
-                "notes": (
-                    // TODO: automatically: r instead of E (use exactly surdo)
-                    "r r r " +
-                    "r r       r r r " +
-                    "r r       r r r " +
-                    "r   r r r   r r " +
-                    "r   r   r r r r " +
-                    "r r       r r r " +
-                    "r r       r r r " +
-                    "r   r   r   r   " +
-                    "r               "
-                ),
                 "preamble": "everybody",
-                "subtitle": (
+                "sign": (
                     "same as tune sign but with a movement: the two “sides of the mountain”"
                     + " approach each other"
                 ),
@@ -754,14 +733,15 @@ export default {
                 },
             },
             "Bra Break": {
-                // DIFFERENCE name
-                "name": "Call Break",
+                "single_bar_sizing": true,
                 "notes_override": {
                     94: [1, "eh", "center"],
                 },
-                "remarks": [
-                    "from soft to loud, R = Repinique, eh = shout",
-                ],
+                "aside_lines": {
+                    1: [1, "R = Repinique"],
+                    7: [1, "from soft to loud"],
+                    8: [1, "eh = shout"],
+                },
                 "remarks_indented": true,
                 "nosqueeze": true,
             },
@@ -777,36 +757,27 @@ export default {
                 "Bra Break",
             ],
         ],
-        // TODO: single bars for Call Break
     },
     "Bomba": {
         "sign": (
             "As you grab a hand granade, take the secure with your mouth and throw it to the air."
         ),
         "patterns": {
-            "Break 1": {
-                // TODO: double speed
-                "notes": "S  S RRRRR RR R ",
-                "notes_override": {
-                    6: [1, "RR", "center"],
-                },
-            },
             "Break 2": {
                 "notes": {
                     // DIFFERENCE tune book doesn't have tam+agogo
-                    // TODO: merge high surdo and repi
                     "Tamborim": "",
                     "Agogô": "",
                 },
+                "regroup_instruments": {
+                    "High Surdo + Repi": ["High Surdo", "Repinique"],
+                },
+                "instru_order": ["Low+Mid Surdo", "High Surdo + Repi", "Snare"],
                 "separate_instruments": true,
             },
             "Call Break": {
-                // TODO: double speed
-                "notes": "S  S R RR  R R R",
-                "notes_override": {
-                    6: [1, "RR", "center"],
-                    12: [1, "RR", "center"],
-                },
+                // DIFFERENCE longer and different pattern in player
+                "notes": "S     S   RR  R R     RR  R   R ",
                 "remarks": ["With both hands point at yourself and then at the band"],
             },
         },
@@ -824,15 +795,7 @@ export default {
         "patterns": {
             "Tune": {
                 "notes": {
-                    "Snare": "",
                     // DIFFERENCE: player has only Snare 1
-                    // TODO: rename "Snare"->"Snare 1"
-                    "Snare 1": (
-                        "f XXf XXf XXf XX" +
-                        "f XXf XXf XXf XX" +
-                        "f XXf XXf XXf XX" +
-                        "f XXf XXf XXf XX"
-                    ),
                     "Snare 2": (
                         "ffX ffX ffXXX X " +
                         "ffX ffX ffXXX X " +
@@ -840,9 +803,15 @@ export default {
                         "X XXX X XXXXX X "
                     ),
                 },
+                "regroup_instruments": {
+                    "Snare 1": ["Snare"],
+                },
+                "instru_order": [
+                    "Low Surdo", "Mid Surdo", "Repinique",  "Snare 1", "Snare 2", "Agogô",
+                ],
             },
             "Double Break 2": {
-                "subtitle": "show 2 fingers with both hands",
+                "sign": "show 2 fingers with both hands",
             },
             "Intro": {
                 "remarks": ["snare goes directly in tune after intro, others stop"],
@@ -856,7 +825,7 @@ export default {
                     ),
                     "rows": 3,
                 },
-                "subtitle": "2 fists diverge diagonally",
+                "sign": "2 fists diverge diagonally",
                 "subtitle_extra_lines": 1,
             },
         },
@@ -870,24 +839,47 @@ export default {
                 "End",
             ],
         ],
-        // TODO: order of instruments in Tune (esp. "Snare 1" and "Snare 2")
         // TODO: explanatory text at bottom of page
     },
     "Coupe-Decale": {
         "sizing": {
             "pre_width": 12,
+            "bars_per_row": 2,
         },
         "patterns": {
+            "Tune": {
+                "regroup_instruments": {
+                    "Repi & Snare": ["Repinique", "Snare"],
+                },
+                "instru_order": [
+                    "Low Surdo", "Mid+High Surdo", "Repi & Snare", "Tamborim", "Agogô",
+                ],
+            },
             "Tune (6/8)": {
                 "name": "Groove (6/8)",
             },
             "Intro": {
                 "separate_instruments": true,
+                "regroup_instruments": {
+                    "Repi & Snare": ["Repinique", "Snare"],
+                    // DIFFERENCE no high surdo in player
+                    "Mid+High Surdo": ["Mid Surdo"],
+                },
+                "instru_order": [
+                    "Low Surdo", "Mid+High Surdo", "Repi & Snare", "Tamborim", "Agogô",
+                ],
                 "remarks": [
                     "16 bars in total. Repi&Snare start on rim, then Agogô join in,"
                     + " then Tamb joins, then Shaker. In the end, Surdos pick up.",
                 ],
                 "remarks_indented": true,
+            },
+            "Break 1": {
+                // TODO automatically display triols as [ X X X ]
+                "single_bar_sizing": true,
+                "aside_lines": {
+                    1: [1, "fl, R: only Repi"],
+                },
             },
         },
         "pages": [
@@ -903,8 +895,6 @@ export default {
                 "Crest Break (6/8)",
             ],
         ],
-        // TODO: different subbeats_per_beat for some of the breaks (6/8)
-        // TODO: triols in Break 1/2
     },
     "Cochabamba": {
         "sign": "drink from a cup formed with one hand",
@@ -919,29 +909,34 @@ export default {
                 ],
             },
             "Break 1": {
+                "single_bar_sizing": true,
+                "nosqueeze": true,
                 "subtitle": "(Iron Lion Zion Break)",
-                "remarks": ["Everyone together ... start soft and go louder!"],
-                "remarks_indented": true,
+                "aside": "Everyone together ... start soft and go louder!",
             },
             "Bra Break (Repi)": {
                 // DIFFERENCE name
+                // TODO: maybe automatically parse the "ot" instrument as "c" (?)
                 "name": "Call Break",
+                "single_bar_sizing": true,
+                "nosqueeze": true,
                 "notes": (
                     "cc cc cc cc A A " +
                     "cc cc cc cc A A " +
                     "cc cc cc cc A A "
                 ),
-                "remarks": [
-                    "c = call by maestro (on repinique or snare)",
-                    "A = All others answer",
-                ],
+                "aside_lines": {
+                    1: [1, "c = call by maestro (on repinique or snare)"],
+                    2: [1, "A = All others answer"],
+                },
                 "remarks_indented": true,
             },
             "Cross Kicks": {
                 // DIFFERENCE name
                 "name": "Cross Kicks for surdos",
                 "separate_instruments": true,
-                "preamble": "sign 'X' with the arms, waving towards the sky",
+                "instru_order": ["High Surdo", "Low Surdo"],
+                "sign": "sign 'X' with the arms, waving towards the sky",
             },
         },
         "pages": [
@@ -952,7 +947,6 @@ export default {
                 "Cross Kicks",
             ],
         ],
-        // TODO: breaks over only one bar
     },
     "Custard": {
         "sign": "make an offer to the sky",
@@ -967,7 +961,7 @@ export default {
                 "preamble": (
                     "ONE instrument section continues while the rest of the band plays this break"
                 ),
-                "subtitle": "+ instr. sign that continues",
+                "sign": "+ instr. sign that continues",
                 // TODO: compressed view when two lines are repeated
                 "row_numbers": ["1-7", "2-8", "8"],
                 "notes": (
@@ -996,7 +990,7 @@ export default {
                         15: [1, "pants", "left"],
                     }, offset))
                 )),
-                "subtitle": "Signed as Break 1, with a lot of blabla...",
+                "sign": "Signed as Break 1, with a lot of blabla...",
                 "remarks": [
                     "Surdo players sing first half, same beats as they would play.",
                     "All other answer, same beats as they play.",
@@ -1022,22 +1016,77 @@ export default {
             "Tune": {
                 "remarks": ["(x) = variations, [ ] = triplet"],
             },
+            "Break 1": {
+                "single_bar_sizing": true,
+                "nosqueeze": true,
+                "aside_lines": {
+                    1: [1, "A = all others except agogô"],
+                    2: [1, "E = everyone"],
+                    3: [1, "ms = Mid Surdo"],
+                },
+            },
+            "Break 2": {
+                "single_bar_sizing": true,
+                "nosqueeze": true,
+                "aside_lines": {
+                    1: [1, "sn = snare"],
+                    2: [1, ". = dead note on snare"],
+                    3: [1, "ms = Mid Surdo"],
+                },
+            },
+            "Break 3": {
+                // TODO: Agogo on separate line
+                "single_bar_sizing": true,
+                "aside_lines": {
+                    2: [1, "ms = Mid Surdo"],
+                },
+            },
+            "Bongo Break 1": {
+                // TODO: Agogo on separate line
+                "sign": "play a bongo with one hand",
+                "subtitle_extra_lines": 2,
+                "remarks": ["play as loop"],
+                "remarks_indented": true,
+            },
+            "Bongo Break 2": {
+                // TODO: Agogo and "A" on separate line
+                "sign": "play a bongo with two hands",
+                "subtitle_extra_lines": 2,
+                "remarks": ["play as loop"],
+                "remarks_indented": true,
+            },
+            "Monkey Break": {
+                // TODO: use signs in 'ot' (?)
+                "single_bar_sizing": true,
+                "sign": "like tune sign",
+                "aside": "Shout like a monkey",
+                "remarks": ["alternative: different rhythm or just chaotic voices"],
+                "remarks_indented": true,
+            },
         },
-        // TODO: triple speed compared to notation
-        // TODO: (x) notation in tune (+ [triplets])
-        // TODO: single bar breaks 1/2/3
-        // TODO: remarks
+        "pages": [
+            [
+                "Tune",
+                "Break 1",
+            ],
+            [
+                "Break 2",
+                "Break 3",
+                "Bongo Break 1",
+                "Bongo Break 2",
+                "Monkey Break",
+            ],
+        ],
     },
     "Drum&Bass": {
         "sign": "with one hand in your ear lift the other and move it front and back",
         "sizing": {
             "pre_width": 16.5,
             "bars_per_row": 2,
-            "beats_per_bar": 4,
-            "subbeats_per_beat": 4,
         },
         "patterns": {
             "Dance Break": {
+                "single_bar_sizing": true,
                 "notes": "                ",
                 "notes_override": {
                     1: [2, "E-", "left"],
@@ -1047,42 +1096,32 @@ export default {
                     9: [4, "dance", "left"],
                     13: [4, "now", "left"],
                 },
-                "subtitle": (
-                    "Show a > with your index+middle finger and move it horizontally in front"
-                    + " of your eyes"
-                ),
-                "subtitle_extra_lines": 1,
                 "remarks": [
-                    // TODO: aside for break that has only one bar width
-                    "Everybody sings and starts dancing",
+                    "Show a > with your index+middle finger and move it horizontally in front"
+                    + " of your eyes",
                 ],
+                "aside": "Everybody sings and starts dancing",
             },
             "Break 2": {
+                "single_bar_sizing": true,
                 "notes_override": {
                     25: [1, "x", "center"],
                     26: [1, "x", "center"],
                     27: [1, "x", "center"],
                     28: [1, "x", "center"],
                 },
-                "remarks": [
-                    // TODO: aside for break that has only one bar width
-                    "x = hits on snare and repi",
-                ],
+                "aside": "x = hits on snare and repi",
+            },
+            "Break 3": {
+                "single_bar_sizing": true,
+                "nosqueeze": true,
             },
             "Hip-Hop Break": {
-                "notes_override": {
-                    50: [1, "Ri", "center"],
-                    53: [1, "Ri", "center"],
-                    56: [1, "Ri", "center"],
-                    59: [1, "Ri", "center"],
-                    63: [1, "Ri", "center"],
-                    64: [1, "Ri", "center"],
-                },
-                "subtitle": "hit your chest",
+                "sign": "hit your chest",
                 "remarks_indented": true,
                 "remarks": [
                     "R = hit on repi,"
-                    + " Ri = repi hit on rim,"
+                    + " ri = repi hit on rim,"
                     + " sn = snare,"
                 ],
             },
@@ -1096,20 +1135,17 @@ export default {
                 "Hip-Hop Break",
             ],
         ],
-        // TODO: Break Dance+2+3 half width
     },
     "Drunken Sailor": {
         "sign": "build an eyepatch with one hand in front of your eye",
         "sizing": {
             "pre_width": 13,
             "bars_per_row": 2,
-            "beats_per_bar": 4,
-            "subbeats_per_beat": 4,
         },
         "patterns": {
             "White Shark": {
                 // TODO: separate Agogo in lines 3 and 4
-                "subtitle": "simulating a shark fin",
+                "sign": "simulating a shark fin",
             },
         },
         "pages": [
@@ -1147,21 +1183,32 @@ export default {
                 "Oi/Ua Break",
             ],
         ],
-        // TODO: line_end class is not set correctly for Oi/Ua Break
     },
     "Hafla": {
         "sign": "spread arms and shake your shoulders and hips",
         "patterns": {
             // DIFFERENCE repi tune: x/ri are interchanged non-trivially
             // DIFFERENCE easier variant of snare tune is not in player
-            // TODO show easier version of snare tune
+            "Tune": {
+                "notes": {
+                    "Snare (easier)": "..X...X.....X.....X...X.....X...",
+                },
+                "instru_order": [
+                    "Low Surdo", "Mid Surdo", "High Surdo", "Repinique", "Snare",
+                    "Snare (easier)", "Tamborim", "Agogô",
+                ],
+            },
             "Yala Break": {
-                "subtitle": "all fingertips of one hand gather and shake wrist",
+                "sign": "all fingertips of one hand gather and shake wrist",
                 "subtitle_extra_lines": 1,
             },
             "Kick Back 1": {
-                // TODO agogo separate
-                // TODO show only one of the four bars
+                // TODO Agogo on separate line and show as "ag"
+                "single_bar_sizing": true,
+                "suppress_instruments": [
+                    ["*", 17, 64],
+                ],
+                "skip_empty_lines": true,
                 "remarks_indented": true,
                 "remarks": [
                     "repeat until cut, ag = Agogô, switch low and high every two bars",
@@ -1178,7 +1225,7 @@ export default {
                 ],
             },
             "Hook Break": {
-                "subtitle": "two fingers hooked together",
+                "sign": "two fingers hooked together",
                 "subtitle_extra_lines": 1,
             },
         },
@@ -1221,7 +1268,7 @@ export default {
                     25: [4, "Hedge-", "left"],
                     29: [4, "hog", "left"],
                 },
-                "subtitle": "Hedgehog Tune sign",
+                "sign": "Hedgehog Tune sign",
                 "subtitle_extra_lines": 1,
                 // TODO specify indent in terms of subbeats
                 "remarks_indented": true,
@@ -1310,8 +1357,8 @@ export default {
                     "XXXXXXXXXXXXXXXX" +
                     "X               "
                 ),
-                "preamble": "&gt;from soft to loud",
-                "subtitle": "rabbit ears OR finger pistol shooting up",
+                "preamble": ">from soft to loud",
+                "sign": "rabbit ears OR finger pistol shooting up",
                 "nosqueeze": true,
             },
             "Break 2": {
@@ -1319,7 +1366,7 @@ export default {
             },
             "Break 2 Inverted": {
                 "name": "Break 2 inverted",
-                "subtitle": "sign with two fingers pointing down instead of up",
+                "sign": "sign with two fingers pointing down instead of up",
                 "nosqueeze": true,
             },
         },
@@ -1331,7 +1378,6 @@ export default {
                 "Break 2 Inverted",
             ],
         ],
-        // TODO: tune sign is so long that it overlaps with groove table head
     },
     "Malkhas Akhber": {
         "sign": (
@@ -1344,7 +1390,7 @@ export default {
                 "notes_override": {
                     9: [2, "Hey!", "left"],
                 },
-                "subtitle": "make an X with your index fingers",
+                "sign": "make an X with your index fingers",
                 "subtitle_extra_lines": 1,
             },
         },
@@ -1360,10 +1406,6 @@ export default {
         "patterns": {
             "Intro": {
                 "separate_instruments": true,
-            },
-            "Break 1": {
-                // TODO show 'r' when all instrus have 'r' (instead of E)
-                "notes": "rrr E EEr rrE a ",
             },
             "Break 2": {
                 "notes_override": {
@@ -1385,28 +1427,23 @@ export default {
         "sizing": {
             "pre_width": 16.5,
             "bars_per_row": 2,
-            "beats_per_bar": 4,
-            "subbeats_per_beat": 4,
         },
         "patterns": {
             "Tune": {
-                // TODO: inline upbeat of 2
+                // DIFFERENCE Agogô has no upbeat in player
                 // TODO: line with "hand resting on skin"
-                // TODO: show agogo . as x
                 "remarks": [
                     "Surdos: only 1 Stick on one hand; h = other hand hits skin",
                 ],
             },
             "Break 2": {
-                // TODO show only surdos
-                // TODO preamble on upbeat line
+                "instruments": ["ls", "ms", "hs"],
                 "preamble": "Surdos only, Rest continues",
                 "remarks_indented": true,
                 "remarks": ["repeat until cut with Break 2*"],
             },
             "Break 2*": {
-                // TODO show only surdos
-                // TODO preamble on upbeat line
+                "instruments": ["ls", "ms", "hs"],
                 "preamble": "Surdos only, Rest continues",
                 "remarks_indented": true,
                 "remarks": ["from soft to loud"],
@@ -1428,25 +1465,30 @@ export default {
             + " (like covering a police badge)"
         ),
         "patterns": {
-            // TODO some breaks have triple time some not
             "Double Break": {
-                // TODO: show only Surdos and Agogo
+                "instru_order": ["Low Surdo", "Mid Surdo", "High Surdo", "Agogô"],
                 "separate_instruments": true,
-                "subtitle": "Make a T with both hands",
+                "sign": "Make a T with both hands",
                 "remarks": [
                     "Like the groove, but double speed."
                     + " Everyone else continues playing normally",
                 ],
             },
             "Kick Back 1": {
-                // TODO: summarize "All others"
+                "single_bar_sizing": true,
                 "separate_instruments": true,
+                "regroup_instruments": {
+                    "All others": ["Repinique", "Snare", "Tamborim"],
+                },
                 "remarks": ["repeat until cut"],
             },
             "Mozambique Break": {
-                // TODO: summarize "All others"
+                "single_bar_sizing": true,
                 "separate_instruments": true,
-                "subtitle": (
+                "regroup_instruments": {
+                    "All others": ["Agogô", "Repinique", "Snare", "Tamborim"],
+                },
+                "sign": (
                     "Point both index fingers away from mouth (like bug antennas)"
                 ),
                 "remarks": ["sl = slap with thumb (by rotating the hand)"],
@@ -1541,8 +1583,11 @@ export default {
         "sign": "monkey, both hands in armpits",
         "patterns": {
             "Funky gibbon": {
-                // TODO: combine all but snares, use "ri"
-                "subtitle": "Upside down '3 creature'",
+                "separate_instruments": true,
+                "regroup_instruments": {
+                    "All others": ["Repinique", "Tamborim", "Agogô"],
+                },
+                "sign": "Upside down '3 creature'",
                 "remarks": [
                     "Repeat until cut",
                     "ri = Everyone else hits the rim",
@@ -1553,7 +1598,7 @@ export default {
                     1: [1, "oo", "center"],
                     9: [1, "oo", "center"],
                 },
-                "subtitle": "One hand in armpit",
+                "sign": "One hand in armpit",
                 "subtitle_extra_lines": 1,
                 "remarks_indented": true,
                 "remarks": ["oo = Shout Ook!"],
@@ -1577,15 +1622,15 @@ export default {
     "Pekurinen": {
         // TODO no sign?!
         "sizing": {
-            "pre_width": 12,
+            "pre_width": 15,
             "bars_per_row": 1,
-            "beats_per_bar": 4,
-            "subbeats_per_beat": 4,
         },
         "patterns": {
             "Break 1": {
-                // TODO group "all others" together
                 "separate_instruments": true,
+                "regroup_instruments": {
+                    "All others": ["All Surdos", "Snare", "Tamborim"],
+                },
             },
             "Break 2": {
                 // TODO replace A by x
@@ -1606,12 +1651,14 @@ export default {
                     12: [1, "ca-", "center"],
                     14: [1, "do!", "center"],
                 },
-                "subtitle": "Build barricade by stacking hands on each other",
+                "sign": "Build barricade by stacking hands on each other",
                 "subtitle_extra_lines": 1,
             },
             "Bra Break": {
-                // TODO group "all others" together
                 "separate_instruments": true,
+                "regroup_instruments": {
+                    "All others": ["All Surdos", "Snare"],
+                },
             },
         },
         "pages": [
@@ -1646,26 +1693,26 @@ export default {
             },
             "Küsel Break": {
                 // DIFFERENCE snare has a typo (?) in the tune book
-                // TODO: snare separate from rest
-                "subtitle": "hands twist head",
+                // TODO: Snare on separate line
+                "sign": "hands twist head",
                 "remarks_indented": true,
                 "remarks": ["all players turn around 360° while playing the break"],
             },
             "I like to move it": {
-                "subtitle": "curling hands up and down",
+                "sign": "curling hands up and down",
                 "subtitle_extra_lines": 2,
                 "remarks_indented": true,
                 "remarks": ["Repi and Agogô; play as a loop"],
             },
             "Eye of the tiger": {
-                // TODO: snare separate from rest
+                // TODO: Snare on separate line
                 "notes_override": {
                     145: [36, "Agogô beating fast between both bells...", "left"],
                     181: [12, "... until here", "right"],
                     // TODO: snare stops here
                 },
                 "preamble": "Surdos (High, Middle, Low), Snare",
-                "subtitle": "claws left and right",
+                "sign": "claws left and right",
             },
         },
         "pages": [
@@ -1713,14 +1760,14 @@ export default {
             "Kick Back 1": {
                 "remarks_indented": true,
                 "remarks": ["repeat until counting in for Kick Back 2"],
-                "subtitle": "thumb back over shoulder",
+                "sign": "thumb back over shoulder",
                 "subtitle_extra_lines": 1,
             },
             "Kick Back 2": {
-                // TODO Agogô separate
+                // TODO Agogô on separate line
                 "remarks_indented": true,
                 "remarks": ["repeat until cut with one of the breaks"],
-                "subtitle": "like Kick Back 1, but with two thumbs",
+                "sign": "like Kick Back 1, but with two thumbs",
             },
             "Break 1": {
                 // DIFFERENCE Break 1 is not in player
@@ -1736,7 +1783,7 @@ export default {
                     "others continue playing;"
                     + " repeat until cut with one of the breaks",
                 ],
-                "subtitle": "sign 'Z' in the air",
+                "sign": "sign 'Z' in the air",
                 "subtitle_extra_lines": 1,
             },
         },
@@ -1760,8 +1807,6 @@ export default {
         "sizing": {
             "pre_width": 12,
             "bars_per_row": 1,
-            "beats_per_bar": 4,
-            "subbeats_per_beat": 4,
         },
         "patterns": {
             "Tune": {
@@ -1799,10 +1844,13 @@ export default {
     },
     "Samba Reggae": {
         "sign": "smoking a cigar/joint",
+        "sizing": {
+            "pre_width": 18,
+        },
         "patterns": {
             "Bra Break": {
-                // TODO fl for Repi
-                // TODO snare separate in lines 5-7
+                // TODO Snare on separate line in lines 5-7
+                "nosqueeze": true,
                 "remarks_indented": true,
                 "remarks": ["ls = low surdo picks up"],
             },
@@ -1811,34 +1859,33 @@ export default {
                 "notes": "E  E  E   E E   ",
             },
             "Break 1": {
-                // TODO: "." for snare
                 "remarks_indented": true,
                 "remarks": ["hs = high surdo picks up"],
             },
             "Break 3": {
-                // TODO: "." for snare
-                // TODO: mute snare after first line
-                // TODO: fl, T+h etc.
+                // TODO: T+h on separate line in lines 6, 7
+                "suppress_instruments": [
+                    ["sn", 17, 128],
+                ],
+                "nosqueeze": true,
                 "preamble": "snare continues playing this through the break",
                 "remarks_indented": true,
                 "remarks": ["hs = high surdo picks up"],
             },
             "SOS Break": {
-                // DIFFERENCE in Repi tune after blaying SOS break is not in player
-                // TODO: use "S" even if surdo doesn't ALWAYS play together
+                // DIFFERENCE in Repi tune after playing SOS break is not in player
                 // TODO: add info about Repi tune changes after playing this break
-                "subtitle": "signed by waving the palms diagonal across one shoulder",
+                "nosqueeze": true,
+                "sign": "signed by waving the palms diagonal across one shoulder",
                 "subtitle_extra_lines": 2,
                 "remarks_indented": true,
                 "remarks": ["ls = low surdo picks up"],
             },
             "Knock On The Door Break": {
-                // TODO: triple time
-                // TODO: snare separate
-                // TODO: name goes over two lines -> shift subtitle by one line
-                // TODO: merge cut for knock on the door
+                // TODO: Snare on separate line
+                // TODO: merge with cut for knock on the door (?)
                 "preamble": "snare continues playing this or the rhythm of Call Break",
-                "subtitle": (
+                "sign": (
                     "knock with the knuckles of your right hand on your"
                     + " flat left hand"
                 ),
@@ -1846,9 +1893,9 @@ export default {
                 "remarks": ["repeat until cut"],
             },
             "Dancing Break": {
-                // TODO: use "S" even if surdo doesn't ALWAYS play together
+                // TODO: group together two consecutive lines played repeatedly
                 "preamble": "The players who don't play dance (see left)",
-                "subtitle": (
+                "sign": (
                     "sign by showing the dance: arms down to the right,"
                     + " and to the left - then arms up to the right, and left .."
                     + " and go! (start down right)"
@@ -1881,7 +1928,7 @@ export default {
         ),
         "patterns": {
             "Tune": {
-                // TODO: hs repeats two lines
+                // TODO: High surdo: group of two lines is repeated
                 "remarks": ["I like to play the A- go- go"],
             },
             "Intro": {
@@ -1890,25 +1937,26 @@ export default {
                 "subtitle": "Intro",
             },
             "Break 1": {
-                // TODO: only show surdo, skip others
+                "instruments": ["ls", "ms", "hs"],
                 "preamble": (
                     "Surdos only, loop until told otherwise."
                     + " Everyone else carries on with the main groove."
                 ),
             },
             "Break 2": {
-                // TODO: skip snare, Repi on separate line and "ri"
+                // TODO: Repi on separate line
+                "instruments": ["ls", "ms", "hs", "re", "ag", "ta"],
                 "remarks_indented": true,
                 "remarks": ["Snare plays the same as Repi"],
             },
             "Whistle Break": {
-                "subtitle": "Point to whistle",
+                "sign": "Point to whistle",
                 "subtitle_extra_lines": true,
                 "remarks_indented": true,
                 "remarks": ["Loop until told otherwise"],
             },
             "Outro": {
-                "subtitle": (
+                "sign": (
                     "Fist like “Stop playing” with thumb sticking out"
                 ),
                 "remarks_indented": true,
@@ -1946,17 +1994,18 @@ export default {
                 "remarks_indented": true,
                 "remarks": ["From soft to loud"],
             },
+            // DIFFERENCE Break 2 is only one bar in book, but two bars in player
             // TODO: Break 2: separate shouting line
             "Beast Break": {
-                // skip Repi, and Agogô as xxx...
+                // TODO: Repi+Agogô as xxx...
                 "subtitle_extra_lines": 1,
-                "subtitle": "evil claws going down",
+                "sign": "evil claws going down",
                 "remarks_indented": true,
                 "remarks": ["x = Agogô can be supported by Repi"],
             },
             "Beast Break Inverted": {
                 "subtitle_extra_lines": 1,
-                "subtitle": "evil claws going up",
+                "sign": "evil claws going up",
                 "remarks_indented": true,
                 "remarks": ["h = Agogô"],
             },
@@ -1977,17 +2026,22 @@ export default {
         "sizing": {
             "pre_width": 16.5,
             "bars_per_row": 2,
-            "beats_per_bar": 4,
-            "subbeats_per_beat": 4,
         },
         "patterns": {
             "Tune": {
-                // TODO: Tune has upbeat
-                // TODO: Tune parentheses
                 "remarks": [
                     "Low Surdo starts with an upbeat before the 1",
                     "(0) = Can be played optionally to make the rhythm easier to understand",
                 ],
+                "notes_override": {
+                    "Low Surdo": {
+                        3: [1, "(0)", "center"],
+                        4: [1, "(0)", "center"],
+                        19: [1, "(0)", "center"],
+                        20: [1, "(0)", "center"],
+                        32: [1, "(X)", "center"],
+                    },
+                },
             },
             "Break 1": {
                 "notes_override": {
@@ -1995,7 +2049,7 @@ export default {
                     16: [1, "(ls)", "center"],
                 },
                 "subtitle_extra_lines": 1,
-                "subtitle": "Shake salt on number 1",
+                "sign": "Shake salt on number 1",
             },
             "Break 2": {
                 "preamble": "Surdos start with 3 upbeats before the 1",
@@ -2005,9 +2059,8 @@ export default {
                 "remarks": [". = Shaker"],
             },
             "Bra Break": {
-                // TODO: single bar per line
-                "remarks_indented": true,
-                "remarks": ["Repeat 3 times, R = call by Repinique"],
+                "single_bar_sizing": true,
+                "aside": "Repeat 3 times, R = call by Repinique",
             },
         },
         "pages": [
@@ -2027,13 +2080,10 @@ export default {
         "sizing": {
             "pre_width": 16.5,
             "bars_per_row": 2,
-            "beats_per_bar": 4,
-            "subbeats_per_beat": 4,
         },
         "patterns": {
-            // TODO: Tune has upbeat (Agogô)
             "Break 1": {
-                // TODO: ls instead of E
+                // DIFFERENCE player has only "ls" where book has "E"
                 "notes_override": {
                     1: [2, "The", "left"],
                     3: [2, "Roof", "left"],
@@ -2048,8 +2098,7 @@ export default {
                 },
             },
             "Bra Break": {
-                // TODO: Repi "."
-                // TODO: Agogô separate
+                // TODO: Agogô on separate line
                 "notes_override": {
                     109: [2, "Burn!", "left"],
                 },
@@ -2091,18 +2140,15 @@ export default {
         "sizing": {
             "pre_width": 16.5,
             "bars_per_row": 2,
-            "beats_per_bar": 4,
-            "subbeats_per_beat": 4,
         },
         "patterns": {
-            // TODO: Tune has upbeat (Repi)
             "Doppler Break": {
                 "separate_instruments": true,
-                "remarks": [
+                "sign": (
                     "Sign: move your hand in front of your body"
-                    + " from one side to the other like a train passing by",
-                    "Shaker keeps playing the groove",
-                ],
+                    + " from one side to the other like a train passing by"
+                ),
+                "remarks": ["Shaker keeps playing the groove"],
             },
             "Break 1": {
                 "separate_instruments": true,
@@ -2120,7 +2166,9 @@ export default {
     "Van Harte Pardon": {
         "name": "Van Harte pardon!",
         "sign": "heart formed with your hands",
-        // TODO: two bars per line, but portrait mode
+        "sizing": {
+            "landscape": false,
+        },
         "patterns": {
             // DIFFERENCE last two Agogô are hh in book, ll in player
             "Break 1": {
@@ -2148,22 +2196,19 @@ export default {
             },
             "Silence Break": {
                 // TODO: only ls and ag, and on separate lines
-                "subtitle": "the sign is 4 fingers up",
+                "sign": "the sign is 4 fingers up",
                 "remarks": ["ls = low surdo, ag = agogô"],
             },
             "Break 2": {
-                // TODO: Snare / Repi together
                 "separate_instruments": true,
+                "regroup_instruments": {
+                    "Snare / Repinique": ["Snare", "Repinique"],
+                },
                 "remarks": ["repeated on and on until maestra calls off"],
             },
             "Break 2 (Cut)": {
-                // TODO: Snare / Repi together
-                // TODO: more compact layout (no empty line between instrus)
                 "notes_override": {
-                    "Snare": {
-                        8: [1, "(X)", "center"],
-                    },
-                    "Repinique": {
+                    "Snare / Repinique": {
                         8: [1, "(X)", "center"],
                     },
                     "Tamborim": {
@@ -2174,22 +2219,23 @@ export default {
                     },
                 },
                 "separate_instruments": true,
+                "regroup_instruments": {
+                    "Snare / Repinique": ["Snare", "Repinique"],
+                },
                 "remarks": ["back into the groove"],
             },
             "Cross Break": {
                 "name": "Cross Break - Surdos",
                 "separate_instruments": true,
-                "remarks": [
-                    "sign: 'x' with the arms",
-                    "repeated until cut",
-                ],
+                "sign": "sign 'x' with the arms",
+                "remarks": ["repeated until cut"],
             },
             "Cross Eight Break": {
+                "single_bar_sizing": true,
                 "name": "Cross Eight Break - Surdos",
-                "subtitle": "sign 'x' with arms showing Eight Up",
+                "sign": "sign 'x' with arms showing Eight Up",
                 "subtitle_extra_lines": 1,
-                "remarks": ["from soft to loud"],
-                "remarks_indented": true,
+                "aside": "from soft to loud",
             },
         },
         "pages": [
@@ -2210,7 +2256,7 @@ export default {
             // DIFFERENCE Agogô tune: h instead of l in player before beat 4
             "Scissor Break": {
                 // TODO: memory aid in subtitle extra line
-                "subtitle": "Signed like scissors",
+                "sign": "Signed like scissors",
                 "subtitle_extra_lines": 1,
                 "memory_aid": {
                     "notes": "X X X X XX X XX ",
@@ -2258,12 +2304,9 @@ export default {
         "sizing": {
             "pre_width": 16.5,
             "bars_per_row": 2,
-            "beats_per_bar": 4,
-            "subbeats_per_beat": 4,
         },
         "patterns": {
             "Pat 1": {
-                // TODO: name is not used somehow (?)
                 "name": "Pat 1 (2)",
                 "separate_instruments": true,
                 "notes_override": {
@@ -2296,25 +2339,23 @@ export default {
     "Xango": {
         "sign": "rain trickling down, with 10 fingers",
         "sizing": {
-            "pre_width": 12,
+            "pre_width": 14,
             "bars_per_row": 1,
-            "beats_per_bar": 4,
-            "subbeats_per_beat": 4,
         },
         "patterns": {
             "Intro": {
                 // TODO: ri instead of A
                 "preamble": "Everyone hits the rims",
-                "subtitle": "building a tower with fists on top of each other, upwards",
+                "sign": "building a tower with fists on top of each other, upwards",
                 "subtitle_extra_lines": 2,
                 "remarks_indented": true,
                 "remarks": ["repeat until cut"],
             },
             "Intro+Surdos": {
-                // TODO: show only surdo
                 // TODO: override (S) in last surdo stroke
+                "instruments": ["ls", "ms", "hs"],
                 "name": "Surdo Part of Intro",
-                "subtitle": "flat hand on head",
+                "sign": "flat hand on head",
                 "remarks_indented": true,
                 "remarks": [
                     "(S) not before Boum Shakala Break",
@@ -2328,7 +2369,7 @@ export default {
                 // TODO: S for ls+ms+hs, and hs for hs only at the end
                 // TODO: "." in snare
                 // TODO: break name too long
-                "subtitle": "Crossed fingers",
+                "sign": "Crossed fingers",
             },
             "Break 2": {
                 // TODO: S for ls+ms+hs, and hs for hs only at the end
@@ -2349,12 +2390,12 @@ export default {
         "patterns": {
             // TODO: shaker
             "Bra Break": {
-                // TODO: break with single bar per line
-                // TODO: snare separate
+                // TODO: Snare on separate line
                 // TODO: fl/hd/ri for Repi
+                "single_bar_sizing": true,
             },
             "Kick Back 2": {
-                // TODO: Repi separate
+                // TODO: Repi on separate line
             },
         },
         "pages": [
