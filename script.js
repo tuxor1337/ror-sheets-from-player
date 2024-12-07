@@ -13,6 +13,7 @@ const NOTE_CHARS = {
     "Š": "sn",
     "o": "l",
     "a": "h",
+    "å": "ag",
     "f": "fl",
     "h": "hd",
     "r": "ri",
@@ -439,30 +440,12 @@ function render_tune(tune) {
             }
         }
 
-        function tbl_add_break(name, data) {
-            name = data.hasOwnProperty("name") ? data["name"] : name;
-            const n_extra_lines = (
-                data.hasOwnProperty("subtitle_extra_lines")
-                ? data["subtitle_extra_lines"]
-                : 0
-            );
-            const notes = data["notes"];
+        function _render_lines(data, i_notes) {
             const upbeat = data.hasOwnProperty("upbeat") ? data["upbeat"] : 0;
             const notes_override = data.hasOwnProperty("notes_override") ? data["notes_override"] : {};
-            let n_lines = Math.ceil(notes.length / sizing["subbeats_per_row"]);
             const empty_line = " ".repeat(sizing["subbeats_per_row"]);
-
-            if (data.hasOwnProperty("preamble") && upbeat == 0) {
-                const el_tr = document.createElement("tr");
-                const n_cols_pre = 2 + sizing["upbeats"];
-                el_tr.innerHTML = `<td colspan="${n_cols_pre}"></td>`;
-                let el_td = document.createElement("td");
-                el_td.classList.add("text", "remark");
-                el_td.colSpan = sizing["ncols"] - n_cols_pre;
-                el_td.textContent = data["preamble"]
-                el_tr.appendChild(el_td);
-                el_table.appendChild(el_tr);
-            }
+            let notes = data["notes"][i_notes];
+            let n_lines = Math.ceil(notes.length / sizing["subbeats_per_row"]);
 
             const lines = [...Array(n_lines).keys()].map((i_line) => {
                 if (upbeat > 0) {
@@ -490,119 +473,203 @@ function render_tune(tune) {
                 }
                 const override = {};
                 for (const [start, d] of Object.entries(notes_override)) {
-                    if (start > offset) {
+                    if (offset < start && start < offset + sizing["subbeats_per_row"]) {
                         override[start - offset] = d;
                     }
                 }
+                const n_overrides = Object.keys(override);
 
-                const l = lines[i_line];
-
-                if (data.hasOwnProperty("skip_empty_lines") && l == empty_line) {
+                if (n_overrides == 0 && lines[i_line] == empty_line) {
                     continue;
                 }
 
-                let i_line_next = i_line + 1;
-                if (Object.keys(override).length == 0 && !data.hasOwnProperty("nosqueeze")) {
+                let n_repeat_lines = 0;
+                let i_line_next = i_line + n_repeat_lines;
+                if (n_overrides == 0 && !data.hasOwnProperty("nosqueeze")) {
                     // only combine consecutive lines if there are no overrides
-                    while (i_line_next < n_lines && l == lines[i_line_next]) {
-                        i_line_next++;
+                    while (
+                        i_line_next == i_line + n_repeat_lines
+                        && i_line + 2 * n_repeat_lines <= n_lines
+                    ) {
+                        n_repeat_lines++;
+                        i_line_next = i_line + n_repeat_lines;
+                        while (
+                            i_line_next + n_repeat_lines <= n_lines
+                            && (
+                                lines.slice(i_line_next, i_line_next + n_repeat_lines)
+                                .every((l, i) => l == lines[i_line + i])
+                            )
+                        ) {
+                            i_line_next += n_repeat_lines;
+                        }
                     }
                 }
 
-                let str_row = "";
-                if (data.hasOwnProperty("row_numbers")) {
-                    str_row = data["row_numbers"][i_line];
+                if (i_line_next == i_line + n_repeat_lines) {
+                    i_line_next = i_line + 1;
+                    n_repeat_lines = 0;
+                }
+
+                const upbeat_mod = upbeat > 0 ? -1 : 0;
+                if (i_line_next > i_line + 1) {
+                    for (
+                        let i_repeat_lines = 0;
+                        i_repeat_lines < n_repeat_lines;
+                        i_repeat_lines++
+                    ) {
+                        let str_row = (
+                            `${i_line + upbeat_mod + 1 + i_repeat_lines}`
+                            + `-${i_line_next + upbeat_mod + 1 - n_repeat_lines + i_repeat_lines}`
+                        );
+                        lines_render.push({
+                            "l_start": i_line + i_repeat_lines,
+                            "l_end": i_line_next - n_repeat_lines + i_repeat_lines,
+                            "str_row": str_row,
+                            "notation": lines[i_line + i_repeat_lines],
+                            "override": override,
+                        });
+                    }
                 } else {
-                    const upbeat_mod = upbeat > 0 ? -1 : 0;
-                    if (n_lines > 1 && i_line + upbeat_mod >= 0) {
+                    let str_row = "";
+                    if (data.hasOwnProperty("row_numbers")) {
+                        str_row = data["row_numbers"][i_line];
+                    } else if (n_lines > 1 && i_line + upbeat_mod >= 0) {
                         str_row += `${i_line + upbeat_mod + 1}`;
-                        if (i_line_next > i_line + 1) {
-                            str_row += `-${i_line_next + upbeat_mod}`;
-                        }
                     }
-                }
 
-                lines_render.push({
-                    "str_row": str_row,
-                    "notation": l,
-                    "override": override,
-                });
-                i_line = i_line_next - 1;
-            }
-
-            lines_render.forEach(({str_row, notation, override}, i_line) => {
-                const el_tr = tbl_add_tune_row(
-                    i_line == 0 ? name : "",
-                    str_row,
-                    notation,
-                    override,
-                    i_line == 0 ? upbeat : 0,
-                    false,
-                );
-                if (i_line == 0) {
-                    el_tr.classList.add("break_start");
-                    if (data.hasOwnProperty("preamble") && upbeat > 0) {
-                        const el_td = el_tr.querySelectorAll("td[colspan]")[0];
-                        el_td.classList.add("text", "remark");
-                        el_td.textContent = data["preamble"];
-                    }
-                }
-
-                let td_notes = el_tr.querySelectorAll("td.note:not(.upbeat)");
-                td_notes[0].classList.add("line_start");
-                td_notes[td_notes.length - 1].classList.add("line_end");
-                const n_td_notes = td_notes.length;
-
-                if (i_line == 1 && upbeat > 0 && upbeat > 0) {
-                    Array.from(td_notes).forEach((el_td, i_td) => {
-                        if (i_td < n_td_notes - upbeat) {
-                            el_td.classList.add("break_start");
-                        }
+                    lines_render.push({
+                        "l_start": i_line,
+                        "l_end": i_line,
+                        "str_row": str_row,
+                        "notation": lines[i_line],
+                        "override": override,
                     });
                 }
 
-                if (i_line == lines_render.length - 1) {
-                    el_tr.classList.add("break_end");
+                i_line = i_line_next - 1;
+            }
+
+            return lines_render;
+        }
+
+        function _render_lines_merged(data) {
+            const lines_render = [];
+            const lines_render_tmp = data["notes"].flatMap((_, i) => _render_lines(data, i));
+            while (lines_render_tmp.length > 0) {
+                const min_l_start = Math.min(...lines_render_tmp.map(arr => arr["l_start"]));
+                const i_next = lines_render_tmp.findIndex(arr => arr["l_start"] == min_l_start);
+                lines_render.push(lines_render_tmp.splice(i_next, 1)[0]);
+            }
+            return lines_render;
+        }
+
+        function _add_break_row(
+            i_line,
+            n_lines,
+            {str_row, notation, override},
+            {name, upbeat, preamble, subtitle, subtitle_extra_lines, aside, aside_lines},
+        ) {
+            const n_extra_lines = subtitle_extra_lines || 0;
+            upbeat = upbeat || 0;
+            const el_tr = tbl_add_tune_row(
+                i_line == 0 ? name : "",
+                str_row,
+                notation,
+                override,
+                i_line == 0 ? upbeat : 0,
+                false,
+            );
+            if (i_line == 0) {
+                el_tr.classList.add("break_start");
+                if (!!preamble && upbeat > 0) {
+                    const el_td = el_tr.querySelectorAll("td[colspan]")[0];
+                    el_td.classList.add("text", "remark");
+                    el_td.textContent = preamble;
                 }
-                if (data.hasOwnProperty("aside")) {
-                    const el_td = el_tr.lastChild;
-                    if (i_line > 0) {
-                        el_tr.removeChild(el_td);
-                    } else {
-                        el_td.rowSpan = lines_render.length;
-                        el_td.classList.add("text", "aside");
-                        el_td.textContent = data["aside"];
+            }
+
+            let td_notes = el_tr.querySelectorAll("td.note:not(.upbeat)");
+            td_notes[0].classList.add("line_start");
+            td_notes[td_notes.length - 1].classList.add("line_end");
+            const n_td_notes = td_notes.length;
+
+            if (i_line == 1 && upbeat > 0 && upbeat > 0) {
+                Array.from(td_notes).forEach((el_td, i_td) => {
+                    if (i_td < n_td_notes - upbeat) {
+                        el_td.classList.add("break_start");
                     }
+                });
+            }
+
+            if (i_line == n_lines - 1) {
+                el_tr.classList.add("break_end");
+            }
+            if (!!aside) {
+                const el_td = el_tr.lastChild;
+                if (i_line > 0) {
+                    el_tr.removeChild(el_td);
+                } else {
+                    el_td.rowSpan = n_lines;
+                    el_td.classList.add("text", "aside");
+                    el_td.textContent = aside;
                 }
-                if (data.hasOwnProperty("aside_lines")) {
-                    const el_td = el_tr.lastChild;
-                    for (const aside_lstart in data["aside_lines"]) {
-                        const [aside_llen, aside_text] = data["aside_lines"][aside_lstart];
-                        if (
-                            aside_lstart <= i_line + 1
-                            && i_line + 1 <= aside_lstart + aside_llen - 1
-                        ) {
-                            if (i_line + 1 > aside_lstart) {
-                                // el_tr.removeChild(el_td);
-                            } else {
-                                el_td.rowSpan = aside_llen;
-                                el_td.classList.add("text", "aside_lines");
-                                el_td.textContent = aside_text;
-                            }
+            }
+            if (!!aside_lines) {
+                const el_td = el_tr.lastChild;
+                for (const aside_lstart in aside_lines) {
+                    const [aside_llen, aside_text] = aside_lines[aside_lstart];
+                    if (
+                        aside_lstart <= i_line + 1
+                        && i_line + 1 <= aside_lstart + aside_llen - 1
+                    ) {
+                        if (i_line + 1 > aside_lstart) {
+                            // el_tr.removeChild(el_td);
+                        } else {
+                            el_td.rowSpan = aside_llen;
+                            el_td.classList.add("text", "aside_lines");
+                            el_td.textContent = aside_text;
                         }
                     }
                 }
-                if (data.hasOwnProperty("subtitle") && i_line > 0) {
-                    const el_td = el_tr.firstChild;
-                    if (i_line > 1) {
-                        el_tr.removeChild(el_td);
-                    } else {
-                        el_td.rowSpan = lines_render.length - 1 + n_extra_lines;
-                        el_td.classList.add("remark");
-                        el_td.textContent = data["subtitle"];
-                    }
+            }
+            if (!!subtitle && i_line > 0) {
+                const el_td = el_tr.firstChild;
+                if (i_line > 1) {
+                    el_tr.removeChild(el_td);
+                } else {
+                    el_td.rowSpan = n_lines - 1 + n_extra_lines;
+                    el_td.classList.add("remark");
+                    el_td.textContent = subtitle;
                 }
-            });
+            }
+        }
+
+        function tbl_add_break(data) {
+            const n_extra_lines = (
+                data.hasOwnProperty("subtitle_extra_lines")
+                ? data["subtitle_extra_lines"]
+                : 0
+            );
+            const upbeat = data.hasOwnProperty("upbeat") ? data["upbeat"] : 0;
+
+            if (data.hasOwnProperty("preamble") && upbeat == 0) {
+                const el_tr = document.createElement("tr");
+                const n_cols_pre = 2 + sizing["upbeats"];
+                el_tr.innerHTML = `<td colspan="${n_cols_pre}"></td>`;
+                let el_td = document.createElement("td");
+                el_td.classList.add("text", "remark");
+                el_td.colSpan = sizing["ncols"] - n_cols_pre;
+                el_td.textContent = data["preamble"]
+                el_tr.appendChild(el_td);
+                el_table.appendChild(el_tr);
+            }
+
+            const lines_render = _render_lines_merged(data);
+            const n_lines_render = lines_render.length;
+
+            lines_render.forEach(({str_row, notation, override}, i_line) =>
+                _add_break_row(i_line, n_lines_render, {str_row, notation, override}, data)
+            );
 
             const remarks = data.hasOwnProperty("remarks") ? data["remarks"] : [];
             const rem_indented = (
@@ -612,7 +679,7 @@ function render_tune(tune) {
             for (let i_line = 0; i_line < n_extra_lines; i_line++) {
                 const el_tr = document.createElement("tr");
                 let innerHTML = "";
-                if (lines_render.length <= 1 && i_line == 0) {
+                if (n_lines_render <= 1 && i_line == 0) {
                     const el_td = document.createElement("td");
                     el_td.rowSpan = data["subtitle_extra_lines"];
                     el_td.classList.add("text", "remark");
@@ -676,7 +743,7 @@ function render_tune(tune) {
             } else if (data.hasOwnProperty("text")) {
                 tbl_add_text_break(name, data);
             } else {
-                tbl_add_break(name, data);
+                tbl_add_break(data);
             }
             tbl_add_empty_row();
         }
@@ -770,7 +837,66 @@ function convert_tune_pattern(notes) {
     return result;
 }
 
-function convert_break_pattern(notes, l_instrus) {
+function _merge_instru_notes_i(notes, l_instrus, i) {
+    const ref_ins = l_instrus.find(ins => notes[ins].charAt(i) != " ");
+    if (typeof ref_ins === "undefined") {
+        return " ";
+    }
+
+    const ref_ins_all = l_instrus.filter(ins => notes[ins].charAt(i) != " ")
+    const n_ref_ins = ref_ins_all.length;
+    if (n_ref_ins > 1) {
+        const ref_is_surdos = (
+            (
+                n_ref_ins == 2
+                && ref_ins_all.indexOf("lms") >= 0
+                && ref_ins_all.indexOf("hs") >= 0
+            ) || (
+                n_ref_ins == 2
+                && ref_ins_all.indexOf("lhs") >= 0
+                && ref_ins_all.indexOf("ms") >= 0
+            ) || (
+                n_ref_ins == 2
+                && ref_ins_all.indexOf("ls") >= 0
+                && ref_ins_all.indexOf("mhs") >= 0
+            ) || (
+                n_ref_ins == 3
+                && ref_ins_all.indexOf("ls") >= 0
+                && ref_ins_all.indexOf("ms") >= 0
+                && ref_ins_all.indexOf("hs") >= 0
+            )
+        );
+        const ref_is_th = (
+            n_ref_ins == 2
+            && ref_ins_all.indexOf("ta") >= 0
+            && ref_ins_all.indexOf("ag") >= 0
+            && notes["ag"].charAt(i) == "a"
+        );
+        if (ref_is_surdos) {
+            return "S";
+        } else if (ref_is_th) {
+            return "þ";
+        } else if (n_ref_ins < l_instrus.length) {
+            return "A";
+        } else if (l_instrus.every(ins => notes[ins].charAt(i) == "r")) {
+            return "r";
+        } else {
+            return "E";
+        }
+    } else if (ref_ins == "ag") {
+        const ref = notes[ref_ins].charAt(i);
+        return [...notes[ref_ins]].every(c => [" ", ref].indexOf(c) >= 0) ? "å" : ref;
+    } else {
+        const ref_note = notes[ref_ins].charAt(i);
+        if ([".", "f", "r", "s"].indexOf(ref_note) >= 0) {
+            return ref_note;
+        } else {
+            return BREAK_CHARS.hasOwnProperty(ref_ins) ? BREAK_CHARS[ref_ins] : ref_ins;
+        }
+    }
+}
+
+function convert_break_pattern(notes, l_instrus, separate_instrus) {
     if (!l_instrus) {
         l_instrus = ["as", "re", "sn", "ta", "ag"];
         if (!notes.hasOwnProperty("as")) {
@@ -785,6 +911,8 @@ function convert_break_pattern(notes, l_instrus) {
         }
     }
 
+    separate_instrus = separate_instrus || [];
+
     const n_notes = Math.max(...(
         l_instrus
         .map(ins => notes.hasOwnProperty(ins) ? notes[ins].length : 0)
@@ -794,56 +922,18 @@ function convert_break_pattern(notes, l_instrus) {
         notes[ins] = notes[ins].padEnd(n_notes, " ");
     }
 
-    let notation = "";
+    const notation = ["", ...separate_instrus.map(() => "")];
     for (let i = 0; i < n_notes; i++) {
-        const ref_ins = l_instrus.find(ins => notes[ins].charAt(i) != " ");
-        if (typeof ref_ins === "undefined") {
-            notation += " ";
-            continue;
-        }
-        const ref_ins_all = l_instrus.filter(ins => notes[ins].charAt(i) != " ")
-        const n_ref_ins = ref_ins_all.length;
-        if (n_ref_ins > 1) {
-            const ref_is_surdos = (
-                (
-                    n_ref_ins == 2
-                    && ref_ins_all.indexOf("lms") >= 0
-                    && ref_ins_all.indexOf("hs") >= 0
-                ) || (
-                    n_ref_ins == 2
-                    && ref_ins_all.indexOf("lhs") >= 0
-                    && ref_ins_all.indexOf("ms") >= 0
-                ) || (
-                    n_ref_ins == 2
-                    && ref_ins_all.indexOf("ls") >= 0
-                    && ref_ins_all.indexOf("mhs") >= 0
-                ) || (
-                    n_ref_ins == 3
-                    && ref_ins_all.indexOf("ls") >= 0
-                    && ref_ins_all.indexOf("ms") >= 0
-                    && ref_ins_all.indexOf("hs") >= 0
-                )
-            );
-            if (ref_is_surdos) {
-                notation += "S";
-            } else if (n_ref_ins < l_instrus.length) {
-                notation += "A";
-            } else if (l_instrus.every(ins => notes[ins].charAt(i) == "r")) {
-                notation += "r";
-            } else {
-                notation += "E";
+        let l_instrus_resid = l_instrus;
+        separate_instrus.forEach(([i_start, i_end, l_sub_instrus], i_sep) => {
+            if (i_start > i || i_end < i) {
+                notation[i_sep + 1] += " ";
+                return;
             }
-        } else if (ref_ins == "ag") {
-            const ref = notes[ref_ins].charAt(i);
-            notation += ref == "X" ? "o" : ref;
-        } else {
-            const ref_note = notes[ref_ins].charAt(i);
-            if ([".", "f", "r", "s"].indexOf(ref_note) >= 0) {
-                notation += ref_note;
-            } else {
-                notation += BREAK_CHARS.hasOwnProperty(ref_ins) ? BREAK_CHARS[ref_ins] : ref_ins;
-            }
-        }
+            notation[i_sep + 1] += _merge_instru_notes_i(notes, l_sub_instrus, i)
+            l_instrus_resid = l_instrus_resid.filter(ins => l_sub_instrus.indexOf(ins) < 0);
+        });
+        notation[0] += _merge_instru_notes_i(notes, l_instrus_resid, i);
     }
     return notation;
 }
@@ -1012,15 +1102,15 @@ function convert_tune([tune_name, {displayName, time, patterns}]) {
                     ];
                 }
             } else {
-                p["notes"] = convert_break_pattern(notes, p["instruments"]);
+                p["notes"] = convert_break_pattern(notes, p["instruments"], p["separate_lines"]);
             }
 
             if (notes.hasOwnProperty("upbeat")) {
                 p["upbeat"] = notes["upbeat"];
             }
         }
-        if (notes.hasOwnProperty("displayName") && !p.hasOwnProperty("name")) {
-            p["name"] = notes["displayName"];
+        if (!p.hasOwnProperty("name")) {
+            p["name"] = notes.hasOwnProperty("displayName") ? notes["displayName"] : break_name;
         }
         layout["patterns"][break_name] = p;
     }

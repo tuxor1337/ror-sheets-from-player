@@ -43,20 +43,20 @@ export default {
                 "nosqueeze": true,
             },
             "Continue for One Bar": {
-                "notes": "................",
+                "notes": ["................"],
                 "aside": "Continue 4 Beats",
                 "remarks": ["draw a horizontal line in the air with one finger"],
                 "nosqueeze": true,
             },
             "Continue for Two Bars": {
-                "notes": "................................",
+                "notes": ["................................"],
                 "aside": "Continue 8 Beats",
                 "sign": "like “continue for one bar” with both hands",
                 "subtitle_extra_lines": 1,
                 "nosqueeze": true,
             },
             "Continue for Three Bars": {
-                "notes": "................................................",
+                "notes": ["................................................"],
                 "aside": "Continue 12 Beats",
                 "sign": (
                     "like “continue for two bars” and then “continue for one bar”"
@@ -66,7 +66,7 @@ export default {
                 "nosqueeze": true,
             },
             "Continue for Four Bars": {
-                "notes": "................................................................",
+                "notes": ["................................................................"],
                 "aside": "Continue 16 Beats",
                 "sign": (
                     "like “continue for two bars” and then again in the opposite direction"
@@ -99,7 +99,7 @@ export default {
             },
             "Oi/Ua Break": {
                 // DIFFERENCE: part of special breaks
-                "notes": "E   E   E   Ș   ",
+                "notes": ["E   E   E   Ș   "],
                 "notes_override": {
                     5: [4, "[ E E E ]", "center"],
                     13: [4, "shout...", "left"],
@@ -111,7 +111,7 @@ export default {
             },
             "Cat Break": {
                 // DIFFERENCE: missing in player
-                "notes": "                ",
+                "notes": ["                "],
                 "notes_override": {
                     1: [1, "m", "center"],
                     5: [1, "i", "center"],
@@ -176,7 +176,7 @@ export default {
             },
             "Laughing Break": {
                 // DIFFERENCE: missing in player
-                "notes": "EEEEEEEEEEEEE   ",
+                "notes": ["EEEEEEEEEEEEE   "],
                 "notes_override": {
                     1: [1, "ha", "center"],
                     2: [1, "ha", "center"],
@@ -230,7 +230,7 @@ export default {
             },
             "Dance Break": {
                 // DIFFERENCE: part of shouting breaks in player
-                "notes": "                ",
+                "notes": ["                "],
                 "notes_override": {
                     1: [2, "E-", "left"],
                     3: [2, "very", "left"],
@@ -444,7 +444,7 @@ export default {
         "sign": "shaving the armpit",
         "patterns": {
             "Break 2": {
-                "notes": "      S       S       S   SSSSS ",
+                "notes": ["      S       S       S   SSSSS "],
                 "remarks": ["S = Mid and high surdos, everybody else continues playing!"],
                 "remarks_indented": true,
             },
@@ -520,7 +520,6 @@ export default {
                 ),
                 "subtitle": "Intro",
                 "nosqueeze": true,
-                "skip_empty_lines": true,
             },
             "No-Cent-For-Axel-Break": {
                 // DIFFERENCE name
@@ -660,7 +659,7 @@ export default {
             },
             "Break 3": {
                 // DIFFERENCE: missing in player
-                "notes": "                                ",
+                "notes": ["                                "],
                 "notes_override": {
                     1: [2, "ciao", "left"],
                     5: [2, "bel-", "left"],
@@ -710,7 +709,7 @@ export default {
             "Break 1": {
                 "memory_aid": {
                     "upbeat": 6,
-                    "notes": "  XX  X XX X  XX  X  X  X XX  ",
+                    "notes": ["  XX  X XX X  XX  X  X  X XX  "],
                     "words": [
                         "I", "say", "do", "as", "I", "say,", "you", "old", "fool,",
                         "dam", "dam,", "I", "say",
@@ -777,7 +776,7 @@ export default {
             },
             "Call Break": {
                 // DIFFERENCE longer and different pattern in player
-                "notes": "S     S   RR  R R     RR  R   R ",
+                "notes": ["S     S   RR  R R     RR  R   R "],
                 "remarks": ["With both hands point at yourself and then at the band"],
             },
         },
@@ -962,21 +961,17 @@ export default {
                     "ONE instrument section continues while the rest of the band plays this break"
                 ),
                 "sign": "+ instr. sign that continues",
-                // TODO: compressed view when two lines are repeated
-                "row_numbers": ["1-7", "2-8", "8"],
-                "notes": (
-                    "A             A " +
-                    "A               " +
-                    "Š.Š.Š..Š.Š..ŠŠŠŠ"
-                ),
+                "separate_lines": [
+                    [112, 127, ["sn"]],
+                ],
             },
             "Singing Break": {
-                "notes": (
+                "notes": [(
                     "                " +
                     "                " +
                     "                " +
                     "                "
-                ),
+                )],
                 "notes_override": Object.assign({}, ...(
                     [0, 16, 32, 48].map((offset) => shift_override_offsets({
                         1: [1, offset == 48 ? "We've" : "I've", "left"],
@@ -1035,25 +1030,33 @@ export default {
                 },
             },
             "Break 3": {
-                // TODO: Agogo on separate line
+                // TODO: override (h) in last Agogo beat
                 "single_bar_sizing": true,
                 "aside_lines": {
                     2: [1, "ms = Mid Surdo"],
                 },
+                "separate_lines": [
+                    [16, 31, ["ag"]],
+                ],
             },
             "Bongo Break 1": {
-                // TODO: Agogo on separate line
                 "sign": "play a bongo with one hand",
                 "subtitle_extra_lines": 2,
                 "remarks": ["play as loop"],
                 "remarks_indented": true,
+                "separate_lines": [
+                    [0, 31, ["ag"]],
+                ],
             },
             "Bongo Break 2": {
-                // TODO: Agogo and "A" on separate line
                 "sign": "play a bongo with two hands",
                 "subtitle_extra_lines": 2,
                 "remarks": ["play as loop"],
                 "remarks_indented": true,
+                "separate_lines": [
+                    [0, 31, ["ta", "re", "sn"]],
+                    [0, 31, ["ag"]],
+                ],
             },
             "Monkey Break": {
                 // TODO: use signs in 'ot' (?)
@@ -1087,7 +1090,7 @@ export default {
         "patterns": {
             "Dance Break": {
                 "single_bar_sizing": true,
-                "notes": "                ",
+                "notes": ["                "],
                 "notes_override": {
                     1: [2, "E-", "left"],
                     3: [2, "very", "left"],
@@ -1143,9 +1146,12 @@ export default {
             "bars_per_row": 2,
         },
         "patterns": {
+            // TODO: Tune: group surdos line 1+2 together
             "White Shark": {
-                // TODO: separate Agogo in lines 3 and 4
                 "sign": "simulating a shark fin",
+                "separate_lines": [
+                    [0, 127, ["ag"]],
+                ],
             },
         },
         "pages": [
@@ -1156,7 +1162,6 @@ export default {
                 "White Shark",
             ],
         ],
-        // TODO: group surdos line 1+2 together
     },
     "Funk": {
         "sign": "glasses on your eyes",
@@ -1164,7 +1169,7 @@ export default {
             "Tune (Variant 1)": false,
             "Tune (Variant 2)": false,
             "Oi/Ua Break": {
-                "notes": "E   E   E   Ș   ",
+                "notes": ["E   E   E   Ș   "],
                 "notes_override": {
                     5: [4, "[ E E E ]", "center"],
                     13: [4, "shout...", "left"],
@@ -1203,12 +1208,13 @@ export default {
                 "subtitle_extra_lines": 1,
             },
             "Kick Back 1": {
-                // TODO Agogo on separate line and show as "ag"
                 "single_bar_sizing": true,
                 "suppress_instruments": [
                     ["*", 17, 64],
                 ],
-                "skip_empty_lines": true,
+                "separate_lines": [
+                    [0, 15, ["ag"]],
+                ],
                 "remarks_indented": true,
                 "remarks": [
                     "repeat until cut, ag = Agogô, switch low and high every two bars",
@@ -1324,12 +1330,20 @@ export default {
             + " fingertips aligned with elbows (like in Estonian folk dance)"
         ),
         "patterns": {
-            // TODO separate agogo in Break 1+2
             // DIFFERENCE agogo break 2: no low/high
             "Break 1": {
                 "notes_override": {
                     29: [4, "Hei!", "left"],
                 },
+                "separate_lines": [
+                    [0, 31, ["ag"]],
+                ],
+            },
+            "Break 2": {
+                "nosqueeze": true,
+                "separate_lines": [
+                    [0, 63, ["ag"]],
+                ],
             },
         },
         "pages": [
@@ -1386,7 +1400,7 @@ export default {
         ),
         "patterns": {
             "Hey Break": {
-                "notes": "XX  r           ",
+                "notes": ["XX  r           "],
                 "notes_override": {
                     9: [2, "Hey!", "left"],
                 },
@@ -1511,7 +1525,7 @@ export default {
         // TODO no sign?!
         "patterns": {
             "Break 1": {
-                "notes": "x.x.x.x.E       ",
+                "notes": ["x.x.x.x.E       "],
                 "notes_override": {
                     13: [1, "Hey!", "left"],
                 },
@@ -1604,7 +1618,7 @@ export default {
                 "remarks": ["oo = Shout Ook!"],
             },
             "Speaking Break": {
-                "notes": "                ",
+                "notes": ["                "],
                 "remarks_indented": true,
                 "remarks": ["Make monkey noises"],
             },
@@ -1693,10 +1707,12 @@ export default {
             },
             "Küsel Break": {
                 // DIFFERENCE snare has a typo (?) in the tune book
-                // TODO: Snare on separate line
                 "sign": "hands twist head",
                 "remarks_indented": true,
                 "remarks": ["all players turn around 360° while playing the break"],
+                "separate_lines": [
+                    [0, 31, ["sn"]],
+                ],
             },
             "I like to move it": {
                 "sign": "curling hands up and down",
@@ -1705,12 +1721,14 @@ export default {
                 "remarks": ["Repi and Agogô; play as a loop"],
             },
             "Eye of the tiger": {
-                // TODO: Snare on separate line
                 "notes_override": {
                     145: [36, "Agogô beating fast between both bells...", "left"],
                     181: [12, "... until here", "right"],
                     // TODO: snare stops here
                 },
+                "separate_lines": [
+                    [0, 189, ["sn"]],
+                ],
                 "preamble": "Surdos (High, Middle, Low), Snare",
                 "sign": "claws left and right",
             },
@@ -1764,14 +1782,17 @@ export default {
                 "subtitle_extra_lines": 1,
             },
             "Kick Back 2": {
-                // TODO Agogô on separate line
+                // DIFFERENCE Agogô player aoaoaoao... instead of aaaaaaa...
                 "remarks_indented": true,
                 "remarks": ["repeat until cut with one of the breaks"],
                 "sign": "like Kick Back 1, but with two thumbs",
+                "separate_lines": [
+                    [0, 63, ["ag"]],
+                ],
             },
             "Break 1": {
                 // DIFFERENCE Break 1 is not in player
-                "notes": "S AS AS ",
+                "notes": ["S AS AS "],
                 "remarks": [
                     "this break is only two counts long - afterwards continue"
                     + " normally with the first beat",
@@ -1849,21 +1870,22 @@ export default {
         },
         "patterns": {
             "Bra Break": {
-                // TODO Snare on separate line in lines 5-7
                 "nosqueeze": true,
                 "remarks_indented": true,
                 "remarks": ["ls = low surdo picks up"],
+                "separate_lines": [
+                    [64, 111, ["sn"]],
+                ],
             },
             "Clave": {
                 // DIFFERENCE Clave is not in player
-                "notes": "E  E  E   E E   ",
+                "notes": ["E  E  E   E E   "],
             },
             "Break 1": {
                 "remarks_indented": true,
                 "remarks": ["hs = high surdo picks up"],
             },
             "Break 3": {
-                // TODO: T+h on separate line in lines 6, 7
                 "suppress_instruments": [
                     ["sn", 17, 128],
                 ],
@@ -1871,6 +1893,9 @@ export default {
                 "preamble": "snare continues playing this through the break",
                 "remarks_indented": true,
                 "remarks": ["hs = high surdo picks up"],
+                "separate_lines": [
+                    [80, 111, ["ta", "ag"]],
+                ],
             },
             "SOS Break": {
                 // DIFFERENCE in Repi tune after playing SOS break is not in player
@@ -1882,7 +1907,6 @@ export default {
                 "remarks": ["ls = low surdo picks up"],
             },
             "Knock On The Door Break": {
-                // TODO: Snare on separate line
                 // TODO: merge with cut for knock on the door (?)
                 "preamble": "snare continues playing this or the rhythm of Call Break",
                 "sign": (
@@ -1891,6 +1915,17 @@ export default {
                 ),
                 "remarks_indented": true,
                 "remarks": ["repeat until cut"],
+                "nosqueeze": true,
+                "separate_lines": [
+                    [0, 189, ["sn"]],
+                ],
+            },
+            "Knock On The Door (Cut)": {
+                "nosqueeze": true,
+                "separate_lines": [
+                    [0, 189, ["sn"]],
+                    [141, 189, ["re"]],
+                ],
             },
             "Dancing Break": {
                 // TODO: group together two consecutive lines played repeatedly
@@ -1944,10 +1979,13 @@ export default {
                 ),
             },
             "Break 2": {
-                // TODO: Repi on separate line
                 "instruments": ["ls", "ms", "hs", "re", "ag", "ta"],
                 "remarks_indented": true,
                 "remarks": ["Snare plays the same as Repi"],
+                "nosqueeze": true,
+                "separate_lines": [
+                    [0, 63, ["re"]],
+                ],
             },
             "Whistle Break": {
                 "sign": "Point to whistle",
@@ -2053,7 +2091,7 @@ export default {
             },
             "Break 2": {
                 "preamble": "Surdos start with 3 upbeats before the 1",
-                // TODO: shaker on separate line
+                // TODO: Shaker! (and on separate line)
                 // TODO: third bar is truncated
                 "remarks_indented": true,
                 "remarks": [". = Shaker"],
@@ -2098,10 +2136,13 @@ export default {
                 },
             },
             "Bra Break": {
-                // TODO: Agogô on separate line
+                // TODO: last line is truncated because only single bar
                 "notes_override": {
                     109: [2, "Burn!", "left"],
                 },
+                "separate_lines": [
+                    [0, 127, ["ag"]],
+                ],
             },
         },
         "pages": [
@@ -2120,7 +2161,7 @@ export default {
                 "separate_instruments": true,
                 // TODO: memory aid for break with separate instruments
                 "memory_aid": {
-                    "notes": "XXX X  X    XXX X  X    ",
+                    "notes": ["XXX X  X    XXX X  X    "],
                     "words": [
                         "Ren-", "ted", "a", "tent,", "a", "tent,", "a", "tent!",
                         "Ren-", "ted", "a", "tent,", "a", "tent,", "a", "tent!",
@@ -2195,9 +2236,11 @@ export default {
                 "remarks": ["Everybody sings this"],
             },
             "Silence Break": {
-                // TODO: only ls and ag, and on separate lines
                 "sign": "the sign is 4 fingers up",
                 "remarks": ["ls = low surdo, ag = agogô"],
+                "separate_lines": [
+                    [0, 15, ["ag"]],
+                ],
             },
             "Break 2": {
                 "separate_instruments": true,
@@ -2259,7 +2302,7 @@ export default {
                 "sign": "Signed like scissors",
                 "subtitle_extra_lines": 1,
                 "memory_aid": {
-                    "notes": "X X X X XX X XX ",
+                    "notes": ["X X X X XX X XX "],
                     "words": ["1", "2", "3", "4", "in", "my", "un-", "der", "pants"],
                 },
             },
@@ -2276,7 +2319,7 @@ export default {
         "patterns": {
             "Break 1": {
                 // DIFFERENCE break missing in player
-                "notes": "E E E ",
+                "notes": ["E E E "],
             },
             "Bra Break": {
                 // DIFFERENCE name
@@ -2390,12 +2433,17 @@ export default {
         "patterns": {
             // TODO: shaker
             "Bra Break": {
-                // TODO: Snare on separate line
                 // TODO: fl/hd/ri for Repi
                 "single_bar_sizing": true,
+                "separate_lines": [
+                    [48, 63, ["sn"]],
+                ],
             },
             "Kick Back 2": {
-                // TODO: Repi on separate line
+                // TODO: "A" instead of "E" (?)
+                "separate_lines": [
+                    [0, 15, ["re"]],
+                ],
             },
         },
         "pages": [
