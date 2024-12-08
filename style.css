@@ -43,6 +43,10 @@ h1 div {
     font-weight: normal;
 }
 
+section.wide h1 div {
+    max-width: 70rem;
+}
+
 h1 div.long {
     line-height: 1.1rem;
     font-size: 0.85rem;

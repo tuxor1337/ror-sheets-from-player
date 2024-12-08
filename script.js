@@ -51,6 +51,10 @@ const INSTRU_NAMES = {
 
 const INSTRU_ORDER = ["as", "ls", "ms", "lms", "hs", "mhs", "re", "sn", "ta", "ag", "ot"];
 
+function note_char_to_repr(c) {
+    return NOTE_CHARS.hasOwnProperty(c) ? NOTE_CHARS[c] : c;
+}
+
 function render_tune(tune) {
     const total_width = tune["sizing"]["total_width"];
     for (let i_page = 0; i_page < tune["pages"].length; i_page++) {
@@ -62,6 +66,9 @@ function render_tune(tune) {
         let el_table = null;
         let sizing = null;
         el_section.style.width = `${total_width}rem`;
+        if (total_width > 80) {
+            el_section.classList.add("wide");
+        }
 
         function render_header(main, aside) {
             el_h1.textContent = main;
@@ -140,9 +147,7 @@ function render_tune(tune) {
                 if (i >= offset) {
                     el_td.classList.add("note");
                     el_td.classList.add("upbeat");
-                    let c = notation.charAt(i - offset);
-                    c = NOTE_CHARS.hasOwnProperty(c) ? NOTE_CHARS[c] : c;
-                    el_td.textContent = c;
+                    el_td.textContent = note_char_to_repr(notation.charAt(i - offset));
                 }
                 el_tr.appendChild(el_td);
             }
@@ -173,8 +178,7 @@ function render_tune(tune) {
                 el_tr.appendChild(el_td);
             }
             for (let i = offset; i - offset < notation.length; i++) {
-                let c = notation.charAt(i - offset);
-                c = NOTE_CHARS.hasOwnProperty(c) ? NOTE_CHARS[c] : c;
+                let c = note_char_to_repr(notation.charAt(i - offset));
                 const el_td = document.createElement("td");
                 el_td.classList.add("note");
                 if (
@@ -233,8 +237,6 @@ function render_tune(tune) {
                 el_table.appendChild(el_tr);
             }
             const upbeat = data.hasOwnProperty("upbeat") ? data["upbeat"] : 0;
-            const n_instr = data["instru_order"].length;
-            let i_instr = 0;
             const empty_line = " ".repeat(Math.min(
                 sizing["subbeats_per_row"],
                 ...Object.entries(data["notes"]).map(([key, n]) => {
@@ -244,6 +246,8 @@ function render_tune(tune) {
             const notes_override = (
                 data.hasOwnProperty("notes_override") ? data["notes_override"] : {}
             );
+
+            const lines_render_ins = {};
             for (const instru_name of data["instru_order"]) {
                 const notes = data["notes"][instru_name];
                 const n_lines = Math.ceil((notes.length - upbeat) / sizing["subbeats_per_row"]);
@@ -262,7 +266,7 @@ function render_tune(tune) {
                 );
                 const first_nonempty_line = lines.findIndex(l => l != empty_line);
 
-                const lines_render = [];
+                lines_render_ins[instru_name] = [];
                 for (let i_line = 0; i_line < n_lines; i_line++) {
                     const offset = i_line * sizing["subbeats_per_row"];
                     const l = lines[i_line];
@@ -280,13 +284,13 @@ function render_tune(tune) {
                         i_line_next++;
                     }
                     let str_row = "";
-                    if (n_lines > 1 || i_instr == 0) {
+                    if (n_lines > 1 || instru_name == data["instru_order"][0]) {
                         str_row += `${i_line + 1}`;
                         if (i_line_next > i_line + 1) {
                             str_row += `-${i_line_next}`;
                         }
                     }
-                    lines_render.push({
+                    lines_render_ins[instru_name].push({
                         "row_name": (
                             i_line == first_nonempty_line
                             ? (
@@ -302,35 +306,53 @@ function render_tune(tune) {
                     });
                     i_line = i_line_next - 1;
                 }
-                if (i_instr + 1 < n_instr && !compact_layout) {
-                    lines_render.push({
-                        "row_name": "",
-                        "str_row": "",
-                        "notation": empty_line,
-                    });
-                }
-
-                lines_render.forEach(({row_name, str_row, notation, override, upbeat}, i_line) => {
-                    const el_tr = tbl_add_tune_row(
-                        row_name, str_row, notation, override, upbeat, true,
-                    );
-                    if (compact_layout) {
-                        const td_notes = el_tr.querySelectorAll("td.note:not(.upbeat)");
-                        td_notes[0].classList.add("line_start");
-                        td_notes[td_notes.length - 1].classList.add("line_end");
-
-                        if (i_line == 0 && i_instr == 0) {
-                            el_tr.classList.add("break_start");
-                        }
-
-                        if (i_line == lines_render.length - 1 && i_instr == n_instr - 1) {
-                            el_tr.classList.add("break_end");
-                        }
-                    }
-                });
-
-                i_instr++;
             }
+
+            const empty_line_render = {
+                "row_name": "",
+                "str_row": "",
+                "notation": empty_line,
+            }
+            const lines_render = [];
+            if (data.hasOwnProperty("group_surdos")) {
+                const surdos = ["ls", "ms", "hs"];
+                lines_render_ins[surdos[0]].forEach((_, i_line) => {
+                    lines_render.push(...surdos.map((ins, i_instr) => {
+                        if (i_instr != 0) {
+                            lines_render_ins[ins][i_line]["str_row"] = "";
+                        }
+                        return lines_render_ins[ins][i_line];
+                    }));
+                    lines_render.push(empty_line_render);
+                });
+                data["instru_order"] = data["instru_order"].filter(ins => surdos.indexOf(ins) < 0);
+            }
+
+            data["instru_order"].forEach((instru_name, i_instr) => {
+                lines_render.push(...lines_render_ins[instru_name]);
+                if (i_instr + 1 < data["instru_order"].length && !compact_layout) {
+                    lines_render.push(empty_line_render);
+                }
+            });
+
+            lines_render.forEach(({row_name, str_row, notation, override, upbeat}, i_line) => {
+                const el_tr = tbl_add_tune_row(
+                    row_name, str_row, notation, override, upbeat, true,
+                );
+                if (compact_layout) {
+                    const td_notes = el_tr.querySelectorAll("td.note:not(.upbeat)");
+                    td_notes[0].classList.add("line_start");
+                    td_notes[td_notes.length - 1].classList.add("line_end");
+
+                    if (i_line == 0) {
+                        el_tr.classList.add("break_start");
+                    }
+
+                    if (i_line == lines_render.length - 1) {
+                        el_tr.classList.add("break_end");
+                    }
+                }
+            });
 
 
             const remarks = data.hasOwnProperty("remarks") ? data["remarks"] : [];
@@ -1063,19 +1085,20 @@ function _convert_triols(notes_12) {
     let notes_4 = "";
     let override = {};
     for (let i_beat = 0; i_beat < n_beats; i_beat++) {
-        const beat_str = notes_12.slice(i_beat * 12, (i_beat + 1) * 12);
-        if ([...beat_str].every((c, i) => i % 3 == 0 || c == " ")) {
-            notes_4 += [...beat_str].filter((_, i) => i % 3 == 0).join("");
-        } else if ([...beat_str].every((c, i) => i % 4 == 0 || c == " ")) {
+        const subbeats = [...notes_12.slice(i_beat * 12, (i_beat + 1) * 12)];
+        const subbeats_transl = subbeats.map(c => c == " " ? " " : note_char_to_repr(c));
+        if (subbeats.every((c, i) => i % 3 == 0 || c == " ")) {
+            notes_4 += subbeats.filter((_, i) => i % 3 == 0).join("");
+        } else if (subbeats.every((c, i) => i % 4 == 0 || c == " ")) {
             notes_4 += "    ";
             override[i_beat * 4 + 1] = [
                 4,
-                `[ ${[...beat_str].filter((_, i) => i % 4 == 0).join(" ")} ]`,
+                `[ ${subbeats_transl.filter((_, i) => i % 4 == 0).join(" ")} ]`,
                 "center",
             ];
         } else {
             notes_4 += "    ";
-            override[i_beat * 4 + 1] = [4, `[${beat_str}]`, "center"];
+            override[i_beat * 4 + 1] = [4, `[${subbeats_transl.join(" ")}]`, "center"];
         }
     }
     return [notes_4, override];

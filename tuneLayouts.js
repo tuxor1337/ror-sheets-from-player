@@ -874,11 +874,13 @@ export default {
                 "remarks_indented": true,
             },
             "Break 1": {
-                // TODO automatically display triols as [ X X X ]
                 "single_bar_sizing": true,
                 "aside_lines": {
                     1: [1, "fl, R: only Repi"],
                 },
+                "separate_lines": [
+                    [0, 48, ["ag"]],
+                ],
             },
         },
         "pages": [
@@ -1030,13 +1032,18 @@ export default {
                 },
             },
             "Break 3": {
-                // TODO: override (h) in last Agogo beat
                 "single_bar_sizing": true,
                 "aside_lines": {
                     2: [1, "ms = Mid Surdo"],
                 },
                 "separate_lines": [
                     [16, 31, ["ag"]],
+                ],
+                "notes_override": [
+                    {},
+                    {
+                        31: [1, "(h)", "center"],
+                    }
                 ],
             },
             "Bongo Break 1": {
@@ -1059,12 +1066,16 @@ export default {
                 ],
             },
             "Monkey Break": {
-                // TODO: use signs in 'ot' (?)
+                // DIFFERENCE triols in book, regular 16th in player
                 "single_bar_sizing": true,
                 "sign": "like tune sign",
                 "aside": "Shout like a monkey",
                 "remarks": ["alternative: different rhythm or just chaotic voices"],
                 "remarks_indented": true,
+                "notes_override": [{
+                    1: [8, "[ U U U ]", "center"],
+                    9: [8, "[ A A A ]", "center"],
+                }],
             },
         },
         "pages": [
@@ -1146,7 +1157,9 @@ export default {
             "bars_per_row": 2,
         },
         "patterns": {
-            // TODO: Tune: group surdos line 1+2 together
+            "Tune": {
+                "group_surdos": true,
+            },
             "White Shark": {
                 "sign": "simulating a shark fin",
                 "separate_lines": [
