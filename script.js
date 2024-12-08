@@ -566,10 +566,17 @@ function render_tune(tune) {
         function _render_lines_merged(data) {
             const lines_render = [];
             const lines_render_tmp = data["notes"].flatMap((_, i) => _render_lines(data, i));
+            let str_row_prev = "";
             while (lines_render_tmp.length > 0) {
                 const min_l_start = Math.min(...lines_render_tmp.map(arr => arr["l_start"]));
                 const i_next = lines_render_tmp.findIndex(arr => arr["l_start"] == min_l_start);
-                lines_render.push(lines_render_tmp.splice(i_next, 1)[0]);
+                const l_next = lines_render_tmp.splice(i_next, 1)[0];
+                if (l_next["str_row"] == str_row_prev) {
+                    l_next["str_row"] = "";
+                } else {
+                    str_row_prev = l_next["str_row"];
+                }
+                lines_render.push(l_next);
             }
             return lines_render;
         }
