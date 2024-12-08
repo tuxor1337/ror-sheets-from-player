@@ -442,7 +442,12 @@ function render_tune(tune) {
 
         function _render_lines(data, i_notes) {
             const upbeat = data.hasOwnProperty("upbeat") ? data["upbeat"] : 0;
-            const notes_override = data.hasOwnProperty("notes_override") ? data["notes_override"] : {};
+            const notes_override = (
+                data.hasOwnProperty("notes_override")
+                && data["notes_override"].length > i_notes
+                ? data["notes_override"][i_notes]
+                : {}
+            );
             const empty_line = " ".repeat(sizing["subbeats_per_row"]);
             let notes = data["notes"][i_notes];
             let n_lines = Math.ceil(notes.length / sizing["subbeats_per_row"]);

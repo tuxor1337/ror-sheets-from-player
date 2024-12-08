@@ -100,10 +100,10 @@ export default {
             "Oi/Ua Break": {
                 // DIFFERENCE: part of special breaks
                 "notes": ["E   E   E   Ș   "],
-                "notes_override": {
+                "notes_override": [{
                     5: [4, "[ E E E ]", "center"],
                     13: [4, "shout...", "left"],
-                },
+                }],
                 "remarks": [
                     "... “oi”: two arms crossing, with OK-sign",
                     "... “ua”: two fists, knuckles hit each other",
@@ -112,12 +112,12 @@ export default {
             "Cat Break": {
                 // DIFFERENCE: missing in player
                 "notes": ["                "],
-                "notes_override": {
+                "notes_override": [{
                     1: [1, "m", "center"],
                     5: [1, "i", "center"],
                     9: [1, "a", "center"],
                     13: [1, "u", "center"],
-                },
+                }],
                 "remarks": ["from high to low sound"],
                 "sign": "claws to left and right",
                 "subtitle_extra_lines": 1,
@@ -130,13 +130,13 @@ export default {
                     "S S A SSS S A  E" +
                     "E E E E         "
                 ),
-                "notes_override": {
+                "notes_override": [{
                     60: [1, "a", "center"],
                     61: [1, "u", "center"],
                     62: [1, "-", "center"],
                     63: [1, "-", "center"],
                     64: [1, "-", "center"],
-                },
+                }],
                 "sign": "wolf's ears and teeth",
                 "subtitle_extra_lines": 1,
                 "remarks": ["< a - u = like a howling wolf"],
@@ -177,7 +177,7 @@ export default {
             "Laughing Break": {
                 // DIFFERENCE: missing in player
                 "notes": ["EEEEEEEEEEEEE   "],
-                "notes_override": {
+                "notes_override": [{
                     1: [1, "ha", "center"],
                     2: [1, "ha", "center"],
                     3: [1, "ha", "center"],
@@ -191,7 +191,7 @@ export default {
                     11: [1, "ha", "center"],
                     12: [1, "ha", "center"],
                     13: [1, "ha", "center"],
-                },
+                }],
                 "aside": "laughter",
                 "sign": "fingers move up corners of your mouth",
                 "subtitle_extra_lines": 2,
@@ -231,14 +231,14 @@ export default {
             "Dance Break": {
                 // DIFFERENCE: part of shouting breaks in player
                 "notes": ["                "],
-                "notes_override": {
+                "notes_override": [{
                     1: [2, "E-", "left"],
                     3: [2, "very", "left"],
                     5: [2, "bo-", "left"],
                     7: [2, "dy", "left"],
                     9: [4, "dance", "left"],
                     13: [4, "now", "left"],
-                },
+                }],
                 "aside": "Everybody sings",
                 "sign": (
                     "Show a > with your index+middle finger and move it horizontally in front"
@@ -524,22 +524,22 @@ export default {
             "No-Cent-For-Axel-Break": {
                 // DIFFERENCE name
                 "name": "No Cent for Axel Break",
-                "notes_override": {
+                "notes_override": [{
                     1: [1, "Kein", "center"],
                     2: [1, "Cent", "center"],
                     4: [1, "für", "center"],
                     5: [1, "Ax-", "center"],
                     7: [1, "el", "center"],
-                },
+                }],
                 "remarks": ["“No” gesture, then “money” gesture (rub thumb and index)"],
             },
             "Tension Break": {
-                "notes_override": {
+                "notes_override": [{
                     5: [1, "Tls", "center"],
                     7: [1, "Tms", "center"],
                     21: [1, "Tls", "center"],
                     23: [1, "Tms", "center"],
-                },
+                }],
                 "preamble": "snare continues playing through the break!",
                 "sign": "2 fingers running on the palm on the other hand",
                 "subtitle_extra_lines": 1,
@@ -581,7 +581,7 @@ export default {
                     "X  X  X           XXX X X       " +
                     "X  X  X           XXX X X       "
                 ),
-                "notes_override": {
+                "notes_override": [{
                     1: [1, "non", "left"],
                     4: [1, "non", "left"],
                     7: [1, "non", "left"],
@@ -598,7 +598,7 @@ export default {
                     53: [1, "a", "left"],
                     55: [1, "ga-", "left"],
                     57: [1, "gner", "left"],
-                },
+                }],
                 "sign": "wave no-no with one hand, show 1 finger with another",
                 "subtitle_extra_lines": 2,
             },
@@ -608,7 +608,7 @@ export default {
                     "X  X  X           XXX X X       " +
                     "X  X  X           XXX X X       "
                 ),
-                "notes_override": {
+                "notes_override": [{
                     1: [1, "non", "left"],
                     4: [1, "non", "left"],
                     7: [1, "non", "left"],
@@ -625,7 +625,7 @@ export default {
                     53: [1, "ca-", "left"],
                     55: [1, "mé-", "left"],
                     57: [1, "ras", "left"],
-                },
+                }],
                 "sign": "same as singing break 1, but with 2 fingers",
                 "subtitle_extra_lines": 2,
             },
@@ -733,9 +733,9 @@ export default {
             },
             "Bra Break": {
                 "single_bar_sizing": true,
-                "notes_override": {
+                "notes_override": [{
                     94: [1, "eh", "center"],
-                },
+                }],
                 "aside_lines": {
                     1: [1, "R = Repinique"],
                     7: [1, "from soft to loud"],
@@ -1091,14 +1091,14 @@ export default {
             "Dance Break": {
                 "single_bar_sizing": true,
                 "notes": ["                "],
-                "notes_override": {
+                "notes_override": [{
                     1: [2, "E-", "left"],
                     3: [2, "very", "left"],
                     5: [2, "bo-", "left"],
                     7: [2, "dy", "left"],
                     9: [4, "dance", "left"],
                     13: [4, "now", "left"],
-                },
+                }],
                 "remarks": [
                     "Show a > with your index+middle finger and move it horizontally in front"
                     + " of your eyes",
@@ -1107,12 +1107,12 @@ export default {
             },
             "Break 2": {
                 "single_bar_sizing": true,
-                "notes_override": {
+                "notes_override": [{
                     25: [1, "x", "center"],
                     26: [1, "x", "center"],
                     27: [1, "x", "center"],
                     28: [1, "x", "center"],
-                },
+                }],
                 "aside": "x = hits on snare and repi",
             },
             "Break 3": {
@@ -1170,10 +1170,10 @@ export default {
             "Tune (Variant 2)": false,
             "Oi/Ua Break": {
                 "notes": ["E   E   E   Ș   "],
-                "notes_override": {
+                "notes_override": [{
                     5: [4, "[ E E E ]", "center"],
                     13: [4, "shout...", "left"],
-                },
+                }],
                 "remarks": [
                     "... “oi”: two arms crossing, with OK-sign",
                     "... “ua”: two fists, knuckles hit each other",
@@ -1221,10 +1221,10 @@ export default {
                 ],
             },
             "Kick Back 2": {
-                "notes_override": {
+                "notes_override": [{
                     31: [1, ".", "center"],
                     32: [1, ".", "center"],
-                },
+                }],
                 "remarks_indented": true,
                 "remarks": [
                     ". = snare playing silent note",
@@ -1255,9 +1255,9 @@ export default {
                     "                " +
                     "S   S   S   S   "
                 ),
-                "notes_override": {
+                "notes_override": [{
                     1: [6, "count in from here", "left"],
-                },
+                }],
                 "remarks_indented": true,
                 "remarks": [
                     "others continue playing",
@@ -1269,11 +1269,11 @@ export default {
                     "                " +
                     "E               "
                 ),
-                "notes_override": {
+                "notes_override": [{
                     1: [6, "count in from here", "left"],
                     25: [4, "Hedge-", "left"],
                     29: [4, "hog", "left"],
-                },
+                }],
                 "sign": "Hedgehog Tune sign",
                 "subtitle_extra_lines": 1,
                 // TODO specify indent in terms of subbeats
@@ -1332,9 +1332,9 @@ export default {
         "patterns": {
             // DIFFERENCE agogo break 2: no low/high
             "Break 1": {
-                "notes_override": {
+                "notes_override": [{
                     29: [4, "Hei!", "left"],
-                },
+                }],
                 "separate_lines": [
                     [0, 31, ["ag"]],
                 ],
@@ -1401,9 +1401,9 @@ export default {
         "patterns": {
             "Hey Break": {
                 "notes": ["XX  r           "],
-                "notes_override": {
+                "notes_override": [{
                     9: [2, "Hey!", "left"],
-                },
+                }],
                 "sign": "make an X with your index fingers",
                 "subtitle_extra_lines": 1,
             },
@@ -1422,9 +1422,9 @@ export default {
                 "separate_instruments": true,
             },
             "Break 2": {
-                "notes_override": {
+                "notes_override": [{
                     11: [1, "hey!", "left"],
-                },
+                }],
             },
         },
         "pages": [
@@ -1526,9 +1526,9 @@ export default {
         "patterns": {
             "Break 1": {
                 "notes": ["x.x.x.x.E       "],
-                "notes_override": {
+                "notes_override": [{
                     13: [1, "Hey!", "left"],
-                },
+                }],
                 "remarks_indented": true,
                 "remarks": ["x, .: Snare"],
             },
@@ -1540,20 +1540,20 @@ export default {
                 "separate_instruments": true,
             },
             "Call break": {
-                "notes_override": {
+                "notes_override": [{
                     5: [1, "Hey!", "left"],
                     13: [1, "Hey!", "left"],
-                },
+                }],
             },
             "Shouting break": {
                 "name": "Shouting Break",
-                "notes_override": {
+                "notes_override": [{
                     3: [1, "🗣", "center"],
                     6: [1, "🗣", "center"],
                     7: [1, "🗣", "center"],
                     9: [1, "🗣", "center"],
                     11: [1, "🗣", "center"],
-                },
+                }],
                 "remarks_indented": true,
                 "remarks": ["🗣: Replace with own shout"],
             },
@@ -1608,10 +1608,10 @@ export default {
                 ],
             },
             "Monkey break": {
-                "notes_override": {
+                "notes_override": [{
                     1: [1, "oo", "center"],
                     9: [1, "oo", "center"],
-                },
+                }],
                 "sign": "One hand in armpit",
                 "subtitle_extra_lines": 1,
                 "remarks_indented": true,
@@ -1655,7 +1655,7 @@ export default {
                 "remarks": ["Like Clave, but vertically, like letter C"],
             },
             "Disco Barricade Break": {
-                "notes_override": {
+                "notes_override": [{
                     1: [1, "Dis-", "center"],
                     3: [1, "co", "center"],
                     5: [1, "dis-", "center"],
@@ -1664,7 +1664,7 @@ export default {
                     11: [1, "ri-", "center"],
                     12: [1, "ca-", "center"],
                     14: [1, "do!", "center"],
-                },
+                }],
                 "sign": "Build barricade by stacking hands on each other",
                 "subtitle_extra_lines": 1,
             },
@@ -1692,17 +1692,17 @@ export default {
         "sign": "sign with both hands a rotating rope and jump up and down",
         "patterns": {
             "Oh Shit": {
-                "notes_override": {
+                "notes_override": [{
                     9: [1, "Oh", "left"],
                     13: [1, "Shit", "left"],
-                },
+                }],
                 "remarks": ["two little fingers show horns of taurus"],
             },
             "Fuck Off": {
-                "notes_override": {
+                "notes_override": [{
                     9: [1, "Fuck", "left"],
                     13: [1, "Off", "left"],
-                },
+                }],
                 "remarks": ["one little finger"],
             },
             "Küsel Break": {
@@ -1721,11 +1721,11 @@ export default {
                 "remarks": ["Repi and Agogô; play as a loop"],
             },
             "Eye of the tiger": {
-                "notes_override": {
+                "notes_override": [{
                     145: [36, "Agogô beating fast between both bells...", "left"],
                     181: [12, "... until here", "right"],
                     // TODO: snare stops here
-                },
+                }],
                 "separate_lines": [
                     [0, 189, ["sn"]],
                 ],
@@ -1837,9 +1837,9 @@ export default {
                 // TODO repeat group of three lines 4x
                 // TODO "." in Repi
                 "name": "Call Break",
-                "notes_override": {
+                "notes_override": [{
                     78: [4, "[RRRRRR]", "center"],
-                },
+                }],
                 "subtitle": "Intro",
                 "remarks_indented": true,
                 "remarks": ["Last beat overlaps with first Repi beat"],
@@ -2021,12 +2021,12 @@ export default {
         "patterns": {
             // TODO: Tune: Whistle <-> Shouting
             "Intro": {
-                "notes_override": {
+                "notes_override": [{
                     1: [1, "Whoop!", "left"],
                     4: [1, "Whoop!", "left"],
                     17: [1, "Whoop!", "left"],
                     20: [1, "Whoop!", "left"],
-                },
+                }],
             },
             "Break 1": {
                 "remarks_indented": true,
@@ -2082,10 +2082,10 @@ export default {
                 },
             },
             "Break 1": {
-                "notes_override": {
+                "notes_override": [{
                     13: [3, "Tequila!", "left"],
                     16: [1, "(ls)", "center"],
-                },
+                }],
                 "subtitle_extra_lines": 1,
                 "sign": "Shake salt on number 1",
             },
@@ -2122,7 +2122,7 @@ export default {
         "patterns": {
             "Break 1": {
                 // DIFFERENCE player has only "ls" where book has "E"
-                "notes_override": {
+                "notes_override": [{
                     1: [2, "The", "left"],
                     3: [2, "Roof", "left"],
                     9: [2, "the", "left"],
@@ -2133,13 +2133,13 @@ export default {
                     23: [2, "on", "left"],
                     25: [2, "Fi-", "left"],
                     27: [2, "re", "left"],
-                },
+                }],
             },
             "Bra Break": {
                 // TODO: last line is truncated because only single bar
-                "notes_override": {
+                "notes_override": [{
                     109: [2, "Burn!", "left"],
-                },
+                }],
                 "separate_lines": [
                     [0, 127, ["ag"]],
                 ],
@@ -2213,7 +2213,7 @@ export default {
         "patterns": {
             // DIFFERENCE last two Agogô are hh in book, ll in player
             "Break 1": {
-                "notes_override": {
+                "notes_override": [{
                     1: [1, "g", "center"],
                     2: [1, ".", "center"],
                     3: [1, ".", "center"],
@@ -2231,7 +2231,7 @@ export default {
                     15: [1, "e", "center"],
                     16: [1, ".", "center"],
                     29: [1, "hey!", "left"],
-                },
+                }],
                 "remarks_indented": true,
                 "remarks": ["Everybody sings this"],
             },
@@ -2363,9 +2363,9 @@ export default {
                 "remarks": ["(X) = added in pat 2"],
             },
             "Break 2": {
-                "notes_override": {
+                "notes_override": [{
                     61: [1, "Oi!", "center"],
-                },
+                }],
                 "remarks_indented": true,
                 "remarks": ["Oi! = Everybody shouts “Oi”"],
             },
