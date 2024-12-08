@@ -314,18 +314,21 @@ function render_tune(tune) {
                 "notation": empty_line,
             }
             const lines_render = [];
-            if (data.hasOwnProperty("group_surdos")) {
-                const surdos = ["ls", "ms", "hs"];
-                lines_render_ins[surdos[0]].forEach((_, i_line) => {
-                    lines_render.push(...surdos.map((ins, i_instr) => {
-                        if (i_instr != 0) {
-                            lines_render_ins[ins][i_line]["str_row"] = "";
-                        }
-                        return lines_render_ins[ins][i_line];
-                    }));
-                    lines_render.push(empty_line_render);
-                });
-                data["instru_order"] = data["instru_order"].filter(ins => surdos.indexOf(ins) < 0);
+            if (data.hasOwnProperty("instrument_groups")) {
+                for (const group of data["instrument_groups"]) {
+                    lines_render_ins[group[0]].forEach((_, i_line) => {
+                        lines_render.push(...group.map((ins, i_instr) => {
+                            if (i_instr != 0) {
+                                lines_render_ins[ins][i_line]["str_row"] = "";
+                            }
+                            return lines_render_ins[ins][i_line];
+                        }));
+                        lines_render.push(empty_line_render);
+                    });
+                    data["instru_order"] = (
+                        data["instru_order"].filter(ins => group.indexOf(ins) < 0)
+                    );
+                }
             }
 
             data["instru_order"].forEach((instru_name, i_instr) => {
@@ -512,7 +515,11 @@ function render_tune(tune) {
                 }
                 const n_overrides = Object.keys(override);
 
-                if (n_overrides == 0 && lines[i_line] == empty_line) {
+                if (
+                    n_overrides == 0
+                    && lines[i_line] == empty_line
+                    && lines.some(l => l != empty_line)
+                ) {
                     continue;
                 }
 
@@ -840,28 +847,30 @@ function resolve_pattern(notes, no_high_surdo, sel_instrus, suppress) {
             );
         }
     }
-    if (notes["ls"] == notes["ms"] && no_high_surdo) {
-        sel_instrus = ["as", ...sel_instrus.filter(ins => ["ls", "ms", "hs"].indexOf(ins) < 0)];
-        notes["as"] = notes["ls"];
-        delete notes["ls"];
-        delete notes["ms"];
-    } else if (notes["ls"] == notes["ms"] && notes["ms"] != notes["hs"]) {
-        sel_instrus = ["lms", ...sel_instrus.filter(ins => ["ls", "ms"].indexOf(ins) < 0)];
-        notes["lms"] = notes["ms"];
-        delete notes["ls"];
-        delete notes["ms"];
-    } else if (notes["ms"] == notes["hs"]) {
-        if (notes["ls"] == notes["ms"]) {
+    if (["ls", "ms", "hs", "lms", "mhs", "as"].some(ins => sel_instrus.indexOf(ins) >= 0)) {
+        if (notes["ls"] == notes["ms"] && no_high_surdo) {
             sel_instrus = ["as", ...sel_instrus.filter(ins => ["ls", "ms", "hs"].indexOf(ins) < 0)];
             notes["as"] = notes["ls"];
             delete notes["ls"];
             delete notes["ms"];
-            delete notes["hs"];
-        } else {
-            sel_instrus = ["mhs", ...sel_instrus.filter(ins => ["ms", "hs"].indexOf(ins) < 0)];
-            notes["mhs"] = notes["ms"];
+        } else if (notes["ls"] == notes["ms"] && notes["ms"] != notes["hs"]) {
+            sel_instrus = ["lms", ...sel_instrus.filter(ins => ["ls", "ms"].indexOf(ins) < 0)];
+            notes["lms"] = notes["ms"];
+            delete notes["ls"];
             delete notes["ms"];
-            delete notes["hs"];
+        } else if (notes["ms"] == notes["hs"]) {
+            if (notes["ls"] == notes["ms"]) {
+                sel_instrus = ["as", ...sel_instrus.filter(ins => ["ls", "ms", "hs"].indexOf(ins) < 0)];
+                notes["as"] = notes["ls"];
+                delete notes["ls"];
+                delete notes["ms"];
+                delete notes["hs"];
+            } else {
+                sel_instrus = ["mhs", ...sel_instrus.filter(ins => ["ms", "hs"].indexOf(ins) < 0)];
+                notes["mhs"] = notes["ms"];
+                delete notes["ms"];
+                delete notes["hs"];
+            }
         }
     }
     return sel_instrus;
@@ -928,7 +937,7 @@ function _merge_instru_notes_i(notes, l_instrus, i) {
         return [...notes[ref_ins]].every(c => [" ", ref].indexOf(c) >= 0) ? "å" : ref;
     } else {
         const ref_note = notes[ref_ins].charAt(i);
-        if ([".", "f", "r", "s"].indexOf(ref_note) >= 0) {
+        if ([".", "f", "h", "r", "s"].indexOf(ref_note) >= 0) {
             return ref_note;
         } else {
             return BREAK_CHARS.hasOwnProperty(ref_ins) ? BREAK_CHARS[ref_ins] : ref_ins;
@@ -1104,6 +1113,33 @@ function _convert_triols(notes_12) {
     return [notes_4, override];
 }
 
+function _merge_instruments(p) {
+    const surdos = {
+        "ls": "Ş",
+        "ms": "Ꞩ",
+        "hs": "Ŝ",
+        "mhs": "Ṧ",
+        "lms": "Ꟊ",
+    };
+    for (let [gname, gmembers] of Object.entries(p["merge_instruments"])) {
+        let gnotes = p["notes"][gmembers[0]];
+        if (gmembers.every(m => surdos.hasOwnProperty(m))) {
+            gnotes = [...gnotes].map((_, i_note) => {
+                const gmembers_nz = gmembers.filter(m => p["notes"][m].charAt(i_note) != " ");
+                if (gmembers_nz.length == 0) {
+                    return " ";
+                }
+                if (gmembers_nz.length == 1) {
+                    return surdos[gmembers_nz[0]];
+                }
+                return "x";
+            }).join("");
+        }
+        gmembers.forEach(m => { delete p["notes"][m]; });
+        p["notes"][gname] = gnotes;
+    }
+}
+
 function _convert_patterns(patterns, layout) {
     const no_high_surdo = !Object.values(patterns).some(notes => notes.hasOwnProperty("hs"));
     const layout_patterns = layout.hasOwnProperty("patterns") ? layout["patterns"] : {};
@@ -1122,6 +1158,12 @@ function _convert_patterns(patterns, layout) {
         if (p.hasOwnProperty("sign")) {
             if (separate_instruments) {
                 p["preamble"] = p["sign"];
+            } else if (
+                p.hasOwnProperty("single_bar_sizing")
+                && !p.hasOwnProperty("aside")
+                && !p.hasOwnProperty("aside_lines")
+            ) {
+                p["aside"] = `sign: ${p["sign"]}`;
             } else {
                 p["subtitle"] = p["sign"];
             }
@@ -1141,12 +1183,8 @@ function _convert_patterns(patterns, layout) {
                         p["notes"][ins] = override_notes[ins];
                     }
                 }
-                if (p.hasOwnProperty("regroup_instruments")) {
-                    for (let [gname, gmembers] of Object.entries(p["regroup_instruments"])) {
-                        const gnotes = p["notes"][gmembers[0]];
-                        gmembers.forEach(m => { delete p["notes"][m]; });
-                        p["notes"][gname] = gnotes;
-                    }
+                if (p.hasOwnProperty("merge_instruments")) {
+                    _merge_instruments(p);
                 }
                 if (!p.hasOwnProperty("instru_order")) {
                     p["instru_order"] = [

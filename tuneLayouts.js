@@ -768,7 +768,7 @@ export default {
                     "ta": "",
                     "ag": "",
                 },
-                "regroup_instruments": {
+                "merge_instruments": {
                     "High Surdo + Repi": ["hs", "re"],
                 },
                 "instru_order": ["lms", "High Surdo + Repi", "sn"],
@@ -802,7 +802,7 @@ export default {
                         "X XXX X XXXXX X "
                     ),
                 },
-                "regroup_instruments": {
+                "merge_instruments": {
                     "Snare 1": ["sn"],
                 },
                 "instru_order": [
@@ -847,7 +847,7 @@ export default {
         },
         "patterns": {
             "Tune": {
-                "regroup_instruments": {
+                "merge_instruments": {
                     "Repi & Snare": ["re", "sn"],
                 },
                 "instru_order": [
@@ -859,7 +859,7 @@ export default {
             },
             "Intro": {
                 "separate_instruments": true,
-                "regroup_instruments": {
+                "merge_instruments": {
                     "Repi & Snare": ["re", "sn"],
                     // DIFFERENCE no high surdo in player
                     "mhs": ["ms"],
@@ -917,7 +917,7 @@ export default {
             },
             "Bra Break (Repi)": {
                 // DIFFERENCE name
-                // TODO: maybe automatically parse the "ot" instrument as "c" (?)
+                // TODO: "ot" instrument as "c" (?)
                 "name": "Call Break",
                 "single_bar_sizing": true,
                 "nosqueeze": true,
@@ -1158,7 +1158,7 @@ export default {
         },
         "patterns": {
             "Tune": {
-                "group_surdos": true,
+                "instrument_groups": [["ls", "ms", "hs"]],
             },
             "White Shark": {
                 "sign": "simulating a shark fin",
@@ -1289,7 +1289,7 @@ export default {
                 }],
                 "sign": "Hedgehog Tune sign",
                 "subtitle_extra_lines": 1,
-                // TODO specify indent in terms of subbeats
+                // TODO indent in terms of subbeats
                 "remarks_indented": true,
                 "remarks": [
                     "call something else here",
@@ -1429,7 +1429,7 @@ export default {
         ],
     },
     "March for Biodiversity": {
-        // TODO: no sign?!
+        // DIFFERENCE no sign ?!
         "patterns": {
             "Intro": {
                 "separate_instruments": true,
@@ -1458,7 +1458,15 @@ export default {
         "patterns": {
             "Tune": {
                 // DIFFERENCE Agogô has no upbeat in player
-                // TODO: line with "hand resting on skin"
+                "notes": {
+                    "Hand resting on skin:": (
+                        ".......       ...." +
+                        ".....       ...." +
+                        ".....       ...." +
+                        ".....       ...."
+                    ),
+                },
+                "instrument_groups": [["as", "Hand resting on skin:"]],
                 "remarks": [
                     "Surdos: only 1 Stick on one hand; h = other hand hits skin",
                 ],
@@ -1504,7 +1512,7 @@ export default {
             "Kick Back 1": {
                 "single_bar_sizing": true,
                 "separate_instruments": true,
-                "regroup_instruments": {
+                "merge_instruments": {
                     "All others": ["re", "sn", "ta"],
                 },
                 "remarks": ["repeat until cut"],
@@ -1512,7 +1520,7 @@ export default {
             "Mozambique Break": {
                 "single_bar_sizing": true,
                 "separate_instruments": true,
-                "regroup_instruments": {
+                "merge_instruments": {
                     "All others": ["ag", "re", "sn", "ta"],
                 },
                 "sign": (
@@ -1535,7 +1543,7 @@ export default {
         ],
     },
     "Norppa": {
-        // TODO no sign?!
+        // DIFFERENCE no sign?!
         "patterns": {
             "Break 1": {
                 "notes": ["x.x.x.x.E       "],
@@ -1546,8 +1554,11 @@ export default {
                 "remarks": ["x, .: Snare"],
             },
             "Break 2": {
-                // TODO: combine surdos with ls/hs/x
                 "separate_instruments": true,
+                "merge_instruments": {
+                    "Surdos": ["ls", "ms", "hs"],
+                },
+                "instru_order": ["Surdos", "re", "sn", "ta", "ag"],
             },
             "Break 3": {
                 "separate_instruments": true,
@@ -1611,7 +1622,7 @@ export default {
         "patterns": {
             "Funky gibbon": {
                 "separate_instruments": true,
-                "regroup_instruments": {
+                "merge_instruments": {
                     "All others": ["re", "ta", "ag"],
                 },
                 "sign": "Upside down '3 creature'",
@@ -1647,7 +1658,7 @@ export default {
         ],
     },
     "Pekurinen": {
-        // TODO no sign?!
+        // DIFFERENCE no sign?!
         "sizing": {
             "pre_width": 15,
             "bars_per_row": 1,
@@ -1655,14 +1666,13 @@ export default {
         "patterns": {
             "Break 1": {
                 "separate_instruments": true,
-                "regroup_instruments": {
+                "merge_instruments": {
                     "All others": ["as", "sn", "ta"],
                 },
             },
             "Break 2": {
-                // TODO replace A by x
                 "remarks_indented": true,
-                "remarks": ["x: Repi, Snare & Tamb"],
+                "remarks": ["A: only Repi, Snare & Tamb, E: all instruments, including Surdos"],
             },
             "Clave Plus": {
                 "remarks": ["Like Clave, but vertically, like letter C"],
@@ -1683,7 +1693,7 @@ export default {
             },
             "Bra Break": {
                 "separate_instruments": true,
-                "regroup_instruments": {
+                "merge_instruments": {
                     "All others": ["as", "sn"],
                 },
             },
@@ -1701,22 +1711,26 @@ export default {
         ],
     },
     "Rope Skipping": {
-        // TODO: triple time only for tune
         "sign": "sign with both hands a rotating rope and jump up and down",
+        "sizing": {
+            "bars_per_row": 2,
+        },
         "patterns": {
             "Oh Shit": {
+                "sign": "two little fingers show horns of taurus",
+                "single_bar_sizing": true,
                 "notes_override": [{
                     9: [1, "Oh", "left"],
                     13: [1, "Shit", "left"],
                 }],
-                "remarks": ["two little fingers show horns of taurus"],
             },
             "Fuck Off": {
+                "sign": "one little finger",
+                "single_bar_sizing": true,
                 "notes_override": [{
                     9: [1, "Fuck", "left"],
                     13: [1, "Off", "left"],
                 }],
-                "remarks": ["one little finger"],
             },
             "Küsel Break": {
                 // DIFFERENCE snare has a typo (?) in the tune book
@@ -1734,11 +1748,6 @@ export default {
                 "remarks": ["Repi and Agogô; play as a loop"],
             },
             "Eye of the tiger": {
-                "notes_override": [{
-                    145: [36, "Agogô beating fast between both bells...", "left"],
-                    181: [12, "... until here", "right"],
-                    // TODO: snare stops here
-                }],
                 "separate_lines": [
                     [0, 189, ["sn"]],
                 ],
@@ -1847,12 +1856,9 @@ export default {
                 "remarks": ["w = whippy stick"],
             },
             "Intro": {
-                // TODO repeat group of three lines 4x
-                // TODO "." in Repi
+                // DIFFERENCE [RRRRRR] from book is fl fl fl fl in player
+                // TODO repeat group of three lines 4x with upbeat and afterbeat
                 "name": "Call Break",
-                "notes_override": [{
-                    78: [4, "[RRRRRR]", "center"],
-                }],
                 "subtitle": "Intro",
                 "remarks_indented": true,
                 "remarks": ["Last beat overlaps with first Repi beat"],
@@ -1941,7 +1947,6 @@ export default {
                 ],
             },
             "Dancing Break": {
-                // TODO: group together two consecutive lines played repeatedly
                 "preamble": "The players who don't play dance (see left)",
                 "sign": (
                     "sign by showing the dance: arms down to the right,"
@@ -1971,6 +1976,7 @@ export default {
     },
     // DIFFERENCE (?) Samba Reggae High/Low is in player, but not in book
     "Sheffield Samba Reggae": {
+        // TODO: tune title and sign overlap
         "sign": (
             "smoke a joint like a cup of tea (with thumb and index finger)"
         ),
@@ -2034,6 +2040,7 @@ export default {
         "patterns": {
             // TODO: Tune: Whistle <-> Shouting
             "Intro": {
+                // TODO: separate shouting line ("ot")
                 "notes_override": [{
                     1: [1, "Whoop!", "left"],
                     4: [1, "Whoop!", "left"],
@@ -2045,8 +2052,10 @@ export default {
                 "remarks_indented": true,
                 "remarks": ["From soft to loud"],
             },
-            // DIFFERENCE Break 2 is only one bar in book, but two bars in player
-            // TODO: Break 2: separate shouting line
+            "Break 2": {
+                // DIFFERENCE only one bar in book, but two bars in player
+                // TODO: separate shouting line ("ot")
+            },
             "Beast Break": {
                 // TODO: Repi+Agogô as xxx...
                 "subtitle_extra_lines": 1,
@@ -2257,7 +2266,7 @@ export default {
             },
             "Break 2": {
                 "separate_instruments": true,
-                "regroup_instruments": {
+                "merge_instruments": {
                     "Snare / Repinique": ["sn", "re"],
                 },
                 "remarks": ["repeated on and on until maestra calls off"],
@@ -2275,7 +2284,7 @@ export default {
                     },
                 },
                 "separate_instruments": true,
-                "regroup_instruments": {
+                "merge_instruments": {
                     "Snare / Repinique": ["sn", "re"],
                 },
                 "remarks": ["back into the groove"],
@@ -2400,7 +2409,7 @@ export default {
         },
         "patterns": {
             "Intro": {
-                // TODO: ri instead of A
+                // DIFFERENCE no surdos in player
                 "preamble": "Everyone hits the rims",
                 "sign": "building a tower with fists on top of each other, upwards",
                 "subtitle_extra_lines": 2,
@@ -2408,10 +2417,12 @@ export default {
                 "remarks": ["repeat until cut"],
             },
             "Intro+Surdos": {
-                // TODO: override (S) in last surdo stroke
-                "instruments": ["ls", "ms", "hs"],
                 "name": "Surdo Part of Intro",
                 "sign": "flat hand on head",
+                "instruments": ["ls", "ms", "hs"],
+                "notes_override": [{
+                    61: [1, "(S)", "center"],
+                }],
                 "remarks_indented": true,
                 "remarks": [
                     "(S) not before Boum Shakala Break",
@@ -2422,13 +2433,11 @@ export default {
             },
             "Boum Shakala Break": {
                 // DIFFERENCE in player, surdos play together with A
-                // TODO: S for ls+ms+hs, and hs for hs only at the end
-                // TODO: "." in snare
-                // TODO: break name too long
                 "sign": "Crossed fingers",
+                "nosqueeze": true,
             },
             "Break 2": {
-                // TODO: S for ls+ms+hs, and hs for hs only at the end
+                // DIFFERENCE in player, surdos play together with A
             },
         },
         "pages": [
@@ -2446,7 +2455,6 @@ export default {
         "patterns": {
             // TODO: shaker
             "Bra Break": {
-                // TODO: fl/hd/ri for Repi
                 "single_bar_sizing": true,
                 "separate_lines": [
                     [48, 63, ["sn"]],

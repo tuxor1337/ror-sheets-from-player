@@ -91,8 +91,8 @@ td.note {
     border-width: 0 var(--note-border-width);
 }
 
-td.count + td.note.upbeat {
-    border-left-width: 0;
+td.note.upbeat {
+    border-width: 0;
 }
 
 td.note.long {
