@@ -287,7 +287,14 @@ function render_tune(tune) {
                         }
                     }
                     lines_render.push({
-                        "row_name": i_line == first_nonempty_line ? instru_name : "",
+                        "row_name": (
+                            i_line == first_nonempty_line
+                            ? (
+                                INSTRU_NAMES.hasOwnProperty(instru_name)
+                                ? INSTRU_NAMES[instru_name]
+                                : instru_name
+                            ) : ""
+                        ),
                         "str_row": str_row,
                         "notation": l,
                         "override": override,
@@ -836,7 +843,7 @@ function convert_tune_pattern(notes) {
     const result = {};
     for (let instru of INSTRU_ORDER) {
         if (notes.hasOwnProperty(instru)) {
-            result[INSTRU_NAMES[instru]] = notes[instru];
+            result[instru] = notes[instru];
         }
     }
     return result;
@@ -1045,20 +1052,10 @@ function fill_patterns(patterns) {
     }
 }
 
-function convert_tune([tune_name, {displayName, time, patterns}]) {
-    fill_patterns(patterns);
+function _convert_patterns(patterns, layout) {
     const no_high_surdo = !Object.values(patterns).some(notes => notes.hasOwnProperty("hs"));
-    const layout = TUNE_LAYOUTS.hasOwnProperty(tune_name) ? {...TUNE_LAYOUTS[tune_name]} : {};
     const layout_patterns = layout.hasOwnProperty("patterns") ? layout["patterns"] : {};
-    layout["patterns"] = {...layout_patterns};
-
-    let [tune_n_subbeats, tune_time, tune_upbeat] = get_tune_subbeats(patterns, time);
-    const base_sizing = {
-        ...auto_sizing(tune_n_subbeats, tune_time, tune_upbeat),
-        ...(layout.hasOwnProperty("sizing") ? layout["sizing"] : {}),
-    }
-    layout["sizing"] = fill_sizing(base_sizing);
-
+    const result = {...layout_patterns};
     for (const [break_name, notes] of Object.entries(patterns)) {
         const ref = layout_patterns.hasOwnProperty(break_name) ? layout_patterns[break_name] : {};
         if (ref === false) {
@@ -1117,8 +1114,22 @@ function convert_tune([tune_name, {displayName, time, patterns}]) {
         if (!p.hasOwnProperty("name")) {
             p["name"] = notes.hasOwnProperty("displayName") ? notes["displayName"] : break_name;
         }
-        layout["patterns"][break_name] = p;
+        result[break_name] = p;
     }
+    return result;
+}
+
+function convert_tune([tune_name, {displayName, time, patterns}]) {
+    fill_patterns(patterns);
+    const layout = TUNE_LAYOUTS.hasOwnProperty(tune_name) ? {...TUNE_LAYOUTS[tune_name]} : {};
+    layout["patterns"] = _convert_patterns(patterns, layout);
+
+    let [tune_n_subbeats, tune_time, tune_upbeat] = get_tune_subbeats(patterns, time);
+    const base_sizing = {
+        ...auto_sizing(tune_n_subbeats, tune_time, tune_upbeat),
+        ...(layout.hasOwnProperty("sizing") ? layout["sizing"] : {}),
+    }
+    layout["sizing"] = fill_sizing(base_sizing);
 
     for (const [break_name, p] of Object.entries(layout["patterns"])) {
         if (p === false) {

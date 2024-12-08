@@ -477,7 +477,7 @@ export default {
                 "remarks": ["w = whippy stick (or rim)"],
                 "notes": {
                     // DIFFERENCE: w and x are interchanged in player
-                    "Low Surdo": "X X w  wXwX w   ",
+                    "ls": "X X w  wXwX w   ",
                 },
             },
             "Break 2": {
@@ -562,10 +562,10 @@ export default {
         "patterns": {
             "Tune": {
                 "notes_override": {
-                    "Repinique": {
+                    "re": {
                         28: [1, "(X)", "center"],
                     },
-                    "Snare": Object.assign({}, ...(
+                    "sn": Object.assign({}, ...(
                         [...Array(16).keys()].map((offset) => shift_override_offsets({
                             2: [1, "(.)", "center"],
                         }, 2 * offset))
@@ -649,7 +649,7 @@ export default {
         "patterns": {
             "Tune": {
                 "notes_override": {
-                    "Snare": {
+                    "sn": {
                         10: [1, "(X)", "center"],
                         26: [1, "(X)", "center"],
                         42: [1, "(X)", "center"],
@@ -696,7 +696,7 @@ export default {
         "patterns": {
             "Tune": {
                 "notes_override": {
-                    "Snare": Object.assign({}, ...(
+                    "sn": Object.assign({}, ...(
                         [0, 1, 2, 3, 4, 5, 6, 7].map((offset) => (
                             shift_override_offsets({
                                 1: [1, "r", "center"],
@@ -765,13 +765,13 @@ export default {
             "Break 2": {
                 "notes": {
                     // DIFFERENCE tune book doesn't have tam+agogo
-                    "Tamborim": "",
-                    "Agogô": "",
+                    "ta": "",
+                    "ag": "",
                 },
                 "regroup_instruments": {
-                    "High Surdo + Repi": ["High Surdo", "Repinique"],
+                    "High Surdo + Repi": ["hs", "re"],
                 },
-                "instru_order": ["Low+Mid Surdo", "High Surdo + Repi", "Snare"],
+                "instru_order": ["lms", "High Surdo + Repi", "sn"],
                 "separate_instruments": true,
             },
             "Call Break": {
@@ -803,10 +803,10 @@ export default {
                     ),
                 },
                 "regroup_instruments": {
-                    "Snare 1": ["Snare"],
+                    "Snare 1": ["sn"],
                 },
                 "instru_order": [
-                    "Low Surdo", "Mid Surdo", "Repinique",  "Snare 1", "Snare 2", "Agogô",
+                    "ls", "ms", "re",  "Snare 1", "Snare 2", "ag",
                 ],
             },
             "Double Break 2": {
@@ -848,10 +848,10 @@ export default {
         "patterns": {
             "Tune": {
                 "regroup_instruments": {
-                    "Repi & Snare": ["Repinique", "Snare"],
+                    "Repi & Snare": ["re", "sn"],
                 },
                 "instru_order": [
-                    "Low Surdo", "Mid+High Surdo", "Repi & Snare", "Tamborim", "Agogô",
+                    "ls", "mhs", "Repi & Snare", "ta", "ag",
                 ],
             },
             "Tune (6/8)": {
@@ -860,12 +860,12 @@ export default {
             "Intro": {
                 "separate_instruments": true,
                 "regroup_instruments": {
-                    "Repi & Snare": ["Repinique", "Snare"],
+                    "Repi & Snare": ["re", "sn"],
                     // DIFFERENCE no high surdo in player
-                    "Mid+High Surdo": ["Mid Surdo"],
+                    "mhs": ["ms"],
                 },
                 "instru_order": [
-                    "Low Surdo", "Mid+High Surdo", "Repi & Snare", "Tamborim", "Agogô",
+                    "ls", "mhs", "Repi & Snare", "ta", "ag",
                 ],
                 "remarks": [
                     "16 bars in total. Repi&Snare start on rim, then Agogô join in,"
@@ -934,7 +934,7 @@ export default {
                 // DIFFERENCE name
                 "name": "Cross Kicks for surdos",
                 "separate_instruments": true,
-                "instru_order": ["High Surdo", "Low Surdo"],
+                "instru_order": ["hs", "ls"],
                 "sign": "sign 'X' with the arms, waving towards the sky",
             },
         },
@@ -1199,8 +1199,8 @@ export default {
                     "Snare (easier)": "..X...X.....X.....X...X.....X...",
                 },
                 "instru_order": [
-                    "Low Surdo", "Mid Surdo", "High Surdo", "Repinique", "Snare",
-                    "Snare (easier)", "Tamborim", "Agogô",
+                    "ls", "ms", "hs", "re", "sn",
+                    "Snare (easier)", "ta", "ag",
                 ],
             },
             "Yala Break": {
@@ -1480,7 +1480,7 @@ export default {
         ),
         "patterns": {
             "Double Break": {
-                "instru_order": ["Low Surdo", "Mid Surdo", "High Surdo", "Agogô"],
+                "instru_order": ["ls", "ms", "hs", "ag"],
                 "separate_instruments": true,
                 "sign": "Make a T with both hands",
                 "remarks": [
@@ -1492,7 +1492,7 @@ export default {
                 "single_bar_sizing": true,
                 "separate_instruments": true,
                 "regroup_instruments": {
-                    "All others": ["Repinique", "Snare", "Tamborim"],
+                    "All others": ["re", "sn", "ta"],
                 },
                 "remarks": ["repeat until cut"],
             },
@@ -1500,7 +1500,7 @@ export default {
                 "single_bar_sizing": true,
                 "separate_instruments": true,
                 "regroup_instruments": {
-                    "All others": ["Agogô", "Repinique", "Snare", "Tamborim"],
+                    "All others": ["ag", "re", "sn", "ta"],
                 },
                 "sign": (
                     "Point both index fingers away from mouth (like bug antennas)"
@@ -1599,7 +1599,7 @@ export default {
             "Funky gibbon": {
                 "separate_instruments": true,
                 "regroup_instruments": {
-                    "All others": ["Repinique", "Tamborim", "Agogô"],
+                    "All others": ["re", "ta", "ag"],
                 },
                 "sign": "Upside down '3 creature'",
                 "remarks": [
@@ -1643,7 +1643,7 @@ export default {
             "Break 1": {
                 "separate_instruments": true,
                 "regroup_instruments": {
-                    "All others": ["All Surdos", "Snare", "Tamborim"],
+                    "All others": ["as", "sn", "ta"],
                 },
             },
             "Break 2": {
@@ -1671,7 +1671,7 @@ export default {
             "Bra Break": {
                 "separate_instruments": true,
                 "regroup_instruments": {
-                    "All others": ["All Surdos", "Snare"],
+                    "All others": ["as", "sn"],
                 },
             },
         },
@@ -1755,21 +1755,21 @@ export default {
         "patterns": {
             "Tune": {
                 "notes_override": {
-                    "High Surdo": {
+                    "hs": {
                         26: [1, "(X)", "center"],
                         27: [1, "(X)", "center"],
                         28: [1, "(X)", "center"],
                         29: [1, "(X)", "center"],
                     },
-                    "Repinique": {
+                    "re": {
                         // DIFFERENCE additional variation in tune book
                         29: [1, "(X)", "center"],
                     },
-                    "Snare": {
+                    "sn": {
                         26: [1, "(X)", "center"],
                         29: [1, "(X)", "center"],
                     },
-                    "Tamborim": {
+                    "ta": {
                         26: [1, "(X)", "center"],
                         29: [1, "(X)", "center"],
                     },
@@ -2072,7 +2072,7 @@ export default {
                     "(0) = Can be played optionally to make the rhythm easier to understand",
                 ],
                 "notes_override": {
-                    "Low Surdo": {
+                    "ls": {
                         3: [1, "(0)", "center"],
                         4: [1, "(0)", "center"],
                         19: [1, "(0)", "center"],
@@ -2245,7 +2245,7 @@ export default {
             "Break 2": {
                 "separate_instruments": true,
                 "regroup_instruments": {
-                    "Snare / Repinique": ["Snare", "Repinique"],
+                    "Snare / Repinique": ["sn", "re"],
                 },
                 "remarks": ["repeated on and on until maestra calls off"],
             },
@@ -2254,16 +2254,16 @@ export default {
                     "Snare / Repinique": {
                         8: [1, "(X)", "center"],
                     },
-                    "Tamborim": {
+                    "ta": {
                         8: [1, "(X)", "center"],
                     },
-                    "Agogô": {
+                    "ag": {
                         8: [1, "(h)", "center"],
                     },
                 },
                 "separate_instruments": true,
                 "regroup_instruments": {
-                    "Snare / Repinique": ["Snare", "Repinique"],
+                    "Snare / Repinique": ["sn", "re"],
                 },
                 "remarks": ["back into the groove"],
             },
@@ -2353,7 +2353,7 @@ export default {
                 "name": "Pat 1 (2)",
                 "separate_instruments": true,
                 "notes_override": {
-                    "High Surdo": {
+                    "hs": {
                         10: [1, "(X)", "center"],
                         11: [1, "(X)", "center"],
                         12: [1, "(X)", "center"],
