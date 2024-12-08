@@ -458,7 +458,6 @@ function render_tune(tune) {
             const empty_line = " ".repeat(sizing["subbeats_per_row"]);
             let notes = data["notes"][i_notes];
             let n_lines = Math.ceil(notes.length / sizing["subbeats_per_row"]);
-
             const lines = [...Array(n_lines).keys()].map((i_line) => {
                 if (upbeat > 0) {
                     if (i_line == 0) {
@@ -1023,15 +1022,15 @@ function get_tune_subbeats(patterns, time) {
     let tune_n_subbeats = 16;
     let tune_time = !!time ? time : 4;
     let tune_upbeat = 0;
-    for (const [break_name, notes] of Object.entries(patterns)) {
+    for (const [break_name, p] of Object.entries(patterns)) {
         if (break_name.toLowerCase() != "tune") {
             continue;
         }
-        tune_time = notes.hasOwnProperty("time") ? notes["time"] : tune_time;
-        tune_upbeat = notes.hasOwnProperty("upbeat") ? notes["upbeat"] : tune_upbeat;
+        tune_time = p["time"];
+        tune_upbeat = p["upbeat"];
         tune_n_subbeats = Math.max(...(
             Object.keys(INSTRU_NAMES)
-            .map(ins => notes.hasOwnProperty(ins) ? notes[ins].length : 0)
+            .map(ins => p["notes"].hasOwnProperty(ins) ? p["notes"][ins].length : 0)
         ));
     }
     return [tune_n_subbeats, tune_time, tune_upbeat];
@@ -1050,6 +1049,29 @@ function fill_patterns(patterns) {
             notes[ins] = notes[ins].padEnd(upbeat + n_bars * subbeats_per_bar);
         }
     }
+}
+
+function _convert_triols(notes_12) {
+    const n_beats = notes_12.length / 12;
+    let notes_4 = "";
+    let override = {};
+    for (let i_beat = 0; i_beat < n_beats; i_beat++) {
+        const beat_str = notes_12.slice(i_beat * 12, (i_beat + 1) * 12);
+        if ([...beat_str].every((c, i) => i % 3 == 0 || c == " ")) {
+            notes_4 += [...beat_str].filter((_, i) => i % 3 == 0).join("");
+        } else if ([...beat_str].every((c, i) => i % 4 == 0 || c == " ")) {
+            notes_4 += "    ";
+            override[i_beat * 4 + 1] = [
+                4,
+                `[ ${[...beat_str].filter((_, i) => i % 4 == 0).join(" ")} ]`,
+                "center",
+            ];
+        } else {
+            notes_4 += "    ";
+            override[i_beat * 4 + 1] = [4, `[${beat_str}]`, "center"];
+        }
+    }
+    return [notes_4, override];
 }
 
 function _convert_patterns(patterns, layout) {
@@ -1111,20 +1133,40 @@ function _convert_patterns(patterns, layout) {
                 p["upbeat"] = notes["upbeat"];
             }
         }
-        if (!p.hasOwnProperty("name")) {
-            p["name"] = notes.hasOwnProperty("displayName") ? notes["displayName"] : break_name;
-        }
         result[break_name] = p;
+    }
+    for (const [break_name, p] of Object.entries(result)) {
+        if (p === false) {
+            continue;
+        }
+        const orig = patterns.hasOwnProperty(break_name) ? patterns[break_name] : {};
+        for (const [prop, def] of [["time", 4], ["upbeat", 0], ["name", break_name]]) {
+            if (!p.hasOwnProperty(prop)) {
+                p[prop] = orig.hasOwnProperty(prop) ? orig[prop] : def;
+            }
+        }
+        if (p["time"] == 12) {
+            let keys;
+            if (Array.isArray(p["notes"])) {
+                keys = p["notes"].keys();
+                p["notes_override"] = p.hasOwnProperty("notes_override") ? p["notes_override"] : [];
+            } else {
+                keys = Object.keys(p["notes"]);
+                p["notes_override"] = p.hasOwnProperty("notes_override") ? p["notes_override"] : {};
+            }
+            for (const i_notes of keys) {
+                const [notes_4, override_triols] = _convert_triols(p["notes"][i_notes]);
+                p["notes"][i_notes] = notes_4;
+                p["notes_override"][i_notes] = override_triols;
+            }
+            p["time"] = 4;
+        }
     }
     return result;
 }
 
-function convert_tune([tune_name, {displayName, time, patterns}]) {
-    fill_patterns(patterns);
-    const layout = TUNE_LAYOUTS.hasOwnProperty(tune_name) ? {...TUNE_LAYOUTS[tune_name]} : {};
-    layout["patterns"] = _convert_patterns(patterns, layout);
-
-    let [tune_n_subbeats, tune_time, tune_upbeat] = get_tune_subbeats(patterns, time);
+function _set_sizing(layout, time) {
+    let [tune_n_subbeats, tune_time, tune_upbeat] = get_tune_subbeats(layout["patterns"], time);
     const base_sizing = {
         ...auto_sizing(tune_n_subbeats, tune_time, tune_upbeat),
         ...(layout.hasOwnProperty("sizing") ? layout["sizing"] : {}),
@@ -1135,11 +1177,9 @@ function convert_tune([tune_name, {displayName, time, patterns}]) {
         if (p === false) {
             continue;
         }
-        const notes = patterns.hasOwnProperty(break_name) ? patterns[break_name] : {};
         let p_sizing = {...base_sizing};
-        const p_time = notes.hasOwnProperty("time") ? notes["time"] : 4;
-        if (p_time != tune_time) {
-            p_sizing["subbeats_per_beat"] = p_time;
+        if (p["time"] != tune_time) {
+            p_sizing["subbeats_per_beat"] = p["time"];
         }
         if (p.hasOwnProperty("single_bar_sizing")) {
             const bar_width = (
@@ -1160,6 +1200,14 @@ function convert_tune([tune_name, {displayName, time, patterns}]) {
             ...(p.hasOwnProperty("sizing") ? p["sizing"] : {}),
         }, layout["sizing"]["total_width"]);
     }
+}
+
+function convert_tune([tune_name, {displayName, time, patterns}]) {
+    fill_patterns(patterns);
+    const layout = TUNE_LAYOUTS.hasOwnProperty(tune_name) ? {...TUNE_LAYOUTS[tune_name]} : {};
+    layout["patterns"] = _convert_patterns(patterns, layout);
+
+    _set_sizing(layout, time);
 
     return {
         "name": !!displayName ? displayName : tune_name,
