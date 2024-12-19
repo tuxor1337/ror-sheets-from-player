@@ -1910,7 +1910,7 @@ export default {
                 ],
             },
             "SOS Break": {
-                // TODO: add info about Repi tune changes after playing this break
+                // DIFFERENCE Repi tune change after playing SOS break is not in player
                 "nosqueeze": true,
                 "sign": "signed by waving the palms diagonal across one shoulder",
                 "subtitle_extra_lines": 2,
@@ -1918,7 +1918,6 @@ export default {
                 "remarks": ["ls = low surdo picks up"],
             },
             "SOS Break (Repi change)": {
-                // DIFFERENCE in Repi tune after playing SOS break is not in player
                 "name": "",
                 "preamble": (
                     "after which the repinique picks up this rhythm"
@@ -1927,7 +1926,6 @@ export default {
                 "notes": ["  xx xx   x x   "],
             },
             "SOS Break (Repi change back)": {
-                // DIFFERENCE in Repi tune after playing SOS break is not in player
                 "name": "",
                 "preamble": (
                     "... until next time the SOS break is played."
@@ -1990,9 +1988,16 @@ export default {
         ),
         "patterns": {
             "Tune": {
-                "remarks": [
-                    "Memory aid for Agogô: I - like - to - play - the - A- go- gô",
-                ],
+                // TODO: show shaker only if manually selected, or if non-trivial
+                // TODO: memory aid underneath tune
+                "memory_aid": {
+                    "notes": [
+                        "  X X X XX XX X "
+                    ],
+                    "words": [
+                        "I", "like", "to", "play,", "the", "A-,", "go-", "gô",
+                    ],
+                },
             },
             "Intro": {
                 // DIFFERENCE "E" in last beat of last line (Repi has no beat?)
@@ -2050,7 +2055,6 @@ export default {
             + " blue lights of a police car"
         ),
         "patterns": {
-            // TODO: Tune: Whistle <-> Shouting
             "Tune": {
                 "notes_override": {
                     "ot": {
@@ -2159,7 +2163,7 @@ export default {
                 "sign": "Shake salt on number 1",
             },
             "Break 2": {
-                // TODO: third bar is truncated
+                // TODO: last line is truncated because only single bar
                 "instruments": ["ls", "ms", "hs", "sh"],
                 "preamble": "Surdos start with 3 upbeats before the 1",
                 "remarks_indent": 0,
@@ -2233,10 +2237,15 @@ export default {
                 "separate_instruments": true,
                 // TODO: memory aid for break with separate instruments
                 "memory_aid": {
-                    "notes": ["XXX X  X    XXX X  X    "],
+                    "notes": [
+                        "XXXX XX XX  XXXX XX XX  "
+                        + "XXXX  XXXX  XXXX  XXXX  "
+                    ],
                     "words": [
                         "Ren-", "ted", "a", "tent,", "a", "tent,", "a", "tent!",
                         "Ren-", "ted", "a", "tent,", "a", "tent,", "a", "tent!",
+                        "Ren-", "ted", "a", "tent!", "Ren-", "ted", "a", "tent!",
+                        "Ren-", "ted", "a", "tent!", "Ren-", "ted", "a", "tent!",
                     ],
                 },
             },
@@ -2503,7 +2512,6 @@ export default {
     "Zurav Love / Truant": {
         "sign": "open and close the beak of a bird with your hands",
         "patterns": {
-            // TODO: shaker
             "Bra Break": {
                 "single_bar_sizing": true,
                 "separate_lines": [
@@ -2511,9 +2519,8 @@ export default {
                 ],
             },
             "Kick Back 2": {
-                // TODO: "A" instead of "E" (?)
                 "separate_lines": [
-                    [0, 15, ["re"]],
+                    [0, 15, ["as", "sn", "ta", "ag"]],
                 ],
             },
         },
