@@ -1969,17 +1969,19 @@ export default {
     },
     // DIFFERENCE (?) Samba Reggae High/Low is in player, but not in book
     "Sheffield Samba Reggae": {
-        // TODO: tune title and sign overlap
         "sign": (
             "smoke a joint like a cup of tea (with thumb and index finger)"
         ),
         "patterns": {
             "Tune": {
-                // TODO: High surdo: group of two lines is repeated
-                "remarks": ["I like to play the A- go- go"],
+                "remarks": [
+                    "Memory aid for Agogô: I - like - to - play - the - A- go- gô",
+                ],
             },
             "Intro": {
                 // DIFFERENCE "E" in last beat of last line (Repi has no beat?)
+                // DIFFERENCE Repi flare in player is "RR" in book
+                // DIFFERENCE line 3, subbeats 3+4 differ
                 "name": "Call Break",
                 "subtitle": "Intro",
             },

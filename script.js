@@ -282,34 +282,90 @@ function render_tune(tune) {
                             override[start - offset] = d;
                         }
                     }
+                    const n_overrides = Object.keys(override).length;
+
                     if (l == empty_line) {
                         continue;
                     }
-                    let i_line_next = i_line + 1;
-                    while (i_line_next < n_lines && l == lines[i_line_next]) {
-                        i_line_next++;
-                    }
-                    let str_row = "";
-                    if (n_lines > 1 || instru_name == data["instru_order"][0]) {
-                        str_row += `${i_line + 1}`;
-                        if (i_line_next > i_line + 1) {
-                            str_row += `-${i_line_next}`;
+
+                    let n_repeat_lines = 0;
+                    let i_line_next = i_line + n_repeat_lines;
+                    if (n_overrides == 0 && !data.hasOwnProperty("nosqueeze")) {
+                        // only combine consecutive lines if there are no overrides
+                        while (
+                            i_line_next == i_line + n_repeat_lines
+                            && i_line + 2 * n_repeat_lines <= n_lines
+                        ) {
+                            n_repeat_lines++;
+                            i_line_next = i_line + n_repeat_lines;
+                            while (
+                                i_line_next + n_repeat_lines <= n_lines
+                                && (
+                                    lines.slice(i_line_next, i_line_next + n_repeat_lines)
+                                    .every((l, i) => l == lines[i_line + i])
+                                )
+                            ) {
+                                i_line_next += n_repeat_lines;
+                            }
                         }
                     }
-                    lines_render_ins[instru_name].push({
-                        "row_name": (
-                            i_line == first_nonempty_line
-                            ? (
-                                INSTRU_NAMES.hasOwnProperty(instru_name)
-                                ? INSTRU_NAMES[instru_name]
-                                : instru_name
-                            ) : ""
-                        ),
-                        "str_row": str_row,
-                        "notation": l,
-                        "override": override,
-                        "upbeat": i_line == 0 ? upbeat : 0,
-                    });
+
+                    if (i_line_next == i_line + n_repeat_lines) {
+                        i_line_next = i_line + 1;
+                        n_repeat_lines = 0;
+                    }
+
+                    if (i_line_next > i_line + 1) {
+                        for (
+                            let i_repeat_lines = 0;
+                            i_repeat_lines < n_repeat_lines;
+                            i_repeat_lines++
+                        ) {
+                            let str_row = (
+                                `${i_line + 1 + i_repeat_lines}`
+                                + `-${i_line_next + 1 - n_repeat_lines + i_repeat_lines}`
+                            );
+                            lines_render_ins[instru_name].push({
+                                "row_name": (
+                                    i_line + i_repeat_lines == first_nonempty_line
+                                    ? (
+                                        INSTRU_NAMES.hasOwnProperty(instru_name)
+                                        ? INSTRU_NAMES[instru_name]
+                                        : instru_name
+                                    ) : ""
+                                ),
+                                "l_start": i_line + i_repeat_lines,
+                                "l_end": i_line_next - n_repeat_lines + i_repeat_lines,
+                                "str_row": str_row,
+                                "notation": lines[i_line + i_repeat_lines],
+                                "override": override,
+                                "upbeat": i_line + i_repeat_lines == 0 ? upbeat : 0,
+                            });
+                        }
+                    } else {
+                        let str_row = "";
+                        if (n_lines > 1 || instru_name == data["instru_order"][0]) {
+                            str_row += `${i_line + 1}`;
+                        }
+
+                        lines_render_ins[instru_name].push({
+                            "row_name": (
+                                i_line == first_nonempty_line
+                                ? (
+                                    INSTRU_NAMES.hasOwnProperty(instru_name)
+                                    ? INSTRU_NAMES[instru_name]
+                                    : instru_name
+                                ) : ""
+                            ),
+                            "l_start": i_line,
+                            "l_end": i_line,
+                            "str_row": str_row,
+                            "notation": l,
+                            "override": override,
+                            "upbeat": i_line == 0 ? upbeat : 0,
+                        });
+                    }
+
                     i_line = i_line_next - 1;
                 }
             }
