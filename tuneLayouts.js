@@ -2152,18 +2152,21 @@ export default {
             },
             "Break 1": {
                 "notes_override": [{
-                    13: [3, "Tequila!", "left"],
+                    12: [4, "Tequila!", "left"],
                     16: [1, "(ls)", "center"],
                 }],
                 "subtitle_extra_lines": 1,
                 "sign": "Shake salt on number 1",
             },
             "Break 2": {
-                "preamble": "Surdos start with 3 upbeats before the 1",
-                // TODO: Shaker! (and on separate line)
                 // TODO: third bar is truncated
-                "remarks_indented": true,
+                "instruments": ["ls", "ms", "hs", "sh"],
+                "preamble": "Surdos start with 3 upbeats before the 1",
+                "remarks_indent": 0,
                 "remarks": [". = Shaker"],
+                "separate_lines": [
+                    [3, 47, ["sh"]],
+                ],
             },
             "Bra Break": {
                 "single_bar_sizing": true,

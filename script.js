@@ -334,8 +334,6 @@ function render_tune(tune) {
                                         : instru_name
                                     ) : ""
                                 ),
-                                "l_start": i_line + i_repeat_lines,
-                                "l_end": i_line_next - n_repeat_lines + i_repeat_lines,
                                 "str_row": str_row,
                                 "notation": lines[i_line + i_repeat_lines],
                                 "override": override,
@@ -357,8 +355,6 @@ function render_tune(tune) {
                                     : instru_name
                                 ) : ""
                             ),
-                            "l_start": i_line,
-                            "l_end": i_line,
                             "str_row": str_row,
                             "notation": l,
                             "override": override,
@@ -543,6 +539,7 @@ function render_tune(tune) {
                 : {}
             );
             const empty_line = " ".repeat(sizing["subbeats_per_row"]);
+            const empty_line_upbeat = " ".repeat(upbeat);
             let notes = data["notes"][i_notes];
             let n_lines = Math.ceil(notes.length / sizing["subbeats_per_row"]);
             const lines = [...Array(n_lines).keys()].map((i_line) => {
@@ -579,8 +576,10 @@ function render_tune(tune) {
 
                 if (
                     n_overrides == 0
-                    && lines[i_line] == empty_line
-                    && lines.some(l => l != empty_line)
+                    && (
+                        lines[i_line] == empty_line
+                        || i_line == 0 && upbeat > 0 && lines[i_line] == empty_line_upbeat
+                    ) && lines.some(l => l != empty_line)
                 ) {
                     continue;
                 }
