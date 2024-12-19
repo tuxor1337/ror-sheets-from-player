@@ -2002,6 +2002,7 @@ export default {
                 "subtitle": "Intro",
             },
             "Break 1": {
+                // DIFFERENCE repeated exactly 4 times in player, indefinitely in book
                 "instruments": ["ls", "ms", "hs"],
                 "preamble": (
                     "Surdos only, loop until told otherwise."
@@ -2050,14 +2051,26 @@ export default {
         ),
         "patterns": {
             // TODO: Tune: Whistle <-> Shouting
+            "Tune": {
+                "notes_override": {
+                    "ot": {
+                        1: [1, "Whoop!", "left"],
+                        4: [1, "Whoop!", "left"],
+                        17: [1, "Whoop!", "left"],
+                        20: [1, "Whoop!", "left"],
+                    },
+                },
+            },
             "Intro": {
-                // TODO: separate shouting line ("ot")
-                "notes_override": [{
-                    1: [1, "Whoop!", "left"],
-                    4: [1, "Whoop!", "left"],
-                    17: [1, "Whoop!", "left"],
-                    20: [1, "Whoop!", "left"],
+                "notes_override": [{}, {
+                    1: [2, "Whoop!", "left"],
+                    4: [2, "Whoop!", "left"],
+                    17: [2, "Whoop!", "left"],
+                    20: [2, "Whoop!", "left"],
                 }],
+                "separate_lines": [
+                    [0, 31, ["ot"]],
+                ],
             },
             "Break 1": {
                 "remarks_indent": 0,
@@ -2065,20 +2078,43 @@ export default {
             },
             "Break 2": {
                 // DIFFERENCE only one bar in book, but two bars in player
-                // TODO: separate shouting line ("ot")
+                "notes_override": [{}, {
+                    1: [2, "Whoop!", "left"],
+                    4: [2, "Whoop!", "left"],
+                    17: [2, "Whoop!", "left"],
+                    20: [2, "Whoop!", "left"],
+                }],
+                "separate_lines": [
+                    [0, 31, ["ot"]],
+                ],
             },
             "Beast Break": {
-                // TODO: Repi+Agogô as xxx...
+                // DIFFERENCE shouting in player, but not in book
+                // TODO: Agogô as 'h'
                 "subtitle_extra_lines": 1,
                 "sign": "evil claws going down",
-                "remarks_indented": true,
-                "remarks": ["x = Agogô can be supported by Repi"],
+                "remarks_indent": 0,
+                "remarks": ["Agogô (ag) plays high; Agogô-support by Repi is optional"],
+                "separate_lines": [
+                    [0, 31, ["re"]],
+                ],
             },
             "Beast Break Inverted": {
+                // DIFFERENCE shouting in player, but not in book
+                // TODO: Agogô as 'h'
                 "subtitle_extra_lines": 1,
                 "sign": "evil claws going up",
-                "remarks_indented": true,
-                "remarks": ["h = Agogô"],
+                "remarks_indent": 0,
+                "remarks": ["Agogô (ag) plays high"],
+                "notes_override": [{}, {
+                    1: [2, "Whoop!", "left"],
+                    4: [2, "Whoop!", "left"],
+                    17: [2, "Whoop!", "left"],
+                    20: [2, "Whoop!", "left"],
+                }],
+                "separate_lines": [
+                    [0, 31, ["ot"]],
+                ],
             },
         },
         "pages": [
