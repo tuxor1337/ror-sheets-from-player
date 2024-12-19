@@ -1910,7 +1910,6 @@ export default {
                 ],
             },
             "SOS Break": {
-                // DIFFERENCE in Repi tune after playing SOS break is not in player
                 // TODO: add info about Repi tune changes after playing this break
                 "nosqueeze": true,
                 "sign": "signed by waving the palms diagonal across one shoulder",
@@ -1918,21 +1917,37 @@ export default {
                 "remarks_indent": 0,
                 "remarks": ["ls = low surdo picks up"],
             },
-            "Knock On The Door Break": {
-                // TODO: merge with cut for knock on the door (?)
+            "SOS Break (Repi change)": {
+                // DIFFERENCE in Repi tune after playing SOS break is not in player
+                "name": "",
+                "preamble": (
+                    "after which the repinique picks up this rhythm"
+                    + " and plays in the tune:"
+                ),
+                "notes": ["  xx xx   x x   "],
+            },
+            "SOS Break (Repi change back)": {
+                // DIFFERENCE in Repi tune after playing SOS break is not in player
+                "name": "",
+                "preamble": (
+                    "... until next time the SOS break is played."
+                    + " Then it goes back to:"
+                ),
+                "notes": ["  xx  xx  xx  xx"],
+            },
+            "Knock On The Door (Cut)": {
+                // TODO: visible line before Repi with comment (?)
+                "name": "Knock On The Door Break",
                 "preamble": "snare continues playing this or the rhythm of Call Break",
                 "sign": (
                     "knock with the knuckles of your right hand on your"
                     + " flat left hand"
                 ),
-                "remarks_indented": true,
-                "remarks": ["repeat until cut"],
-                "nosqueeze": true,
-                "separate_lines": [
-                    [0, 189, ["sn"]],
+                "remarks_indent": 0,
+                "remarks": [
+                    "repeat until cut",
+                    "last run: Repi plays extra line; before that, Repi plays 'E'",
                 ],
-            },
-            "Knock On The Door (Cut)": {
                 "nosqueeze": true,
                 "separate_lines": [
                     [0, 189, ["sn"]],
@@ -1961,7 +1976,8 @@ export default {
             [
                 "Break 3",
                 "SOS Break",
-                "Knock On The Door Break",
+                "SOS Break (Repi change)",
+                "SOS Break (Repi change back)",
                 "Knock On The Door (Cut)",
                 "Dancing Break",
             ],
