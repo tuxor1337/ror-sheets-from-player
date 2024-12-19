@@ -33,6 +33,8 @@ const BREAK_CHARS = {
     "re": "R",
     "sn": "Š",
     "ta": "T",
+    "ot": "c",
+    "sh": ".",
 }
 
 const INSTRU_NAMES = {
@@ -46,10 +48,11 @@ const INSTRU_NAMES = {
     "sn": "Snare",
     "ta": "Tamborim",
     "ag": "Agogô",
+    "sh": "Shaker",
     "ot": "Whistle",
 }
 
-const INSTRU_ORDER = ["as", "ls", "ms", "lms", "hs", "mhs", "re", "sn", "ta", "ag", "ot"];
+const INSTRU_ORDER = ["as", "ls", "ms", "lms", "hs", "mhs", "re", "sn", "ta", "ag", "ot", "sh"];
 
 function note_char_to_repr(c) {
     return NOTE_CHARS.hasOwnProperty(c) ? NOTE_CHARS[c] : c;
@@ -799,7 +802,7 @@ function render_tune(tune) {
 }
 
 function resolve_pattern(notes, no_high_surdo, sel_instrus, suppress) {
-    const all_instruments = ["ls", "ms", "hs", "re", "sn", "ta", "ag"];
+    const all_instruments = ["ls", "ms", "hs", "re", "sn", "ta", "ag", "ot"];
     sel_instrus = sel_instrus || [
         ...all_instruments.filter(ins => notes.hasOwnProperty(ins))
     ];

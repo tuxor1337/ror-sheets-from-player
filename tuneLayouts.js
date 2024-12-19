@@ -915,17 +915,11 @@ export default {
                 "subtitle": "(Iron Lion Zion Break)",
                 "aside": "Everyone together ... start soft and go louder!",
             },
-            "Bra Break (Repi)": {
+            "Bra Break (Maestra)": {
                 // DIFFERENCE name
-                // TODO: "ot" instrument as "c" (?)
                 "name": "Call Break",
                 "single_bar_sizing": true,
                 "nosqueeze": true,
-                "notes": (
-                    "cc cc cc cc A A " +
-                    "cc cc cc cc A A " +
-                    "cc cc cc cc A A "
-                ),
                 "aside_lines": {
                     1: [1, "c = call by maestro (on repinique or snare)"],
                     2: [1, "A = All others answer"],
@@ -944,7 +938,7 @@ export default {
             [
                 "Tune",
                 "Break 1",
-                "Bra Break (Repi)",
+                "Bra Break (Maestra)",
                 "Cross Kicks",
             ],
         ],
