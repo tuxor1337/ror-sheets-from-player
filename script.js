@@ -516,7 +516,7 @@ function render_tune(tune) {
                         override[start - offset] = d;
                     }
                 }
-                const n_overrides = Object.keys(override);
+                const n_overrides = Object.keys(override).length;
 
                 if (
                     n_overrides == 0
@@ -722,8 +722,8 @@ function render_tune(tune) {
             );
 
             const remarks = data.hasOwnProperty("remarks") ? data["remarks"] : [];
-            const rem_indented = (
-                data.hasOwnProperty("remarks_indented") ? data["remarks_indented"] : false
+            const rem_indent = (
+                data.hasOwnProperty("remarks_indent") ? data["remarks_indent"] : false
             );
 
             for (let i_line = 0; i_line < n_extra_lines; i_line++) {
@@ -737,9 +737,13 @@ function render_tune(tune) {
                     innerHTML += el_td.outerHTML;
                 }
                 if (remarks.length > i_line) {
-                    innerHTML += `<td class="empty"></td>`;
+                    let n_cols_pre = 1;
+                    if (rem_indent !== false) {
+                        n_cols_pre += rem_indent;
+                    }
+                    innerHTML += `<td class="empty" colspan="${n_cols_pre}"></td>`;
                     const el_td = document.createElement("td");
-                    el_td.colSpan = sizing["ncols"] - 2;
+                    el_td.colSpan = sizing["ncols"] - 1 - n_cols_pre;
                     el_td.classList.add("text", "remark");
                     el_td.textContent = remarks[i_line];
                     innerHTML += el_td.outerHTML;
@@ -751,11 +755,12 @@ function render_tune(tune) {
             }
 
             remarks.slice(n_extra_lines).forEach((remark) => {
-                const n_cols_pre = 2 + sizing["upbeats"];
+                let n_cols_pre = 0;
                 const el_tr = document.createElement("tr");
                 el_tr.innerHTML = "";
-                if (rem_indented) {
-                    el_tr.innerHTML += `<td class="empty" colspan="${n_cols_pre}"></td>`
+                if (rem_indent !== false) {
+                    n_cols_pre = 2 + sizing["upbeats"] + rem_indent;
+                    el_tr.innerHTML += `<td class="empty" colspan="${n_cols_pre}"></td>`;
                 }
                 const el_td = document.createElement("td");
                 el_td.colSpan = sizing["ncols"] - n_cols_pre;

@@ -446,18 +446,18 @@ export default {
             "Break 2": {
                 "notes": ["      S       S       S   SSSSS "],
                 "remarks": ["S = Mid and high surdos, everybody else continues playing!"],
-                "remarks_indented": true,
+                "remarks_indent": 0,
             },
             "Break 3": {
                 "instruments": ["ms", "hs"],
                 "remarks": ["mhs = Mid and high surdos, everybody else continues playing!"],
-                "remarks_indented": true,
+                "remarks_indent": 0,
             },
             "Bra Break": {
                 "sign": "With both hands point at yourself and then at the band",
                 "subtitle_extra_lines": 1,
                 "remarks": ["R = call by Repinique"],
-                "remarks_indented": true,
+                "remarks_indent": 0,
             },
         },
         "pages": [
@@ -487,7 +487,7 @@ export default {
                 "instruments": ["ls", "ms", "hs", "re", "ta", "ag"],
                 "preamble": "snare continues playing through the break!",
                 "remarks": ["repeat until cut"],
-                "remarks_indented": true,
+                "remarks_indent": 0,
             },
         },
         "pages": [
@@ -741,7 +741,7 @@ export default {
                     7: [1, "from soft to loud"],
                     8: [1, "eh = shout"],
                 },
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "nosqueeze": true,
             },
         },
@@ -814,7 +814,7 @@ export default {
             },
             "Intro": {
                 "remarks": ["snare goes directly in tune after intro, others stop"],
-                "remarks_indented": true,
+                "remarks_indent": 0,
             },
             "End": {
                 "text": {
@@ -871,7 +871,7 @@ export default {
                     "16 bars in total. Repi&Snare start on rim, then Agogô join in,"
                     + " then Tamb joins, then Shaker. In the end, Surdos pick up.",
                 ],
-                "remarks_indented": true,
+                "remarks_indent": 0,
             },
             "Break 1": {
                 "single_bar_sizing": true,
@@ -924,7 +924,7 @@ export default {
                     1: [1, "c = call by maestro (on repinique or snare)"],
                     2: [1, "A = All others answer"],
                 },
-                "remarks_indented": true,
+                "remarks_indent": 0,
             },
             "Cross Kicks": {
                 // DIFFERENCE name
@@ -987,7 +987,7 @@ export default {
                     "All other answer, same beats as they play.",
                     "Last part Everyone sings together.",
                 ],
-                "remarks_indented": true,
+                "remarks_indent": 0,
             },
         },
         "pages": [
@@ -1044,7 +1044,7 @@ export default {
                 "sign": "play a bongo with one hand",
                 "subtitle_extra_lines": 2,
                 "remarks": ["play as loop"],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "separate_lines": [
                     [0, 31, ["ag"]],
                 ],
@@ -1053,7 +1053,7 @@ export default {
                 "sign": "play a bongo with two hands",
                 "subtitle_extra_lines": 2,
                 "remarks": ["play as loop"],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "separate_lines": [
                     [0, 31, ["ta", "re", "sn"]],
                     [0, 31, ["ag"]],
@@ -1065,7 +1065,7 @@ export default {
                 "sign": "like tune sign",
                 "aside": "Shout like a monkey",
                 "remarks": ["alternative: different rhythm or just chaotic voices"],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "notes_override": [{
                     1: [8, "[ U U U ]", "center"],
                     9: [8, "[ A A A ]", "center"],
@@ -1126,7 +1126,7 @@ export default {
             },
             "Hip-Hop Break": {
                 "sign": "hit your chest",
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": [
                     "R = hit on repi,"
                     + " ri = repi hit on rim,"
@@ -1222,7 +1222,7 @@ export default {
                 "separate_lines": [
                     [0, 15, ["ag"]],
                 ],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": [
                     "repeat until cut, ag = Agogô, switch low and high every two bars",
                 ],
@@ -1232,7 +1232,7 @@ export default {
                     31: [1, ".", "center"],
                     32: [1, ".", "center"],
                 }],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": [
                     ". = snare playing silent note",
                 ],
@@ -1265,7 +1265,7 @@ export default {
                 "notes_override": [{
                     1: [6, "count in from here", "left"],
                 }],
-                "remarks_indented": true,
+                "remarks_indent": 16,
                 "remarks": [
                     "others continue playing",
                 ],
@@ -1283,8 +1283,7 @@ export default {
                 }],
                 "sign": "Hedgehog Tune sign",
                 "subtitle_extra_lines": 1,
-                // TODO indent in terms of subbeats
-                "remarks_indented": true,
+                "remarks_indent": 24,
                 "remarks": [
                     "call something else here",
                 ],
@@ -1307,7 +1306,7 @@ export default {
         "patterns": {
             // DIFFERENCE Tamborim is shifted by one beat!
             "Break 1": {
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": [
                     "(Count in break 1 for the second measure)",
                 ],
@@ -1468,13 +1467,13 @@ export default {
             "Break 2": {
                 "instruments": ["ls", "ms", "hs"],
                 "preamble": "Surdos only, Rest continues",
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["repeat until cut with Break 2*"],
             },
             "Break 2*": {
                 "instruments": ["ls", "ms", "hs"],
                 "preamble": "Surdos only, Rest continues",
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["from soft to loud"],
             },
         },
@@ -1544,7 +1543,7 @@ export default {
                 "notes_override": [{
                     13: [1, "Hey!", "left"],
                 }],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["x, .: Snare"],
             },
             "Break 2": {
@@ -1572,7 +1571,7 @@ export default {
                     9: [1, "🗣", "center"],
                     11: [1, "🗣", "center"],
                 }],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["🗣: Replace with own shout"],
             },
             "Break 5": {
@@ -1632,12 +1631,12 @@ export default {
                 }],
                 "sign": "One hand in armpit",
                 "subtitle_extra_lines": 1,
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["oo = Shout Ook!"],
             },
             "Speaking Break": {
                 "notes": ["                "],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["Make monkey noises"],
             },
         },
@@ -1665,7 +1664,7 @@ export default {
                 },
             },
             "Break 2": {
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["A: only Repi, Snare & Tamb, E: all instruments, including Surdos"],
             },
             "Clave Plus": {
@@ -1729,7 +1728,7 @@ export default {
             "Küsel Break": {
                 // DIFFERENCE snare has a typo (?) in the tune book
                 "sign": "hands twist head",
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["all players turn around 360° while playing the break"],
                 "separate_lines": [
                     [0, 31, ["sn"]],
@@ -1738,7 +1737,7 @@ export default {
             "I like to move it": {
                 "sign": "curling hands up and down",
                 "subtitle_extra_lines": 2,
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["Repi and Agogô; play as a loop"],
             },
             "Eye of the tiger": {
@@ -1792,14 +1791,14 @@ export default {
                 },
             },
             "Kick Back 1": {
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["repeat until counting in for Kick Back 2"],
                 "sign": "thumb back over shoulder",
                 "subtitle_extra_lines": 1,
             },
             "Kick Back 2": {
                 // DIFFERENCE Agogô player aoaoaoao... instead of aaaaaaa...
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["repeat until cut with one of the breaks"],
                 "sign": "like Kick Back 1, but with two thumbs",
                 "separate_lines": [
@@ -1815,7 +1814,7 @@ export default {
                 ],
             },
             "Zorro-Break": {
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": [
                     "others continue playing;"
                     + " repeat until cut with one of the breaks",
@@ -1854,16 +1853,16 @@ export default {
                 // TODO repeat group of three lines 4x with upbeat and afterbeat
                 "name": "Call Break",
                 "subtitle": "Intro",
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["Last beat overlaps with first Repi beat"],
             },
             "Break 1": {
                 "preamble": "Keep playing groove during first 2 beats",
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["Pr = long whistle, pr = short whistle"],
             },
             "Break 2": {
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["repeat 4 times"],
             },
         },
@@ -1879,12 +1878,12 @@ export default {
     "Samba Reggae": {
         "sign": "smoking a cigar/joint",
         "sizing": {
-            "pre_width": 18,
+            "pre_width": 16,
         },
         "patterns": {
             "Bra Break": {
                 "nosqueeze": true,
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["ls = low surdo picks up"],
                 "separate_lines": [
                     [64, 111, ["sn"]],
@@ -1895,7 +1894,7 @@ export default {
                 "notes": ["E  E  E   E E   "],
             },
             "Break 1": {
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["hs = high surdo picks up"],
             },
             "Break 3": {
@@ -1947,7 +1946,7 @@ export default {
                     + " and to the left - then arms up to the right, and left .."
                     + " and go! (start down right)"
                 ),
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["ls = low surdo picks up"],
             },
         },
@@ -1993,7 +1992,7 @@ export default {
             },
             "Break 2": {
                 "instruments": ["ls", "ms", "hs", "re", "ag", "ta"],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["Snare plays the same as Repi"],
                 "nosqueeze": true,
                 "separate_lines": [
@@ -2003,14 +2002,14 @@ export default {
             "Whistle Break": {
                 "sign": "Point to whistle",
                 "subtitle_extra_lines": true,
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["Loop until told otherwise"],
             },
             "Outro": {
                 "sign": (
                     "Fist like “Stop playing” with thumb sticking out"
                 ),
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["then stop playing"],
             },
         },
@@ -2248,7 +2247,7 @@ export default {
                     16: [1, ".", "center"],
                     29: [1, "hey!", "left"],
                 }],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["Everybody sings this"],
             },
             "Silence Break": {
@@ -2382,7 +2381,7 @@ export default {
                 "notes_override": [{
                     61: [1, "Oi!", "center"],
                 }],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["Oi! = Everybody shouts “Oi”"],
             },
         },
@@ -2407,7 +2406,7 @@ export default {
                 "preamble": "Everyone hits the rims",
                 "sign": "building a tower with fists on top of each other, upwards",
                 "subtitle_extra_lines": 2,
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["repeat until cut"],
             },
             "Intro+Surdos": {
@@ -2417,7 +2416,7 @@ export default {
                 "notes_override": [{
                     61: [1, "(S)", "center"],
                 }],
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": [
                     "(S) not before Boum Shakala Break",
                     "can be remembered by:",
