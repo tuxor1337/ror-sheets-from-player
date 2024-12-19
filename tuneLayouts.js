@@ -124,12 +124,12 @@ export default {
             },
             "Wolf Break": {
                 // DIFFERENCE: part of special breaks, subbeat at end of line 3
-                "notes": (
+                "notes": [(
                     "S S A SSS S A  S" +
                     "S S A  SS S A   " +
                     "S S A SSS S A  E" +
                     "E E E E         "
-                ),
+                )],
                 "notes_override": [{
                     60: [1, "a", "center"],
                     61: [1, "u", "center"],
@@ -143,7 +143,7 @@ export default {
             },
             "Democracy Break": {
                 // DIFFERENCE: part of shouting breaks
-                "notes": (
+                "notes": [(
                     "EEEEEEEEEEEEEEEE" +
                     "EEEEEEEEEEEEEEEE" +
                     "EEEEEEEEEEEEEEEE" +
@@ -155,7 +155,7 @@ export default {
                     "                " +
                     "                " +
                     "E E E EE EE E E "
-                ),
+                )],
                 "notes_override": Object.assign({}, ...(
                     [48, 80, 112, 128, 144].map((offset) => shift_override_offsets({
                         1: [2, "This", "left"],
@@ -199,10 +199,10 @@ export default {
             },
             "Star Wars Break": {
                 // DIFFERENCE: part of special breaks in player
-                "notes": (
+                "notes": [(
                     "Ꞩ   Ꞩ   Ꞩ   Ş  Ŝ" +
                     "Ꞩ   Ş  ŜꞨ       "
-                ),
+                )],
                 "sign": "Move flat hand from top to bottom of face",
                 "subtitle_extra_lines": 1,
             },
@@ -252,7 +252,7 @@ export default {
             },
             "Hard Core Break": {
                 // DIFFERENCE: part of special breaks in player
-                "notes": (
+                "notes": [(
                     "l l l l l l l EE" +
                     "E l l l l l l EE" +
                     "E l l l l l l EE" +
@@ -261,7 +261,7 @@ export default {
                     "E e e e e e e EE" +
                     "E e e e e e e EE" +
                     "E e e e EEEEEEEE"
-                ),
+                )],
                 "sign": "Both hands in the air, with index and pinky fingers pointing up",
                 "subtitle_extra_lines": 3,
                 "remarks": [
@@ -577,10 +577,10 @@ export default {
             },
             "Singing Break 1": {
                 // DIFFERENCE: missing in player
-                "notes": (
+                "notes": [(
                     "X  X  X           XXX X X       " +
                     "X  X  X           XXX X X       "
-                ),
+                )],
                 "notes_override": [{
                     1: [1, "non", "left"],
                     4: [1, "non", "left"],
@@ -604,10 +604,10 @@ export default {
             },
             "Singing Break 2": {
                 // DIFFERENCE: missing in player
-                "notes": (
+                "notes": [(
                     "X  X  X           XXX X X       " +
                     "X  X  X           XXX X X       "
-                ),
+                )],
                 "notes_override": [{
                     1: [1, "non", "left"],
                     4: [1, "non", "left"],
@@ -720,11 +720,11 @@ export default {
             "Break 2": {
                 "memory_aid": {
                     "upbeat": 6,
-                    "notes": (
+                    "notes": [(
                         "  XX  " +
                         "X XX  X XX  X       XX  " +
                         "  X  XX  X  X       XX  "
-                    ),
+                    )],
                     "words": [
                         "I", "want", "pa-", "pa-", "dam", "pa-", "pa-", "dam", "now.",
                         "I", "want", "paa-", "pa-", "dam", "right", "now.",
@@ -1258,10 +1258,10 @@ export default {
         "patterns": {
             // DIFFERENCE "count in from here" is not in player
             "Break 1": {
-                "notes": (
+                "notes": [(
                     "                " +
                     "S   S   S   S   "
-                ),
+                )],
                 "notes_override": [{
                     1: [6, "count in from here", "left"],
                 }],
@@ -1272,10 +1272,10 @@ export default {
             },
             "Break 2": {
                 "name": "Hedgehog Call",
-                "notes": (
+                "notes": [(
                     "                " +
                     "E               "
-                ),
+                )],
                 "notes_override": [{
                     1: [6, "count in from here", "left"],
                     25: [4, "Hedge-", "left"],
@@ -1371,12 +1371,12 @@ export default {
         "patterns": {
             "Karla Break": {
                 // DIFFERENCE break is missing in player
-                "notes": (
+                "notes": [(
                     "XXXXXXXXXXXXXXXX" +
                     "XXXXXXXXXXXXXXXX" +
                     "XXXXXXXXXXXXXXXX" +
                     "X               "
-                ),
+                )],
                 "preamble": ">from soft to loud",
                 "sign": "rabbit ears OR finger pistol shooting up",
                 "nosqueeze": true,
@@ -1903,7 +1903,7 @@ export default {
                 ],
                 "nosqueeze": true,
                 "preamble": "snare continues playing this through the break",
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["hs = high surdo picks up"],
                 "separate_lines": [
                     [80, 111, ["ta", "ag"]],
@@ -1915,7 +1915,7 @@ export default {
                 "nosqueeze": true,
                 "sign": "signed by waving the palms diagonal across one shoulder",
                 "subtitle_extra_lines": 2,
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["ls = low surdo picks up"],
             },
             "Knock On The Door Break": {
@@ -2042,7 +2042,7 @@ export default {
                 }],
             },
             "Break 1": {
-                "remarks_indented": true,
+                "remarks_indent": 0,
                 "remarks": ["From soft to loud"],
             },
             "Break 2": {
