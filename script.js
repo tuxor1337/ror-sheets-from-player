@@ -75,6 +75,9 @@ function render_tune(tune) {
 
         function render_header(main, aside) {
             el_h1.textContent = main;
+            if (main.length > 15) {
+                el_h1.classList.add("long");
+            }
             const el_h1_div = document.createElement("div");
             el_h1_div.textContent = aside;
             if (!!aside && aside.length > 95) {

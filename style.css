@@ -47,6 +47,10 @@ section.wide h1 div {
     max-width: 70rem;
 }
 
+section:not(.wide) h1.long div {
+    max-width: 20rem;
+}
+
 h1 div.long {
     line-height: 1.1rem;
     font-size: 0.85rem;
