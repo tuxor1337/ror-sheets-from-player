@@ -693,6 +693,7 @@ export default {
         ],
     },
     "Bhangra": {
+        "sign": "folded hands, like praying",
         "patterns": {
             "Tune": {
                 "notes_override": {
