@@ -709,7 +709,7 @@ export default {
             "Break 1": {
                 "memory_aid": {
                     "upbeat": 6,
-                    "notes": ["  XX  X XX X  XX  X  X  X XX  "],
+                    "notes": "  XX  X XX X  XX  X  X  X XX  ",
                     "words": [
                         "I", "say", "do", "as", "I", "say,", "you", "old", "fool,",
                         "dam", "dam,", "I", "say",
@@ -720,11 +720,11 @@ export default {
             "Break 2": {
                 "memory_aid": {
                     "upbeat": 6,
-                    "notes": [(
+                    "notes": (
                         "  XX  " +
                         "X XX  X XX  X       XX  " +
                         "  X  XX  X  X       XX  "
-                    )],
+                    ),
                     "words": [
                         "I", "want", "pa-", "pa-", "dam", "pa-", "pa-", "dam", "now.",
                         "I", "want", "paa-", "pa-", "dam", "right", "now.",
@@ -1991,9 +1991,7 @@ export default {
                 // TODO: show shaker only if manually selected, or if non-trivial
                 // TODO: memory aid underneath tune
                 "memory_aid": {
-                    "notes": [
-                        "  X X X XX XX X "
-                    ],
+                    "notes": "  X X X XX XX X ",
                     "words": [
                         "I", "like", "to", "play,", "the", "A-,", "go-", "gô",
                     ],
@@ -2237,10 +2235,10 @@ export default {
                 "separate_instruments": true,
                 // TODO: memory aid for break with separate instruments
                 "memory_aid": {
-                    "notes": [
+                    "notes": (
                         "XXXX XX XX  XXXX XX XX  "
                         + "XXXX  XXXX  XXXX  XXXX  "
-                    ],
+                    ),
                     "words": [
                         "Ren-", "ted", "a", "tent,", "a", "tent,", "a", "tent!",
                         "Ren-", "ted", "a", "tent,", "a", "tent,", "a", "tent!",
@@ -2383,7 +2381,7 @@ export default {
                 "sign": "Signed like scissors",
                 "subtitle_extra_lines": 1,
                 "memory_aid": {
-                    "notes": ["X X X X XX X XX "],
+                    "notes": "X X X X XX X XX ",
                     "words": ["1", "2", "3", "4", "in", "my", "un-", "der", "pants"],
                 },
             },

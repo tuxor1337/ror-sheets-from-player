@@ -1206,7 +1206,8 @@ function _merge_instruments(p) {
     }
 }
 
-function _convert_patterns(patterns, layout) {
+function _convert_patterns(patterns, layout, def_time) {
+    def_time = def_time || 4;
     const no_high_surdo = !Object.values(patterns).some(notes => notes.hasOwnProperty("hs"));
     const layout_patterns = layout.hasOwnProperty("patterns") ? layout["patterns"] : {};
     const result = {...layout_patterns};
@@ -1274,7 +1275,7 @@ function _convert_patterns(patterns, layout) {
             continue;
         }
         const orig = patterns.hasOwnProperty(break_name) ? patterns[break_name] : {};
-        for (const [prop, def] of [["time", 4], ["upbeat", 0], ["name", break_name]]) {
+        for (const [prop, def] of [["time", def_time], ["upbeat", 0], ["name", break_name]]) {
             if (!p.hasOwnProperty(prop)) {
                 p[prop] = orig.hasOwnProperty(prop) ? orig[prop] : def;
             }
@@ -1339,7 +1340,7 @@ function _set_sizing(layout, time) {
 function convert_tune([tune_name, {displayName, time, patterns}]) {
     fill_patterns(patterns);
     const layout = TUNE_LAYOUTS.hasOwnProperty(tune_name) ? {...TUNE_LAYOUTS[tune_name]} : {};
-    layout["patterns"] = _convert_patterns(patterns, layout);
+    layout["patterns"] = _convert_patterns(patterns, layout, time);
 
     _set_sizing(layout, time);
 
