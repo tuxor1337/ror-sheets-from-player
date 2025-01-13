@@ -1,11 +1,13 @@
 :root {
-    --note-border-width: 0.5pt;
-    --note-border-width-em: 1.0pt;
-    --note-border-width-x-em: 1.5pt;
+    /* the border sizes used in the sheet book PDF are appx. 0.5/1.0/1.5 pt */
+    --note-border-width: 1.0pt;
+    --note-border-width-em: 1.5pt;
+    --note-border-width-x-em: 2.5pt;
 }
 
 html, body {
-    font-size: 10pt;
+    /* the font size used in the sheet book PDF is 10pt */
+    font-size: 11pt;
     font-family: "Open Sans", sans-serif;
 }
 
