@@ -188,7 +188,7 @@ function render_tune(tune) {
                 const el_td = document.createElement("td");
                 el_td.classList.add("note");
                 if (
-                    i != 0 && i % sizing["subbeats_per_beat"] == 0
+                    i % sizing["subbeats_per_beat"] == 0
                     || i == 0 && sizing["upbeats"] > 0
                 ) {
                     const n_beat = i / sizing["subbeats_per_beat"];
@@ -400,11 +400,12 @@ function render_tune(tune) {
                 const el_tr = tbl_add_tune_row(
                     row_name, str_row, notation, override, upbeat, true,
                 );
-                if (compact_layout) {
-                    const td_notes = el_tr.querySelectorAll("td.note:not(.upbeat)");
-                    td_notes[0].classList.add("line_start");
-                    td_notes[td_notes.length - 1].classList.add("line_end");
 
+                const td_notes = el_tr.querySelectorAll("td.note:not(.upbeat)");
+                td_notes[0].classList.add("line_start");
+                td_notes[td_notes.length - 1].classList.add("line_end");
+
+                if (compact_layout) {
                     if (i_line == 0) {
                         el_tr.classList.add("break_start");
                     }
@@ -1060,7 +1061,7 @@ function auto_total_width(sizing) {
     if (sizing["bars_per_row"] > 1 && !sizing["landscape"]) {
         return 56;
     }
-    return sizing["landscape"] ? 90 : 44.5;
+    return sizing["landscape"] ? 66 : 41.9;
 }
 
 function fill_sizing(sizing, total_width) {
@@ -1086,7 +1087,7 @@ function fill_sizing(sizing, total_width) {
 
 function auto_sizing(tune_n_subbeats, tune_time, tune_upbeat) {
     let sizing = {
-        "pre_width": 12,
+        "pre_width": 11,
         "bars_per_row": 1,
         "beats_per_bar": 4,
         "subbeats_per_beat": tune_time,
@@ -1099,7 +1100,7 @@ function auto_sizing(tune_n_subbeats, tune_time, tune_upbeat) {
         // e.g. Funk, Afoxé
         sizing = {
             ...sizing,
-            "pre_width": 16.5,
+            "pre_width": 15.0,
             "bars_per_row": 2,
         };
     } else if (n_bars == 4 && sizing["subbeats_per_beat"] == 3) {
