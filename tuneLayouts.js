@@ -1989,7 +1989,6 @@ export default {
         ),
         "patterns": {
             "Tune": {
-                // TODO: show shaker only if manually selected, or if non-trivial
                 // TODO: memory aid underneath tune
                 "memory_aid": {
                     "notes": "  X X X XX XX X ",

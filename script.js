@@ -1257,7 +1257,12 @@ function _convert_patterns(patterns, layout, def_time) {
                 if (!p.hasOwnProperty("instru_order")) {
                     p["instru_order"] = [
                         ...Object.keys(p["notes"]).filter((ins) => {
-                            return [...p["notes"][ins]].some((c) => c != " ");
+                            let l_notes = [...p["notes"][ins]];
+                            return (
+                                l_notes.some((c) => c != " ")
+                                // only show Shaker if it is non-trivial:
+                                && (l_notes.some((c) => c != ".") || ins != "sh")
+                            );
                         })
                     ];
                 }
