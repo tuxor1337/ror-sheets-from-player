@@ -1855,6 +1855,15 @@ export default {
                 "remarks": ["Last beat overlaps with first Repi beat"],
             },
             "Break 1": {
+                "suppress_instruments": [
+                    ["ls", 1, 8],
+                    ["ms", 1, 8],
+                    ["hs", 1, 8],
+                    ["re", 1, 8],
+                    ["sn", 1, 8],
+                    ["ta", 1, 8],
+                    ["ag", 1, 8],
+                ],
                 "preamble": "Keep playing groove during first 2 beats",
                 "remarks_indent": 0,
                 "remarks": ["Pr = long whistle, pr = short whistle"],

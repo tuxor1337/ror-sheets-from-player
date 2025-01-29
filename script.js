@@ -21,6 +21,8 @@ const NOTE_CHARS = {
     "þ": "T+h",
     "t": "w",
     "z": "s",
+    "y": "Pr",
+    "w": "pr",
 };
 
 const BREAK_CHARS = {
@@ -1015,7 +1017,7 @@ function _merge_instru_notes_i(notes, l_instrus, i) {
         return [...notes[ref_ins]].every(c => [" ", ref].indexOf(c) >= 0) ? "å" : ref;
     } else {
         const ref_note = notes[ref_ins].charAt(i);
-        if ([".", "f", "h", "r", "s"].indexOf(ref_note) >= 0) {
+        if ([".", "f", "h", "r", "s", "y", "w"].indexOf(ref_note) >= 0) {
             return ref_note;
         } else {
             return BREAK_CHARS.hasOwnProperty(ref_ins) ? BREAK_CHARS[ref_ins] : ref_ins;
