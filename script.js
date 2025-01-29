@@ -1284,6 +1284,14 @@ function _convert_patterns(patterns, layout, def_time) {
                         })
                     ];
                 }
+                if (is_tune && !p.hasOwnProperty("instrument_groups")) {
+                    let l_surdos = p["instru_order"].filter(
+                        ins => ["ls", "ms", "hs", "lms", "mhs", "as"].indexOf(ins) >= 0
+                    );
+                    if (l_surdos.length > 1) {
+                        p["instrument_groups"] = [l_surdos];
+                    }
+                }
             } else {
                 p["notes"] = convert_break_pattern(notes, p["instruments"], p["separate_lines"]);
             }

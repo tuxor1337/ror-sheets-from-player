@@ -1152,9 +1152,6 @@ export default {
             "bars_per_row": 2,
         },
         "patterns": {
-            "Tune": {
-                "instrument_groups": [["ls", "ms", "hs"]],
-            },
             "White Shark": {
                 "sign": "simulating a shark fin",
                 "separate_lines": [
