@@ -1935,7 +1935,6 @@ export default {
                 "notes": ["  xx  xx  xx  xx"],
             },
             "Knock On The Door (Cut)": {
-                // TODO: visible line before Repi with comment (?)
                 "name": "Knock On The Door Break",
                 "preamble": "snare continues playing this or the rhythm of Call Break",
                 "sign": (
@@ -1954,6 +1953,7 @@ export default {
                 ],
             },
             "Dancing Break": {
+                // DIFFERENCE ls and hs pick up together in player
                 "preamble": "The players who don't play dance (see left)",
                 "sign": (
                     "sign by showing the dance: arms down to the right,"
@@ -1989,11 +1989,10 @@ export default {
         ),
         "patterns": {
             "Tune": {
-                // TODO: memory aid underneath tune
                 "memory_aid": {
                     "notes": "  X X X XX XX X ",
                     "words": [
-                        "I", "like", "to", "play,", "the", "A-,", "go-", "gô",
+                        "I", "like", "to", "play", "the", "A-", "go-", "gô",
                     ],
                 },
             },
@@ -2092,7 +2091,6 @@ export default {
             },
             "Beast Break": {
                 // DIFFERENCE shouting in player, but not in book
-                // TODO: Agogô as 'h'
                 "subtitle_extra_lines": 1,
                 "sign": "evil claws going down",
                 "remarks_indent": 0,
@@ -2103,7 +2101,6 @@ export default {
             },
             "Beast Break Inverted": {
                 // DIFFERENCE shouting in player, but not in book
-                // TODO: Agogô as 'h'
                 "subtitle_extra_lines": 1,
                 "sign": "evil claws going up",
                 "remarks_indent": 0,
@@ -2194,6 +2191,7 @@ export default {
             "bars_per_row": 2,
         },
         "patterns": {
+            // DIFFERENCE mid surdo is missing in player
             "Break 1": {
                 // DIFFERENCE player has only "ls" where book has "E"
                 "notes_override": [{
@@ -2210,7 +2208,6 @@ export default {
                 }],
             },
             "Bra Break": {
-                // TODO: last line is truncated because only single bar
                 "notes_override": [{
                     109: [2, "Burn!", "left"],
                 }],

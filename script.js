@@ -212,6 +212,7 @@ function render_tune(tune) {
             if (notation.length < sizing["subbeats_per_row"] && upbeat == 0) {
                 const el_td = document.createElement("td");
                 el_td.colSpan = sizing["subbeats_per_row"] - notation.length;
+                el_td.classList.add("silent");
                 el_tr.appendChild(el_td);
             }
             el_tr.appendChild(document.createElement("td"));
@@ -428,6 +429,11 @@ function render_tune(tune) {
                 el_tr.innerHTML = el_td.outerHTML + "<td></td>";
                 el_table.appendChild(el_tr);
             });
+
+            if (data.hasOwnProperty("memory_aid")) {
+                tbl_add_empty_row();
+                tbl_add_memory_aid(data["memory_aid"]);
+            }
         }
 
         function tbl_add_memory_aid(data) {
@@ -578,7 +584,7 @@ function render_tune(tune) {
                 if (
                     n_overrides == 0
                     && (
-                        lines[i_line] == empty_line
+                        [...lines[i_line]].every(c => c == " ")
                         || i_line == 0 && upbeat > 0 && lines[i_line] == empty_line_upbeat
                     ) && lines.some(l => l != empty_line)
                 ) {
@@ -1001,6 +1007,9 @@ function _merge_instru_notes_i(notes, l_instrus, i) {
         }
     } else if (ref_ins == "ag") {
         const ref = notes[ref_ins].charAt(i);
+        if (ref == "a") {
+            return ref;
+        }
         return [...notes[ref_ins]].every(c => [" ", ref].indexOf(c) >= 0) ? "å" : ref;
     } else {
         const ref_note = notes[ref_ins].charAt(i);
@@ -1241,6 +1250,10 @@ function _convert_patterns(patterns, layout, def_time) {
                 notes, no_high_surdo, p["instruments"], p["suppress_instruments"],
             );
 
+            if (notes.hasOwnProperty("upbeat")) {
+                p["upbeat"] = notes["upbeat"];
+            }
+
             if (is_tune || separate_instruments) {
                 const override_notes = p.hasOwnProperty("notes") ? p["notes"] : {};
                 p["notes"] = convert_tune_pattern(notes);
@@ -1261,17 +1274,16 @@ function _convert_patterns(patterns, layout, def_time) {
                             return (
                                 l_notes.some((c) => c != " ")
                                 // only show Shaker if it is non-trivial:
-                                && (l_notes.some((c) => c != ".") || ins != "sh")
+                                && (
+                                    l_notes.slice(p["upbeat"]).some((c) => c != ".")
+                                    || ins != "sh"
+                                )
                             );
                         })
                     ];
                 }
             } else {
                 p["notes"] = convert_break_pattern(notes, p["instruments"], p["separate_lines"]);
-            }
-
-            if (notes.hasOwnProperty("upbeat")) {
-                p["upbeat"] = notes["upbeat"];
             }
         }
         result[break_name] = p;
