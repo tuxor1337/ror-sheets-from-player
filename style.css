@@ -218,7 +218,7 @@ tr.break_end td.note {
     border-bottom-color: #000;
 }
 
-tr.break_end td[colspan].silent {
+tr.break_end:not(.break_start) td[colspan].silent {
     border-top-width: var(--note-border-width-em);
     border-top-color: #000;
 }

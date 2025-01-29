@@ -836,7 +836,9 @@ function render_tune(tune) {
             });
 
             if (data.hasOwnProperty("memory_aid")) {
-                tbl_add_empty_row();
+                if (remarks.length >= n_extra_lines) {
+                    tbl_add_empty_row();
+                }
                 tbl_add_memory_aid(data["memory_aid"]);
             }
         }

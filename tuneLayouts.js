@@ -2374,7 +2374,6 @@ export default {
         "patterns": {
             // DIFFERENCE Agogô tune: h instead of l in player before beat 4
             "Scissor Break": {
-                // TODO: memory aid in subtitle extra line
                 "sign": "Signed like scissors",
                 "subtitle_extra_lines": 1,
                 "memory_aid": {
