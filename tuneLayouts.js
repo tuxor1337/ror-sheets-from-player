@@ -1841,6 +1841,7 @@ export default {
         "sizing": {
             "pre_width": 12,
             "bars_per_row": 1,
+            "upbeats": 1,
         },
         "patterns": {
             "Tune": {
@@ -1848,7 +1849,8 @@ export default {
             },
             "Intro": {
                 // DIFFERENCE [RRRRRR] from book is fl fl fl fl in player
-                // TODO repeat group of three lines 4x with upbeat and afterbeat
+                // TODO repeat line with upbeat
+                // TODO repeat group of three lines with afterbeat
                 "name": "Call Break",
                 "subtitle": "Intro",
                 "remarks_indent": 0,

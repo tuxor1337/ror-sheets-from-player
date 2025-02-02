@@ -539,6 +539,10 @@ function render_tune(tune) {
             }
         }
 
+        function _is_empty_line(notes) {
+            return !([...notes].some(c => c != " "));
+        }
+
         function _render_lines(data, i_notes) {
             const upbeat = data.hasOwnProperty("upbeat") ? data["upbeat"] : 0;
             const notes_override = (
@@ -547,37 +551,32 @@ function render_tune(tune) {
                 ? data["notes_override"][i_notes]
                 : {}
             );
-            const empty_line = " ".repeat(sizing["subbeats_per_row"]);
-            const empty_line_upbeat = " ".repeat(upbeat);
             let notes = data["notes"][i_notes];
             let n_lines = Math.ceil(notes.length / sizing["subbeats_per_row"]);
-            const lines = [...Array(n_lines).keys()].map((i_line) => {
-                if (upbeat > 0) {
-                    if (i_line == 0) {
-                        return notes.substr(0, upbeat);
-                    } else {
-                        return notes.substr(
-                            upbeat + (i_line - 1) * sizing["subbeats_per_row"],
-                            sizing["subbeats_per_row"],
-                        );
-                    }
-                } else {
-                    return notes.substr(
-                        i_line * sizing["subbeats_per_row"],
-                        sizing["subbeats_per_row"],
-                    );
-                }
+            const offsets = [...Array(n_lines).keys()].map((i_line) => {
+                return i_line == 0 ? 0 : upbeat + (
+                    sizing["upbeats"] < upbeat ? i_line - 1 : i_line
+                ) * sizing["subbeats_per_row"];
+            });
+            const lines = offsets.map((offset, i_line) => {
+                return notes.substr(offset, (
+                    i_line + 1 < n_lines
+                    ? offsets[i_line + 1] - offset
+                    : sizing["subbeats_per_row"]
+                ));
             });
 
             const lines_render = [];
             for (let i_line = 0; i_line < n_lines; i_line++) {
-                let offset = i_line * sizing["subbeats_per_row"];
-                if (i_line > 0 && upbeat > 0) {
-                    offset += upbeat - sizing["subbeats_per_row"];
-                }
+                let offset = offsets[i_line];
+                let length = (
+                    i_line + 1 < n_lines
+                    ? offsets[i_line + 1] - offset
+                    : sizing["subbeats_per_row"]
+                );
                 const override = {};
                 for (const [start, d] of Object.entries(notes_override)) {
-                    if (offset < start && start < offset + sizing["subbeats_per_row"]) {
+                    if (offset < start && start < offset + length) {
                         override[start - offset] = d;
                     }
                 }
@@ -585,11 +584,10 @@ function render_tune(tune) {
 
                 if (
                     n_overrides == 0
-                    && (
-                        [...lines[i_line]].every(c => c == " ")
-                        || i_line == 0 && upbeat > 0 && lines[i_line] == empty_line_upbeat
-                    ) && lines.some(l => l != empty_line)
+                    && _is_empty_line(lines[i_line])
+                    && lines.some(l => !_is_empty_line(l))
                 ) {
+                    // if at least one line is non-empty, skip empty lines
                     continue;
                 }
 
@@ -620,7 +618,7 @@ function render_tune(tune) {
                     n_repeat_lines = 0;
                 }
 
-                const upbeat_mod = upbeat > 0 ? -1 : 0;
+                const upbeat_mod = sizing["upbeats"] < upbeat ? -1 : 0;
                 if (i_line_next > i_line + 1) {
                     for (
                         let i_repeat_lines = 0;
@@ -637,6 +635,7 @@ function render_tune(tune) {
                             "str_row": str_row,
                             "notation": lines[i_line + i_repeat_lines],
                             "override": override,
+                            "upbeat": i_line == 0 && sizing["upbeats"] >= upbeat ? upbeat : 0,
                         });
                     }
                 } else {
@@ -653,6 +652,7 @@ function render_tune(tune) {
                         "str_row": str_row,
                         "notation": lines[i_line],
                         "override": override,
+                        "upbeat": i_line == 0 && sizing["upbeats"] >= upbeat ? upbeat : 0,
                     });
                 }
 
@@ -694,7 +694,7 @@ function render_tune(tune) {
                 notation,
                 override,
                 i_line == 0 ? upbeat : 0,
-                false,
+                upbeat <= sizing["upbeats"],
             );
             if (i_line == 0) {
                 el_tr.classList.add("break_start");
@@ -705,12 +705,16 @@ function render_tune(tune) {
                 }
             }
 
-            let td_notes = el_tr.querySelectorAll("td.note:not(.upbeat)");
+            let td_notes = (
+                i_line == 0 && upbeat <= sizing["upbeats"]
+                ? el_tr.querySelectorAll("td.note")
+                : el_tr.querySelectorAll("td.note:not(.upbeat)")
+            );
             td_notes[0].classList.add("line_start");
             td_notes[td_notes.length - 1].classList.add("line_end");
             const n_td_notes = td_notes.length;
 
-            if (i_line == 1 && upbeat > 0 && upbeat > 0) {
+            if (i_line == 1 && upbeat > sizing["upbeats"]) {
                 Array.from(td_notes).forEach((el_td, i_td) => {
                     if (i_td < n_td_notes - upbeat) {
                         el_td.classList.add("break_start");
