@@ -1849,7 +1849,6 @@ export default {
             },
             "Intro": {
                 // DIFFERENCE [RRRRRR] from book is fl fl fl fl in player
-                // TODO repeat line with upbeat
                 // TODO repeat group of three lines with afterbeat
                 "name": "Call Break",
                 "subtitle": "Intro",

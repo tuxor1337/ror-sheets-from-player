@@ -543,6 +543,23 @@ function render_tune(tune) {
             return !([...notes].some(c => c != " "));
         }
 
+        function _count_repeated_initlines(notes, upbeat) {
+            const initline = notes.slice(0, sizing["subbeats_per_row"]);
+            let currline = initline;
+            let n_lines_repeated = 0;
+            while (initline == currline) {
+                n_lines_repeated++;
+                currline = notes.substr(
+                    n_lines_repeated * sizing["subbeats_per_row"],
+                    sizing["subbeats_per_row"]
+                )
+            }
+            if (n_lines_repeated == 1 || !_is_empty_line(currline.slice(0, upbeat))) {
+                return 0;
+            }
+            return n_lines_repeated;
+        }
+
         function _render_lines(data, i_notes) {
             const upbeat = data.hasOwnProperty("upbeat") ? data["upbeat"] : 0;
             const notes_override = (
@@ -553,7 +570,13 @@ function render_tune(tune) {
             );
             let notes = data["notes"][i_notes];
             let n_lines = Math.ceil(notes.length / sizing["subbeats_per_row"]);
+            let n_initlines_repeated = sizing["upbeats"] < upbeat ? 0 : (
+                _count_repeated_initlines(notes, upbeat)
+            );
             const offsets = [...Array(n_lines).keys()].map((i_line) => {
+                if (i_line < n_initlines_repeated) {
+                    return i_line * sizing["subbeats_per_row"];
+                }
                 return i_line == 0 ? 0 : upbeat + (
                     sizing["upbeats"] < upbeat ? i_line - 1 : i_line
                 ) * sizing["subbeats_per_row"];
@@ -593,7 +616,10 @@ function render_tune(tune) {
 
                 let n_repeat_lines = 0;
                 let i_line_next = i_line + n_repeat_lines;
-                if (n_overrides == 0 && !data.hasOwnProperty("nosqueeze")) {
+                if (i_line == 0 && n_initlines_repeated > 0) {
+                    n_repeat_lines = 1;
+                    i_line_next = i_line + n_initlines_repeated;
+                } else if (n_overrides == 0 && !data.hasOwnProperty("nosqueeze")) {
                     // only combine consecutive lines if there are no overrides
                     while (
                         i_line_next == i_line + n_repeat_lines
@@ -629,11 +655,15 @@ function render_tune(tune) {
                             `${i_line + upbeat_mod + 1 + i_repeat_lines}`
                             + `-${i_line_next + upbeat_mod + 1 - n_repeat_lines + i_repeat_lines}`
                         );
+                        let notation = lines[i_line + i_repeat_lines];
+                        if (i_line == 0 && n_initlines_repeated > 0) {
+                            notation += " ".repeat(upbeat);
+                        }
                         lines_render.push({
                             "l_start": i_line + i_repeat_lines,
                             "l_end": i_line_next - n_repeat_lines + i_repeat_lines,
                             "str_row": str_row,
-                            "notation": lines[i_line + i_repeat_lines],
+                            "notation": notation,
                             "override": override,
                             "upbeat": i_line == 0 && sizing["upbeats"] >= upbeat ? upbeat : 0,
                         });
