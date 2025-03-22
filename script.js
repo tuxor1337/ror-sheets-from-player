@@ -96,7 +96,12 @@ function render_tune(tune) {
                 `<col style="width: ${sizing["pre_name_width"]}rem"></col>`
                 + `<col style="width: ${sizing["pre_count_width"]}rem"></col>`
             );
-            for (let i = 0; i < sizing["subbeats_per_row"] + sizing["upbeats"]; i++) {
+            const n_subbeat_cells = (
+                sizing["upbeats"]
+                + sizing["subbeats_per_row"]
+                + sizing["afterbeats"]
+            );
+            for (let i = 0; i < n_subbeat_cells; i++) {
                 const el_col = document.createElement("col");
                 el_col.style.width = `${sizing["subbeat_width"]}rem`;
                 el_colgroup.appendChild(el_col);
@@ -161,7 +166,17 @@ function render_tune(tune) {
             }
         }
 
-        function tbl_add_tune_row(name, i_row, notation, override, upbeat, upbeat_pre) {
+        function tbl_tune_row_add_afterbeats(el_tr, notation) {
+            for (let i = 0; i < notation.length; i++) {
+                const el_td = document.createElement("td");
+                el_td.classList.add("note");
+                el_td.classList.add("afterbeat");
+                el_td.textContent = note_char_to_repr(notation.charAt(i));
+                el_tr.appendChild(el_td);
+            }
+        }
+
+        function tbl_add_tune_row(name, i_row, notation, override, upbeat, print_upbeats) {
             upbeat = upbeat || 0;
             override = override || {};
             let el_tr = document.createElement("tr");
@@ -171,12 +186,18 @@ function render_tune(tune) {
             );
 
             let upbeat_notes = "";
-            if (upbeat_pre) {
+            if (print_upbeats) {
                 upbeat_notes = notation.slice(0, upbeat);
                 notation = notation.slice(upbeat);
                 upbeat = 0;
             }
             tbl_tune_row_add_upbeats(el_tr, upbeat_notes);
+
+            let afterbeat_notes = "";
+            if (notation.length - upbeat - sizing["subbeats_per_row"] > 0) {
+                afterbeat_notes = notation.slice(-sizing["afterbeats"]);
+                notation = notation.slice(0, -sizing["afterbeats"]);
+            }
 
             let offset = 0;
             if (upbeat > 0) {
@@ -217,8 +238,21 @@ function render_tune(tune) {
                 el_td.classList.add("silent");
                 el_tr.appendChild(el_td);
             }
+
+            // add afterbeats
+            if (afterbeat_notes.length > 0) {
+                tbl_tune_row_add_afterbeats(el_tr, afterbeat_notes)
+            }
+            if (sizing["afterbeats"] > afterbeat_notes.length) {
+                const el_td = document.createElement("td");
+                el_td.colSpan = sizing["afterbeats"] - afterbeat_notes.length;
+                el_tr.appendChild(el_td);
+            }
+
+            // add empty element for "aside"
             el_tr.appendChild(document.createElement("td"));
             el_table.appendChild(el_tr);
+
             return el_tr;
         }
 
@@ -425,10 +459,13 @@ function render_tune(tune) {
             remarks.forEach((remark) => {
                 const el_tr = document.createElement("tr");
                 const el_td = document.createElement("td");
-                el_td.colSpan = sizing["ncols"] - 1;
+                el_td.colSpan = sizing["ncols"] - 1 - sizing["afterbeats"];
                 el_td.classList.add("text", "tune_remark");
                 el_td.textContent = remark;
                 el_tr.innerHTML = el_td.outerHTML + "<td></td>";
+                for (let i = 0; i < sizing["afterbeats"]; i++) {
+                    el_tr.innerHTML += "<td></td>";
+                }
                 el_table.appendChild(el_tr);
             });
 
@@ -560,8 +597,22 @@ function render_tune(tune) {
             return n_lines_repeated;
         }
 
+        function _untangle_afterbeat(notes_first_iter, notes_second_iter) {
+            let result = "";
+            for (let i = 0; i < notes_first_iter.length; i++) {
+                let char1 = notes_first_iter.charAt(i);
+                let char2 = notes_second_iter.charAt(i);
+                result += (char1 == char2 || char2 != "E") ? char1 : "A";
+            }
+            return result;
+        }
+
         function _render_lines(data, i_notes) {
             const upbeat = data.hasOwnProperty("upbeat") ? data["upbeat"] : 0;
+            const repeat_with_afterbeats = (
+                data.hasOwnProperty("repeat_with_afterbeats")
+                ? data["repeat_with_afterbeats"] : []
+            );
             const notes_override = (
                 data.hasOwnProperty("notes_override")
                 && data["notes_override"].length > i_notes
@@ -577,9 +628,9 @@ function render_tune(tune) {
                 if (i_line < n_initlines_repeated) {
                     return i_line * sizing["subbeats_per_row"];
                 }
-                return i_line == 0 ? 0 : upbeat + (
+                return i_line == 0 ? 0 : upbeat + sizing["subbeats_per_row"] * (
                     sizing["upbeats"] < upbeat ? i_line - 1 : i_line
-                ) * sizing["subbeats_per_row"];
+                );
             });
             const lines = offsets.map((offset, i_line) => {
                 return notes.substr(offset, (
@@ -616,9 +667,15 @@ function render_tune(tune) {
 
                 let n_repeat_lines = 0;
                 let i_line_next = i_line + n_repeat_lines;
+                let preset = repeat_with_afterbeats.find(([i]) => i == i_line + 1);
+                let afterbeats = 0;
                 if (i_line == 0 && n_initlines_repeated > 0) {
                     n_repeat_lines = 1;
                     i_line_next = i_line + n_initlines_repeated;
+                } else if (typeof preset !== "undefined") {
+                    n_repeat_lines = preset[1];
+                    i_line_next = i_line + preset[2] * preset[1];
+                    afterbeats = preset[3];
                 } else if (n_overrides == 0 && !data.hasOwnProperty("nosqueeze")) {
                     // only combine consecutive lines if there are no overrides
                     while (
@@ -656,6 +713,12 @@ function render_tune(tune) {
                             + `-${i_line_next + upbeat_mod + 1 - n_repeat_lines + i_repeat_lines}`
                         );
                         let notation = lines[i_line + i_repeat_lines];
+                        if (i_repeat_lines == n_repeat_lines - 1) {
+                            notation += _untangle_afterbeat(
+                                lines[i_line].slice(0, afterbeats),
+                                lines[i_line + i_repeat_lines + 1].slice(0, afterbeats),
+                            );
+                        }
                         if (i_line == 0 && n_initlines_repeated > 0) {
                             notation += " ".repeat(upbeat);
                         }
@@ -1120,14 +1183,14 @@ function fill_sizing(sizing, total_width) {
     };
     sizing["beats_per_row"] = sizing["beats_per_bar"] * sizing["bars_per_row"];
     sizing["subbeats_per_row"] = sizing["beats_per_row"] * sizing["subbeats_per_beat"];
-    sizing["ncols"] = 3 + sizing["upbeats"] + sizing["subbeats_per_row"];
+    sizing["ncols"] = 3 + sizing["upbeats"] + sizing["subbeats_per_row"] + sizing["afterbeats"];
     sizing["pre_name_width"] = sizing["pre_width"] - sizing["pre_count_width"];
     if (!sizing.hasOwnProperty("total_width")) {
         sizing["total_width"] = !!total_width ? total_width : auto_total_width(sizing);
     }
     sizing["subbeat_width"] = (
         (sizing["total_width"] - sizing["pre_width"] - sizing["after_width"])
-        / (sizing["subbeats_per_row"] + sizing["upbeats"])
+        / (sizing["subbeats_per_row"] + sizing["upbeats"] + sizing["afterbeats"])
     );
     return sizing;
 }
@@ -1139,6 +1202,7 @@ function auto_sizing(tune_n_subbeats, tune_time, tune_upbeat) {
         "beats_per_bar": 4,
         "subbeats_per_beat": tune_time,
         "upbeats": tune_upbeat,
+        "afterbeats": 0,
     };
     const n_bars = (
         (tune_n_subbeats - tune_upbeat) / (tune_time * sizing["beats_per_bar"])

@@ -1842,6 +1842,7 @@ export default {
             "pre_width": 12,
             "bars_per_row": 1,
             "upbeats": 1,
+            "afterbeats": 1,
         },
         "patterns": {
             "Tune": {
@@ -1849,7 +1850,9 @@ export default {
             },
             "Intro": {
                 // DIFFERENCE [RRRRRR] from book is fl fl fl fl in player
-                // TODO repeat group of three lines with afterbeat
+                "repeat_with_afterbeats": [
+                    [5, 3, 4, 1],  // starting from line 5, 3 lines, 4 iterations, 1 afterbeat
+                ],
                 "name": "Call Break",
                 "subtitle": "Intro",
                 "remarks_indent": 0,
@@ -2199,6 +2202,7 @@ export default {
         },
         "patterns": {
             // DIFFERENCE mid surdo is missing in player
+            // DIFFERENCE snare has different emphasis in fourth beat
             "Break 1": {
                 // DIFFERENCE player has only "ls" where book has "E"
                 "notes_override": [{

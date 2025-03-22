@@ -219,6 +219,11 @@ tr.break_start td.note.upbeat.line_start {
     border-bottom-color: #000;
 }
 
+td.note.afterbeat {
+    border-top-width: var(--note-border-width-em);
+    border-top-color: #000;
+}
+
 tr.break_end:not(.break_start) td[colspan].silent {
     border-top-width: var(--note-border-width-em);
     border-top-color: #000;
