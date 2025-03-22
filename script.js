@@ -236,6 +236,10 @@ function render_tune(tune) {
                 const el_td = document.createElement("td");
                 el_td.colSpan = sizing["subbeats_per_row"] - notation.length;
                 el_td.classList.add("silent");
+                const n_beat = notation.length / sizing["subbeats_per_beat"];
+                if (n_beat != 0 && n_beat % sizing["beats_per_bar"] == 0) {
+                    el_td.classList.add("bar");
+                }
                 el_tr.appendChild(el_td);
             }
 
@@ -620,7 +624,10 @@ function render_tune(tune) {
                 : {}
             );
             let notes = data["notes"][i_notes];
-            let n_lines = Math.ceil(notes.length / sizing["subbeats_per_row"]);
+            let n_lines = (
+                Math.ceil((notes.length - upbeat) / sizing["subbeats_per_row"])
+                + ((upbeat > 0) ? 1 : 0)
+            );
             let n_initlines_repeated = sizing["upbeats"] < upbeat ? 0 : (
                 _count_repeated_initlines(notes, upbeat)
             );
@@ -856,6 +863,8 @@ function render_tune(tune) {
                     el_td.textContent = subtitle;
                 }
             }
+
+            return el_tr;
         }
 
         function tbl_add_break(data) {
@@ -881,9 +890,24 @@ function render_tune(tune) {
             const lines_render = _render_lines_merged(data);
             const n_lines_render = lines_render.length;
 
-            lines_render.forEach(({str_row, notation, override}, i_line) =>
+            const table_rows = lines_render.map(({str_row, notation, override}, i_line) =>
                 _add_break_row(i_line, n_lines_render, {str_row, notation, override}, data)
             );
+            if (lines_render.length > 1) {
+                // bottom border for "overhanging" parts
+                for (let i_subbeat = 0; i_subbeat < sizing["subbeats_per_row"]; i_subbeat++) {
+                    let last_line = lines_render.length - 1;
+                    while (last_line >= 0 && lines_render[last_line]["notation"].length <= i_subbeat) {
+                        last_line--;
+                    }
+                    if (last_line < lines_render.length - 1) {
+                        const el_td = (
+                            table_rows[last_line].querySelectorAll("td.note:not(.upbeat)")[i_subbeat]
+                        );
+                        el_td.classList.add("break_end");
+                    }
+                }
+            }
 
             const remarks = data.hasOwnProperty("remarks") ? data["remarks"] : [];
             const rem_indent = (
@@ -1454,6 +1478,7 @@ function _set_sizing(layout, time) {
                 "after_width": (
                     layout["sizing"]["total_width"]
                     - layout["sizing"]["pre_width"]
+                    - layout["sizing"]["upbeats"] * layout["sizing"]["subbeat_width"]
                     - bar_width
                 ),
             };

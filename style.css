@@ -213,7 +213,8 @@ tr.break_start td.note.upbeat:not(.line_start) {
     border-top-width: 0;
 }
 
-tr.break_end td.note,
+td.note.break_end,
+tr.break_end td.note:not(.upbeat),
 tr.break_start td.note.upbeat.line_start {
     border-bottom-width: var(--note-border-width-em);
     border-bottom-color: #000;
@@ -222,15 +223,6 @@ tr.break_start td.note.upbeat.line_start {
 td.note.afterbeat {
     border-top-width: var(--note-border-width-em);
     border-top-color: #000;
-}
-
-tr.break_end:not(.break_start) td[colspan].silent {
-    border-top-width: var(--note-border-width-em);
-    border-top-color: #000;
-}
-
-tr.break_end td.note.upbeat {
-    border-bottom-width: 0;
 }
 
 td.text {

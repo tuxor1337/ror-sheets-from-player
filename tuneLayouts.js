@@ -2160,6 +2160,7 @@ export default {
                 },
             },
             "Break 1": {
+                "single_bar_sizing": true,
                 "notes_override": [{
                     12: [4, "Tequila!", "left"],
                     16: [1, "(ls)", "center"],
@@ -2168,7 +2169,6 @@ export default {
                 "sign": "Shake salt on number 1",
             },
             "Break 2": {
-                // TODO: last line is truncated because only single bar
                 "instruments": ["ls", "ms", "hs", "sh"],
                 "preamble": "Surdos start with 3 upbeats before the 1",
                 "remarks_indent": 0,
