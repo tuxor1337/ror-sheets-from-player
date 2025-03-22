@@ -825,8 +825,20 @@ export default {
                     ),
                     "rows": 3,
                 },
-                "sign": "2 fists diverge diagonally",
+                "subtitle": "2 fists diverge diagonally",
                 "subtitle_extra_lines": 1,
+            },
+            "Background": {
+                "name": false,
+                "text": {
+                    "content": (
+                        "Chichita is a tune that was composed by the Peruvian Lima-based collective"
+                        + " Tamboras Resistencia. The tune bases its sounds in a popular local"
+                        + " music genre called “chicha”, which combines Andean “huayno” and"
+                        + " tropical “cumbia”."
+                    ),
+                    "rows": 3,
+                },
             },
         },
         "pages": [
@@ -837,9 +849,9 @@ export default {
                 "Double Break 2",
                 "Intro",
                 "End",
+                "Background",
             ],
         ],
-        // TODO: explanatory text at bottom of page
     },
     "Coupe-Decale": {
         "sizing": {

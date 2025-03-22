@@ -545,18 +545,21 @@ function render_tune(tune) {
                 : 0
             );
             const n_text_lines = data["text"]["rows"];
-            const n_pre_cols = 6;
+            const n_pre_cols = name == false ? 0 : 6;
             for (let i_row = 0; i_row < n_text_lines + n_extra_lines; i_row++) {
                 const el_tr = document.createElement("tr");
                 el_tr.innerHTML = "";
                 if (i_row == 0) {
+                    let el_td;
                     el_tr.classList.add("break_start");
 
-                    let el_td = document.createElement("td");
-                    el_td.classList.add("text");
-                    el_td.colSpan = n_pre_cols;
-                    el_td.innerHTML = `<div>${name}</div>`;
-                    el_tr.innerHTML += el_td.outerHTML;
+                    if (n_pre_cols > 0) {
+                        el_td = document.createElement("td");
+                        el_td.classList.add("text");
+                        el_td.colSpan = n_pre_cols;
+                        el_td.innerHTML = `<div>${name}</div>`;
+                        el_tr.innerHTML += el_td.outerHTML;
+                    }
 
                     el_td = document.createElement("td");
                     el_td.classList.add("break_text");
