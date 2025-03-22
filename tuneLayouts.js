@@ -2241,7 +2241,9 @@ export default {
             "Rented a Tent Break": {
                 "remarks": ["sign: showing both sides of a tent from up to down"],
                 "separate_instruments": true,
-                // TODO: memory aid for break with separate instruments
+                "merge_instruments": {
+                    "All others": ["sh", "re", "ta"],
+                },
                 "memory_aid": {
                     "notes": (
                         "XXXX XX XX  XXXX XX XX  "
