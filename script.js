@@ -69,6 +69,7 @@ function render_tune(tune) {
         const el_h1 = el_section.querySelector("h1");
         const el_main = el_section.querySelector("div:last-child")
         let el_table = null;
+        let el_tbody = null;
         let sizing = null;
         el_section.style.width = `${total_width}rem`;
         if (total_width > 80) {
@@ -110,6 +111,12 @@ function render_tune(tune) {
             el_col.style.width = `${sizing["after_width"]}rem`;
             el_colgroup.appendChild(el_col);
             el_table.appendChild(el_colgroup);
+            tbl_add_tbody();
+        }
+
+        function tbl_add_tbody() {
+            el_tbody = document.createElement("tbody");
+            el_table.appendChild(el_tbody);
         }
 
         function tbl_add_empty_row(overline) {
@@ -123,7 +130,7 @@ function render_tune(tune) {
             } else {
                 el_tr.innerHTML = `<td colspan="${sizing["ncols"]}"></td>`;
             }
-            el_table.appendChild(el_tr);
+            el_tbody.appendChild(el_tr);
         }
 
         function tbl_add_head() {
@@ -149,7 +156,7 @@ function render_tune(tune) {
                 el_tr.appendChild(el_td);
             }
             el_tr.appendChild(document.createElement("td"));
-            el_table.appendChild(el_tr);
+            el_tbody.appendChild(el_tr);
         }
 
         function tbl_tune_row_add_upbeats(el_tr, notation) {
@@ -255,7 +262,7 @@ function render_tune(tune) {
 
             // add empty element for "aside"
             el_tr.appendChild(document.createElement("td"));
-            el_table.appendChild(el_tr);
+            el_tbody.appendChild(el_tr);
 
             return el_tr;
         }
@@ -281,7 +288,7 @@ function render_tune(tune) {
                     el_td.colSpan = sizing["ncols"];
                     el_tr.appendChild(el_td);
                 }
-                el_table.appendChild(el_tr);
+                el_tbody.appendChild(el_tr);
             }
             const upbeat = data.hasOwnProperty("upbeat") ? data["upbeat"] : 0;
             const empty_line = " ".repeat(Math.min(
@@ -470,7 +477,7 @@ function render_tune(tune) {
                 for (let i = 0; i < sizing["afterbeats"]; i++) {
                     el_tr.innerHTML += "<td></td>";
                 }
-                el_table.appendChild(el_tr);
+                el_tbody.appendChild(el_tr);
             });
 
             if (data.hasOwnProperty("memory_aid")) {
@@ -579,7 +586,7 @@ function render_tune(tune) {
                 } else {
                     el_tr.innerHTML += `<td colspan="${n_pre_cols}"></td>`;
                 }
-                el_table.appendChild(el_tr);
+                el_tbody.appendChild(el_tr);
             }
         }
 
@@ -887,7 +894,7 @@ function render_tune(tune) {
                 el_td.colSpan = sizing["ncols"] - n_cols_pre;
                 el_td.textContent = data["preamble"]
                 el_tr.appendChild(el_td);
-                el_table.appendChild(el_tr);
+                el_tbody.appendChild(el_tr);
             }
 
             const lines_render = _render_lines_merged(data);
@@ -942,7 +949,7 @@ function render_tune(tune) {
                     innerHTML += `<td class="empty" colspan="${sizing["ncols"] - 1}"></td>`;
                 }
                 el_tr.innerHTML += innerHTML;
-                el_table.appendChild(el_tr);
+                el_tbody.appendChild(el_tr);
             }
 
             remarks.slice(n_extra_lines).forEach((remark) => {
@@ -958,7 +965,7 @@ function render_tune(tune) {
                 el_td.classList.add("text", "remark");
                 el_td.textContent = remark;
                 el_tr.innerHTML += el_td.outerHTML;
-                el_table.appendChild(el_tr);
+                el_tbody.appendChild(el_tr);
             });
 
             if (data.hasOwnProperty("memory_aid")) {
@@ -985,6 +992,7 @@ function render_tune(tune) {
                 tbl_add_empty_row(true);
                 tbl_add_head();
                 tbl_add_empty_row();
+                tbl_add_tbody();
             }
             if (name.toLowerCase().indexOf("tune") >= 0 || data["separate_instruments"]) {
                 tbl_add_tune(name, data, data["separate_instruments"]);
@@ -995,7 +1003,7 @@ function render_tune(tune) {
             }
             tbl_add_empty_row();
         }
-        document.body.appendChild(el_section);
+        document.querySelector("main").appendChild(el_section);
     }
 }
 
