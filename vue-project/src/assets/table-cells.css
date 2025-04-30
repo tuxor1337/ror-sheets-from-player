@@ -1,0 +1,159 @@
+td {
+  height: 1.1rem;
+  line-height: 1.1rem;
+  border-color: #000;
+  border-style: solid;
+  border-width: 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+td > div {
+  height: 1.1rem;
+  overflow: visible;
+}
+
+td.text:first-child {
+  padding-right: 0.5rem;
+}
+
+td[rowspan] {
+  vertical-align: top;
+}
+
+td.note {
+  border-width: 0 var(--note-border-width);
+}
+
+td.note.upbeat {
+  border-width: 0;
+}
+
+td.note.long {
+  text-align: left;
+  overflow: visible;
+  padding-left: 0.1rem;
+  font-size: 0.9em;
+}
+
+td.beat {
+  border-left-width: var(--note-border-width-em);
+  border-left-color: #000;
+}
+
+td.bar {
+  border-left-width: var(--note-border-width-x-em);
+  border-left-color: #000;
+}
+
+td.remark {
+  font-style: italic;
+}
+
+td.text {
+  text-align: left;
+}
+
+td.text.tune_remark {
+  text-align: right;
+  padding-right: 0;
+}
+
+td.break_text {
+  text-align: left;
+  font-size: 0.9em;
+}
+
+td.text.aside {
+  padding: 0 0 0 1.2rem;
+  font-size: 0.85rem;
+}
+
+td.text.aside_lines {
+  border-left-style: double;
+  border-left-width: calc(2 * var(--note-border-width-em));
+  border-left-color: #000;
+  vertical-align: middle;
+  padding: 0 0 0 1.2rem;
+  font-size: 0.85rem;
+}
+
+td.count {
+  border-width: 0;
+  text-align: right;
+  padding-right: 0.5rem;
+  white-space: nowrap;
+  font-size: 0.85rem;
+}
+
+td.count:nth-child(2) {
+  direction: rtl;
+}
+
+tr.empty td {
+  height: 1.6rem;
+}
+
+tr.empty td.overline {
+  border-width: 3.0pt 0 0;
+  border-style: double;
+  border-color: #000;
+}
+
+tr.heading td.count {
+  border-width: 0 0 2.5pt;
+  border-color: #000;
+  text-align: left;
+  padding-left: 0.8rem;
+}
+
+tr.heading td.text.preamble {
+  font-weight: normal;
+}
+
+tr.heading td.text {
+  font-weight: bold;
+}
+
+tr.heading + tr.break_start td.text {
+  font-weight: normal;
+}
+
+td.note.line_start {
+  border-left-width: var(--note-border-width-em);
+  border-left-color: #000;
+}
+
+td.note.line_end {
+  border-right-width: var(--note-border-width-em);
+  border-right-color: #000;
+}
+
+tr.break_start td.text:first-child {
+  font-weight: bold;
+}
+
+tr.break_start td.note, td.note.break_start {
+  border-top-width: var(--note-border-width-em);
+  border-top-color: #000;
+}
+
+tr.break_start td.note.upbeat:not(.line_start) {
+  border-top-width: 0;
+}
+
+td.note.break_end,
+tr.break_end td.note:not(.upbeat),
+tr.break_start td.note.upbeat.line_start {
+  border-bottom-width: var(--note-border-width-em);
+  border-bottom-color: #000;
+}
+
+td.note.afterbeat {
+  border-top-width: var(--note-border-width-em);
+  border-top-color: #000;
+}
+
+td.text {
+  border-width: 0;
+}
