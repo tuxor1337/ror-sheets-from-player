@@ -1,5 +1,4 @@
-
-@import "./table-cells.css";
+@import './table-cells.css';
 
 :root {
   /* the border sizes used in the sheet book PDF are appx. 0.5/1.0/1.5 pt */
@@ -8,9 +7,10 @@
   --note-border-width-x-em: 2.2pt;
 }
 
-html, body {
+html,
+body {
   font-size: 11pt;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 body {

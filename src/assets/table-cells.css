@@ -95,7 +95,7 @@ tr.empty td {
 }
 
 tr.empty td.overline {
-  border-width: 3.0pt 0 0;
+  border-width: 3pt 0 0;
   border-style: double;
   border-color: #000;
 }
@@ -133,7 +133,8 @@ tr.break_start td.text:first-child {
   font-weight: bold;
 }
 
-tr.break_start td.note, td.note.break_start {
+tr.break_start td.note,
+td.note.break_start {
   border-top-width: var(--note-border-width-em);
   border-top-color: #000;
 }

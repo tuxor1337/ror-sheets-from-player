@@ -1,2 +1,1 @@
-
-Go to https://tuxor1337.github.io/ror-sheets-from-player for the output.
+Set up the environment using `npm install` then run `npm run dev` and open the link in your browser.
